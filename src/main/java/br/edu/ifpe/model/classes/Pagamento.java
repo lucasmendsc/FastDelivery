@@ -27,57 +27,57 @@ import java.util.Objects;
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
-public class Produto {
+public class Pagamento {
     
-    private int codProduto;
-    private String nomeProduto;
-    private int quantProduto;
+    private int codPagamento;
+    private String tipoPagamento;
+    private double valorPagamento;
 
-    public int getCodProduto() {
-        return codProduto;
+    public int getCodPagamento() {
+        return codPagamento;
     }
 
-    public void setCodProduto(int codProduto) {
-        this.codProduto = codProduto;
+    public void setCodPagamento(int codPagamento) {
+        this.codPagamento = codPagamento;
     }
 
-    public String getNomeProduto() {
-        return nomeProduto;
+    public String getTipoPagamento() {
+        return tipoPagamento;
     }
 
-    public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
+    public void setTipoPagamento(String tipoPagamento) {
+        this.tipoPagamento = tipoPagamento;
     }
 
-    public int getQuantProduto() {
-        return quantProduto;
+    public double getValorPagamento() {
+        return valorPagamento;
     }
 
-    public void setQuantProduto(int quantProduto) {
-        this.quantProduto = quantProduto;
+    public void setValorPagamento(double valorPagamento) {
+        this.valorPagamento = valorPagamento;
     }
 
-    public Produto(){
+    public Pagamento(){
         
     }
     
-    public Produto(int codProduto, String nomeProduto, int quantProduto) {
-        this.codProduto = codProduto;
-        this.nomeProduto = nomeProduto;
-        this.quantProduto = quantProduto;
+    public Pagamento(int codPagamento, String tipoPagamento, double valorPagamento) {
+        this.codPagamento = codPagamento;
+        this.tipoPagamento = tipoPagamento;
+        this.valorPagamento = valorPagamento;
     }
 
     @Override
     public String toString() {
-        return "Produto{" + "codProduto=" + codProduto + ", nomeProduto=" + nomeProduto + ", quantProduto=" + quantProduto + '}';
+        return "Pagamento{" + "codPagamento=" + codPagamento + ", tipoPagamento=" + tipoPagamento + ", valorPagamento=" + valorPagamento + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 23 * hash + this.codProduto;
-        hash = 23 * hash + Objects.hashCode(this.nomeProduto);
-        hash = 23 * hash + this.quantProduto;
+        hash = 67 * hash + this.codPagamento;
+        hash = 67 * hash + Objects.hashCode(this.tipoPagamento);
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.valorPagamento) ^ (Double.doubleToLongBits(this.valorPagamento) >>> 32));
         return hash;
     }
 
@@ -92,14 +92,14 @@ public class Produto {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Produto other = (Produto) obj;
-        if (this.codProduto != other.codProduto) {
+        final Pagamento other = (Pagamento) obj;
+        if (this.codPagamento != other.codPagamento) {
             return false;
         }
-        if (this.quantProduto != other.quantProduto) {
+        if (Double.doubleToLongBits(this.valorPagamento) != Double.doubleToLongBits(other.valorPagamento)) {
             return false;
         }
-        if (!Objects.equals(this.nomeProduto, other.nomeProduto)) {
+        if (!Objects.equals(this.tipoPagamento, other.tipoPagamento)) {
             return false;
         }
         return true;

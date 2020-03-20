@@ -22,62 +22,62 @@ SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
 import java.util.Objects;
+import javax.print.attribute.standard.DateTimeAtCompleted;
 
 /**
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
-public class Produto {
+public class Frete {
     
-    private int codProduto;
-    private String nomeProduto;
-    private int quantProduto;
+    private int codFrete;
+    private double valorFrete;
+    private DateTimeAtCompleted dataHoraFrete;
 
-    public int getCodProduto() {
-        return codProduto;
+    public int getCodFrete() {
+        return codFrete;
     }
 
-    public void setCodProduto(int codProduto) {
-        this.codProduto = codProduto;
+//    public void setCodFrete(int codFrete) {
+//        this.codFrete = codFrete;
+//    }
+
+    public double getValorFrete() {
+        return valorFrete;
     }
 
-    public String getNomeProduto() {
-        return nomeProduto;
+    public void setValorFrete(double valorFrete) {
+        this.valorFrete = valorFrete;
     }
 
-    public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
+    public DateTimeAtCompleted getDataHoraFrete() {
+        return dataHoraFrete;
     }
 
-    public int getQuantProduto() {
-        return quantProduto;
+    public void setDataHoraFrete(DateTimeAtCompleted dataHoraFrete) {
+        this.dataHoraFrete = dataHoraFrete;
     }
 
-    public void setQuantProduto(int quantProduto) {
-        this.quantProduto = quantProduto;
-    }
-
-    public Produto(){
+    public Frete(){
         
     }
     
-    public Produto(int codProduto, String nomeProduto, int quantProduto) {
-        this.codProduto = codProduto;
-        this.nomeProduto = nomeProduto;
-        this.quantProduto = quantProduto;
+    public Frete(double valorFrete, DateTimeAtCompleted dataHoraFrete) {
+        this.valorFrete = valorFrete;
+        this.dataHoraFrete = dataHoraFrete;
     }
 
     @Override
     public String toString() {
-        return "Produto{" + "codProduto=" + codProduto + ", nomeProduto=" + nomeProduto + ", quantProduto=" + quantProduto + '}';
+        return "Frete{" + "codFrete=" + codFrete + ", valorFrete=" + valorFrete + ", dataHoraFrete=" + dataHoraFrete + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 23 * hash + this.codProduto;
-        hash = 23 * hash + Objects.hashCode(this.nomeProduto);
-        hash = 23 * hash + this.quantProduto;
+        hash = 83 * hash + this.codFrete;
+        hash = 83 * hash + (int) (Double.doubleToLongBits(this.valorFrete) ^ (Double.doubleToLongBits(this.valorFrete) >>> 32));
+        hash = 83 * hash + Objects.hashCode(this.dataHoraFrete);
         return hash;
     }
 
@@ -92,14 +92,14 @@ public class Produto {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Produto other = (Produto) obj;
-        if (this.codProduto != other.codProduto) {
+        final Frete other = (Frete) obj;
+        if (this.codFrete != other.codFrete) {
             return false;
         }
-        if (this.quantProduto != other.quantProduto) {
+        if (Double.doubleToLongBits(this.valorFrete) != Double.doubleToLongBits(other.valorFrete)) {
             return false;
         }
-        if (!Objects.equals(this.nomeProduto, other.nomeProduto)) {
+        if (!Objects.equals(this.dataHoraFrete, other.dataHoraFrete)) {
             return false;
         }
         return true;
