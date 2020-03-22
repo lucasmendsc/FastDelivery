@@ -23,21 +23,43 @@ package br.edu.ifpe.model.classes;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
+
+@Entity
 public class Cliente {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int codCliente;
+    
+    @Column(name = "nomeCliente", length = 60, nullable = false)
     private String nomeCliente;
+    
+    @Column(name = "senhaCliente", length = 20, nullable = false)
     private String senhaCliente;
+    
+    @Column(name = "cpfCliente", length = 11, nullable = false)
     private String cpfCliente;
+    
+    @Column(name = "dtNascimentoCliente", nullable = false)
     private LocalDate dtNascimentoCliente;
+    
+    @Column(name = "telefoneCliente", nullable = false)
     private String telefoneCliente;
+    
+    @Column(name = "emailCliente", nullable = false)
     private String emailCliente;
-
+    
+   
     public int getCodCliente() {
         return codCliente;
     }

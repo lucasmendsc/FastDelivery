@@ -27,4 +27,10 @@ Any value defined here will override the pom.xml file value but is only applicab
         <org-netbeans-modules-javascript2-requirejs.enabled>true</org-netbeans-modules-javascript2-requirejs.enabled>
         <netbeans.hint.licensePath>${project.basedir}/LICENSE</netbeans.hint.licensePath>
     </properties>
+    <spring-data xmlns="http://www.netbeans.org/ns/spring-data/1">
+        <config-files>
+            <config-file>src/main/java/hibernate.cfg.xml</config-file>
+        </config-files>
+        <config-file-groups/>
+    </spring-data>
 </project-shared-configuration>
