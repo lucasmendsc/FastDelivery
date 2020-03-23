@@ -22,7 +22,7 @@ SOFTWARE.*/
 package br.edu.ifpe.controller;
 
 import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.regradenegocio.ClienteModel;
+import br.edu.ifpe.model.negocio.ClienteNegocio;
 
 /**
  *
@@ -30,7 +30,7 @@ import br.edu.ifpe.model.regradenegocio.ClienteModel;
  */
 public class ClienteController {
     
-    ClienteModel clienteModel = new ClienteModel();
+    ClienteNegocio clienteModel = new ClienteNegocio();
     
     public void inserirClienteAction (Cliente cliente){
         clienteModel.inserirCliente(cliente);

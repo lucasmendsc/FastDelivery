@@ -19,31 +19,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
-package br.edu.ifpe.JDBC.conexaobanco;
+package br.edu.ifpe.model.dao.interfaces;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import br.edu.ifpe.model.classes.Cliente;
 
 /**
  *
- * @author Luciano
+ * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
-public class HibernateUtil {
-    
-    private static SessionFactory sessionFactory;
-
-    public static Session getSession() {
-        if (sessionFactory == null) {
-            final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                    .configure() // configures settings from hibernate.cfg.xml
-                    .build();
-            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-
-        }
-        return sessionFactory.openSession();
-    }
+public interface ClienteInterfaceDAO extends DAO<Cliente> {
     
 }

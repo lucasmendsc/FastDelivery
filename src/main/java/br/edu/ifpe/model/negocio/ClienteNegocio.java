@@ -19,24 +19,21 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
-package br.edu.ifpe.JDBC;
+package br.edu.ifpe.model.negocio;
 
-import java.util.List;
+import br.edu.ifpe.model.dao.ClienteDAO;
+import br.edu.ifpe.model.classes.Cliente;
 
 /**
  *
- * @author Luciano Júnior <lucianocljr7@gmail.com>
+ * @author Luciano
  */
-public interface DAO<T> {
+public class ClienteNegocio {
     
-    public void inserir(T d);
-
-    public void alterar(T d);
-
-    public T recuperar(Integer d);
-
-    public void deletar(T d);
-
-    public List<T> listarTodos();
+    ClienteDAO clienteJDBC = new ClienteDAO();
+    
+    public void inserirCliente (Cliente cliente){
+        clienteJDBC.inserir(cliente);
+    }
     
 }
