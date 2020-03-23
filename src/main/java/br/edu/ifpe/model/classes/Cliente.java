@@ -21,10 +21,165 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
+import java.time.LocalDate;
+import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
- * @author Lucas Mendes <lucas.mendes147@live.com>
+ * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
+
+@Entity
 public class Cliente {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int codCliente;
+    
+    @Column(name = "nomeCliente", length = 60, nullable = false)
+    private String nomeCliente;
+    
+    @Column(name = "senhaCliente", length = 20, nullable = false)
+    private String senhaCliente;
+    
+    @Column(name = "cpfCliente", length = 11, nullable = false)
+    private String cpfCliente;
+    
+    @Column(name = "dtNascimentoCliente", nullable = false)
+    private LocalDate dtNascimentoCliente;
+    
+    @Column(name = "telefoneCliente", nullable = false)
+    private String telefoneCliente;
+    
+    @Column(name = "emailCliente", nullable = false)
+    private String emailCliente;
+    
+   
+    public int getCodCliente() {
+        return codCliente;
+    }
+
+//    public void setCodCliente(int codCliente) {
+//        this.codCliente = codCliente;
+//    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+    public String getSenhaCliente() {
+        return senhaCliente;
+    }
+
+    public void setSenhaCliente(String senhaCliente) {
+        this.senhaCliente = senhaCliente;
+    }
+
+    public String getCpfCliente() {
+        return cpfCliente;
+    }
+
+    public void setCpfCliente(String cpfCliente) {
+        this.cpfCliente = cpfCliente;
+    }
+
+    public LocalDate getDtNascimentoCliente() {
+        return dtNascimentoCliente;
+    }
+
+    public void setDtNascimentoCliente(LocalDate dtNascimentoCliente) {
+        this.dtNascimentoCliente = dtNascimentoCliente;
+    }
+
+    public String getTelefoneCliente() {
+        return telefoneCliente;
+    }
+
+    public void setTelefoneCliente(String telefoneCliente) {
+        this.telefoneCliente = telefoneCliente;
+    }
+
+    public String getEmailCliente() {
+        return emailCliente;
+    }
+
+    public void setEmailCliente(String emailCliente) {
+        this.emailCliente = emailCliente;
+    }
+
+    public Cliente(){
+        
+    }
+    
+    public Cliente(String nomeCliente, String senhaCliente, String cpfCliente, LocalDate dtNascimentoCliente, String telefoneCliente, String emailCliente) {
+        this.nomeCliente = nomeCliente;
+        this.senhaCliente = senhaCliente;
+        this.cpfCliente = cpfCliente;
+        this.dtNascimentoCliente = dtNascimentoCliente;
+        this.telefoneCliente = telefoneCliente;
+        this.emailCliente = emailCliente;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "codCliente=" + codCliente + ", nomeCliente=" + nomeCliente + ", senhaCliente=" + senhaCliente + ", cpfCliente=" + cpfCliente + ", dtNascimentoCliente=" + dtNascimentoCliente + ", telefoneCliente=" + telefoneCliente + ", emailCliente=" + emailCliente + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + this.codCliente;
+        hash = 97 * hash + Objects.hashCode(this.nomeCliente);
+        hash = 97 * hash + Objects.hashCode(this.senhaCliente);
+        hash = 97 * hash + Objects.hashCode(this.cpfCliente);
+        hash = 97 * hash + Objects.hashCode(this.dtNascimentoCliente);
+        hash = 97 * hash + Objects.hashCode(this.telefoneCliente);
+        hash = 97 * hash + Objects.hashCode(this.emailCliente);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cliente other = (Cliente) obj;
+        if (this.codCliente != other.codCliente) {
+            return false;
+        }
+        if (!Objects.equals(this.nomeCliente, other.nomeCliente)) {
+            return false;
+        }
+        if (!Objects.equals(this.senhaCliente, other.senhaCliente)) {
+            return false;
+        }
+        if (!Objects.equals(this.cpfCliente, other.cpfCliente)) {
+            return false;
+        }
+        if (!Objects.equals(this.telefoneCliente, other.telefoneCliente)) {
+            return false;
+        }
+        if (!Objects.equals(this.emailCliente, other.emailCliente)) {
+            return false;
+        }
+        if (!Objects.equals(this.dtNascimentoCliente, other.dtNascimentoCliente)) {
+            return false;
+        }
+        return true;
+    }    
 }
