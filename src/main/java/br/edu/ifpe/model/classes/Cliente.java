@@ -33,33 +33,47 @@ import javax.persistence.Id;
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
-
 @Entity
 public class Cliente {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int codCliente;
-    
+
     @Column(name = "nomeCliente", length = 60, nullable = false)
     private String nomeCliente;
-    
+
     @Column(name = "senhaCliente", length = 20, nullable = false)
     private String senhaCliente;
-    
+
     @Column(name = "cpfCliente", length = 11, nullable = false)
     private String cpfCliente;
-    
+
     @Column(name = "dtNascimentoCliente", nullable = false)
     private LocalDate dtNascimentoCliente;
-    
+
     @Column(name = "telefoneCliente", nullable = false)
     private String telefoneCliente;
-    
+
     @Column(name = "emailCliente", nullable = false)
     private String emailCliente;
-    
-   
+
+    public Cliente() {
+
+    }
+
+    public Cliente(String nomeCliente, String senhaCliente, String cpfCliente,
+            LocalDate dtNascimentoCliente, String telefoneCliente, 
+            String emailCliente) {
+            
+        this.nomeCliente = nomeCliente;
+        this.senhaCliente = senhaCliente;
+        this.cpfCliente = cpfCliente;
+        this.dtNascimentoCliente = dtNascimentoCliente;
+        this.telefoneCliente = telefoneCliente;
+        this.emailCliente = emailCliente;
+    }
+
     public int getCodCliente() {
         return codCliente;
     }
@@ -67,7 +81,6 @@ public class Cliente {
 //    public void setCodCliente(int codCliente) {
 //        this.codCliente = codCliente;
 //    }
-
     public String getNomeCliente() {
         return nomeCliente;
     }
@@ -116,70 +129,57 @@ public class Cliente {
         this.emailCliente = emailCliente;
     }
 
-    public Cliente(){
-        
-    }
-    
-    public Cliente(String nomeCliente, String senhaCliente, String cpfCliente, LocalDate dtNascimentoCliente, String telefoneCliente, String emailCliente) {
-        this.nomeCliente = nomeCliente;
-        this.senhaCliente = senhaCliente;
-        this.cpfCliente = cpfCliente;
-        this.dtNascimentoCliente = dtNascimentoCliente;
-        this.telefoneCliente = telefoneCliente;
-        this.emailCliente = emailCliente;
-    }
-
     @Override
     public String toString() {
-        return "Cliente{" + "codCliente=" + codCliente + ", nomeCliente=" + nomeCliente + ", senhaCliente=" + senhaCliente + ", cpfCliente=" + cpfCliente + ", dtNascimentoCliente=" + dtNascimentoCliente + ", telefoneCliente=" + telefoneCliente + ", emailCliente=" + emailCliente + '}';
+        return "Cliente{" + ", nomeCliente=" + nomeCliente + ", senhaCliente="
+                + senhaCliente + ", cpfCliente=" + cpfCliente
+                + ", dtNascimentoCliente=" + dtNascimentoCliente
+                + ", telefoneCliente=" + telefoneCliente + ", emailCliente="
+                + emailCliente + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + this.codCliente;
-        hash = 97 * hash + Objects.hashCode(this.nomeCliente);
-        hash = 97 * hash + Objects.hashCode(this.senhaCliente);
-        hash = 97 * hash + Objects.hashCode(this.cpfCliente);
-        hash = 97 * hash + Objects.hashCode(this.dtNascimentoCliente);
-        hash = 97 * hash + Objects.hashCode(this.telefoneCliente);
-        hash = 97 * hash + Objects.hashCode(this.emailCliente);
-        return hash;
+        final int PRIMO = 21;
+        int resultado = 1;
+        resultado = (PRIMO * resultado) + codCliente;
+        resultado = (PRIMO * resultado) + nomeCliente.hashCode();
+        resultado = (PRIMO * resultado) + senhaCliente.hashCode();
+        resultado = (PRIMO * resultado) + cpfCliente.hashCode();
+        resultado = (PRIMO * resultado) + dtNascimentoCliente.hashCode();
+        resultado = (PRIMO * resultado) + telefoneCliente.hashCode();
+        resultado = (PRIMO * resultado) + emailCliente.hashCode();
+
+        return resultado;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if (!((obj) instanceof Cliente)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+
+        if (!((Cliente) obj).nomeCliente.equals(this.nomeCliente)) {
             return false;
         }
-        final Cliente other = (Cliente) obj;
-        if (this.codCliente != other.codCliente) {
+
+        if (!((Cliente) obj).senhaCliente.equals(this.senhaCliente)) {
             return false;
         }
-        if (!Objects.equals(this.nomeCliente, other.nomeCliente)) {
+
+        if (!((Cliente) obj).cpfCliente.equals(this.cpfCliente)) {
             return false;
         }
-        if (!Objects.equals(this.senhaCliente, other.senhaCliente)) {
+
+        if (!((Cliente) obj).dtNascimentoCliente.equals(
+                this.dtNascimentoCliente)) {
             return false;
         }
-        if (!Objects.equals(this.cpfCliente, other.cpfCliente)) {
+
+        if (!((Cliente) obj).telefoneCliente.equals(this.telefoneCliente)) {
             return false;
         }
-        if (!Objects.equals(this.telefoneCliente, other.telefoneCliente)) {
-            return false;
-        }
-        if (!Objects.equals(this.emailCliente, other.emailCliente)) {
-            return false;
-        }
-        if (!Objects.equals(this.dtNascimentoCliente, other.dtNascimentoCliente)) {
-            return false;
-        }
-        return true;
-    }    
+
+        return ((Cliente) obj).emailCliente.equals(this.emailCliente);
+    }
 }
