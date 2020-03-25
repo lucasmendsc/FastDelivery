@@ -1,4 +1,5 @@
 
+import br.edu.ifpe.model.dao.ClienteDAO;
 import br.edu.ifpe.controller.ClienteController;
 import br.edu.ifpe.model.classes.Cliente;
 import java.time.LocalDate;
@@ -33,16 +34,11 @@ public class teste {
     
     public static void main(String[] args) {
         
-        Cliente c = new Cliente();
-        c.setCpfCliente("111");
-        c.setDtNascimentoCliente(LocalDate.MIN);
-        c.setEmailCliente("aa");
-        c.setNomeCliente("teste");
-        c.setSenhaCliente("123");
-        c.setTelefoneCliente("222-222");
-        ClienteController cc = new ClienteController();
+        ClienteDAO clientedao = new ClienteDAO();
         
-        cc.inserirClienteAction(c);
+        clientedao.inserir(
+                new Cliente
+        ("nome","senha","cpf",LocalDate.now(),"telefone","email"));
         
     }
     

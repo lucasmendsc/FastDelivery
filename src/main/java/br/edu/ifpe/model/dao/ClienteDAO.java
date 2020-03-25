@@ -19,19 +19,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
-package br.edu.ifpe.JDBC;
+package br.edu.ifpe.model.dao;
 
-import br.edu.ifpe.JDBC.conexaobanco.HibernateUtil;
+import br.edu.ifpe.model.dao.resources.HibernateUtil;
 import br.edu.ifpe.model.classes.Cliente;
+import br.edu.ifpe.model.dao.interfaces.ClienteInterfaceDAO;
 import java.util.List;
-import javax.swing.JOptionPane;
 import org.hibernate.Session;
 
 /**
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
-public class JDBCClienteDAO implements ClienteDAO {
+public class ClienteDAO implements ClienteInterfaceDAO {
 
     @Override
     public void inserir(Cliente cliente) {
@@ -41,9 +41,11 @@ public class JDBCClienteDAO implements ClienteDAO {
             session.getTransaction().begin();
             session.save(cliente);
             session.getTransaction().commit();
-            session.close();
+           
         } catch (Exception e) {
             System.out.println("Erro");
+        }finally{
+             session.close();
         }
 
     }

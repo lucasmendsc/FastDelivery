@@ -19,21 +19,31 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
-package br.edu.ifpe.model.regradenegocio;
+package br.edu.ifpe.model.dao.resources;
 
-import br.edu.ifpe.JDBC.JDBCClienteDAO;
-import br.edu.ifpe.model.classes.Cliente;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 /**
  *
  * @author Luciano
  */
-public class ClienteModel {
+public class HibernateUtil {
     
-    JDBCClienteDAO clienteJDBC = new JDBCClienteDAO();
-    
-    public void inserirCliente (Cliente cliente){
-        clienteJDBC.inserir(cliente);
+    private static SessionFactory sessionFactory;
+
+    public static Session getSession() {
+        if (sessionFactory == null) {
+            final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+                    .configure() // configures settings from hibernate.cfg.xml
+                    .build();
+            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+
+        }
+        return sessionFactory.openSession();
     }
     
 }
