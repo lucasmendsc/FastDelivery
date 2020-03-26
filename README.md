@@ -23,9 +23,8 @@ Empresas do tipo restaurante/lanchonete. Os mesmo poderá ter acesso ao app atra
 - Mensalidade Acessível.
 
 ## Ferramentas utilizadas
-1. Linguagens  
+1. Linguagem
 [Java](https://www.java.com/en/)  
-[HTML](https://pt.wikipedia.org/wiki/HTML)
 
 2. IDEs  
 [NetBeans](https://netbeans.org/)  
