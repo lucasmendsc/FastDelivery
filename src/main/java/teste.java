@@ -1,17 +1,7 @@
 
-import br.edu.ifpe.model.dao.ClienteDAO;
-import br.edu.ifpe.controller.ClienteController;
-import br.edu.ifpe.controller.EnderecoController;
-import br.edu.ifpe.controller.FreteController;
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.classes.Endereco;
-import br.edu.ifpe.model.classes.Frete;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import br.edu.ifpe.controller.PagamentoController;
+import br.edu.ifpe.model.classes.Pagamento;
 import java.util.List;
-import javax.print.attribute.standard.DateTimeAtCompleted;
 
 /*MIT License
 
@@ -42,7 +32,9 @@ public class teste {
 
     public static void main(String[] args) {
 
+        PagamentoController pc = new PagamentoController();
         
+       
         
     }
 }
