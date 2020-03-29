@@ -21,27 +21,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.model.dao;
 
+import br.edu.ifpe.model.classes.Frete;
+import br.edu.ifpe.model.dao.interfaces.FreteInterfaceDAO;
 import br.edu.ifpe.model.dao.resources.HibernateUtil;
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.dao.interfaces.ClienteInterfaceDAO;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.TypedQuery;
 import org.hibernate.Session;
 
 /**
  *
- * @author Luciano Júnior <lucianocljr7@gmail.com>
+ * @author Luciano
  */
-public class ClienteDAO implements ClienteInterfaceDAO {
+public class FreteDAO implements FreteInterfaceDAO {
 
     @Override
-    public void inserir(Cliente cliente) {
+    public void inserir(Frete frete) {
 
         Session session = HibernateUtil.getSession();
         try {
             session.getTransaction().begin();
-            session.save(cliente);
+            session.save(frete);
             session.getTransaction().commit();
         } catch (Exception e) {
             System.out.println("Erro ao INSERIR " + e.toString());
@@ -51,12 +50,12 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     }
 
     @Override
-    public void alterar(Cliente cliente) {
-
+    public void alterar(Frete frete) {
+        
         Session session = HibernateUtil.getSession();
         try {
             session.getTransaction().begin();
-            session.update(cliente);
+            session.update(frete);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -67,26 +66,26 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     }
 
     @Override
-    public Cliente recuperar(Integer codigo) {
-        Cliente cliente = null;
+    public Frete recuperar(Integer codigo) {
+        Frete frete = null;
 
         Session session = HibernateUtil.getSession();
         try {
-            cliente = session.find(Cliente.class, codigo);
+            frete = session.find(Frete.class, codigo);
             session.close();
         } catch (Exception e) {
             System.out.println("Erro ao RECUPERAR " + e.toString());
         }
-        return cliente;
+        return frete;
     }
 
     @Override
-    public void deletar(Cliente cliente) {
+    public void deletar(Frete frete) {
         Session session = HibernateUtil.getSession();
 
         try {
             session.getTransaction().begin();
-            session.delete(cliente);
+            session.delete(frete);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -97,15 +96,15 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     }
 
     @Override
-    public List<Cliente> listarTodos() {
-        List<Cliente> clientes;
+    public List<Frete> listarTodos() {
+        List<Frete> fretes;
 
         try (Session session = HibernateUtil.getSession()) {
 
-            TypedQuery<Cliente> c = session.createNativeQuery("select * from cliente", Cliente.class);
-            clientes = c.getResultList();
-            if (clientes != null) {
-                return clientes;
+            TypedQuery<Frete> c = session.createNativeQuery("select * from frete", Frete.class);
+            fretes = c.getResultList();
+            if (fretes != null) {
+                return fretes;
             }
 
         } catch (Exception e) {

@@ -21,36 +21,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.controller;
 
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.negocio.ClienteNegocio;
+import br.edu.ifpe.model.classes.Frete;
+import br.edu.ifpe.model.negocio.FreteNegocio;
 import java.util.List;
 
 /**
  *
  * @author Luciano
  */
-public class ClienteController {
+public class FreteController {
     
-    ClienteNegocio clienteModel = new ClienteNegocio();
+    FreteNegocio freteModel = new FreteNegocio();
     
-    public void inserirClienteAction (Cliente cliente){
-        clienteModel.inserirCliente(cliente);
+    public void inserirFreteAction (Frete frete){
+        freteModel.inserirFrete(frete);
     }
 
-    public void alterarClienteAction (Cliente cliente){
-        clienteModel.alterarCliente(cliente);
+    public void alterarFreteAction (Frete frete){
+        freteModel.alterarFrete(frete);
     }
     
-    public Cliente recuperarClienteAction(int codigo){
-        return clienteModel.recuperarCliente(codigo);
+    public Frete recuperarFreteAction(int codigo){
+        return freteModel.recuperarFrete(codigo);
     }
     
-    public void deletarClienteAction (Cliente cliente){
-        clienteModel.deletarCliente(cliente);
+    public void deletarFreteAction (Frete frete){
+        freteModel.deletarFrete(frete);
     }
     
-    public List<Cliente> listarTodosClientesAction(){
-        return clienteModel.listarTodosClientes();
+    public List<Frete> listarTodosFretesAction(){
+        return freteModel.listarTodosFretes();
     }
     
 }

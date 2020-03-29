@@ -21,36 +21,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.controller;
 
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.negocio.ClienteNegocio;
+import br.edu.ifpe.model.classes.Endereco;
+import br.edu.ifpe.model.negocio.EnderecoNegocio;
 import java.util.List;
 
 /**
  *
  * @author Luciano
  */
-public class ClienteController {
-    
-    ClienteNegocio clienteModel = new ClienteNegocio();
-    
-    public void inserirClienteAction (Cliente cliente){
-        clienteModel.inserirCliente(cliente);
+public class EnderecoController {
+
+    EnderecoNegocio enderecoModel = new EnderecoNegocio();
+
+    public void inserirEnderecoAction(Endereco endereco) {
+        enderecoModel.inserirEndereco(endereco);
     }
 
-    public void alterarClienteAction (Cliente cliente){
-        clienteModel.alterarCliente(cliente);
+    public void alterarEnderecoAction(Endereco endereco) {
+        enderecoModel.alterarEndereco(endereco);
     }
-    
-    public Cliente recuperarClienteAction(int codigo){
-        return clienteModel.recuperarCliente(codigo);
+
+    public Endereco recuperarEnderecoAction(int codigo) {
+        return enderecoModel.recuperarEndereco(codigo);
     }
-    
-    public void deletarClienteAction (Cliente cliente){
-        clienteModel.deletarCliente(cliente);
+
+    public void deletarEnderecoAction(Endereco endereco) {
+        enderecoModel.deletarEndereco(endereco);
     }
-    
-    public List<Cliente> listarTodosClientesAction(){
-        return clienteModel.listarTodosClientes();
+
+    public List<Endereco> listarTodosEnderecosAction() {
+        return enderecoModel.listarTodosEnderecos();
     }
-    
+
 }

@@ -19,38 +19,38 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
-package br.edu.ifpe.controller;
+package br.edu.ifpe.model.negocio;
 
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.negocio.ClienteNegocio;
+import br.edu.ifpe.model.classes.Produto;
+import br.edu.ifpe.model.dao.ProdutoDAO;
 import java.util.List;
 
 /**
  *
  * @author Luciano
  */
-public class ClienteController {
+public class ProdutoNegocio {
     
-    ClienteNegocio clienteModel = new ClienteNegocio();
+    ProdutoDAO produtoJDBC = new ProdutoDAO();
     
-    public void inserirClienteAction (Cliente cliente){
-        clienteModel.inserirCliente(cliente);
+    public void inserirProduto (Produto produto){
+        produtoJDBC.inserir(produto);
     }
-
-    public void alterarClienteAction (Cliente cliente){
-        clienteModel.alterarCliente(cliente);
-    }
-    
-    public Cliente recuperarClienteAction(int codigo){
-        return clienteModel.recuperarCliente(codigo);
+ 
+    public void alterarProduto (Produto produto){
+        produtoJDBC.alterar(produto);
     }
     
-    public void deletarClienteAction (Cliente cliente){
-        clienteModel.deletarCliente(cliente);
+    public Produto recuperarProduto (int codigo){
+        return produtoJDBC.recuperar(codigo);
     }
     
-    public List<Cliente> listarTodosClientesAction(){
-        return clienteModel.listarTodosClientes();
+    public void deletarProduto (Produto produto){
+        produtoJDBC.deletar(produto);
     }
+    
+    public List<Produto> listarTodosProdutos(){
+        return produtoJDBC.listarTodos();
+    } 
     
 }

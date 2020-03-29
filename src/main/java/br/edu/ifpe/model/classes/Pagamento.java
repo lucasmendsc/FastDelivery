@@ -22,24 +22,37 @@ SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
+
+@Entity
 public class Pagamento {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int codPagamento;
+    
+    @Column(name = "tipoPagamento", length = 30, nullable = false)
     private String tipoPagamento;
+    
+    @Column(name = "valorPagamento", length = 6, nullable = false)
     private double valorPagamento;
 
     public int getCodPagamento() {
         return codPagamento;
     }
 
-    public void setCodPagamento(int codPagamento) {
-        this.codPagamento = codPagamento;
-    }
+//    public void setCodPagamento(int codPagamento) {
+//        this.codPagamento = codPagamento;
+//    }
 
     public String getTipoPagamento() {
         return tipoPagamento;
@@ -61,8 +74,7 @@ public class Pagamento {
         
     }
     
-    public Pagamento(int codPagamento, String tipoPagamento, double valorPagamento) {
-        this.codPagamento = codPagamento;
+    public Pagamento(String tipoPagamento, double valorPagamento) {
         this.tipoPagamento = tipoPagamento;
         this.valorPagamento = valorPagamento;
     }

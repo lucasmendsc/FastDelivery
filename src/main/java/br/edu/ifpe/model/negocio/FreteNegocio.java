@@ -19,38 +19,38 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
-package br.edu.ifpe.controller;
+package br.edu.ifpe.model.negocio;
 
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.negocio.ClienteNegocio;
+import br.edu.ifpe.model.classes.Frete;
+import br.edu.ifpe.model.dao.FreteDAO;
 import java.util.List;
 
 /**
  *
  * @author Luciano
  */
-public class ClienteController {
-    
-    ClienteNegocio clienteModel = new ClienteNegocio();
-    
-    public void inserirClienteAction (Cliente cliente){
-        clienteModel.inserirCliente(cliente);
+public class FreteNegocio {
+
+    FreteDAO freteJDBC = new FreteDAO();
+
+    public void inserirFrete(Frete frete) {
+        freteJDBC.inserir(frete);
     }
 
-    public void alterarClienteAction (Cliente cliente){
-        clienteModel.alterarCliente(cliente);
+    public void alterarFrete(Frete frete) {
+        freteJDBC.alterar(frete);
     }
-    
-    public Cliente recuperarClienteAction(int codigo){
-        return clienteModel.recuperarCliente(codigo);
+
+    public Frete recuperarFrete(int codigo) {
+        return freteJDBC.recuperar(codigo);
     }
-    
-    public void deletarClienteAction (Cliente cliente){
-        clienteModel.deletarCliente(cliente);
+
+    public void deletarFrete(Frete frete) {
+        freteJDBC.deletar(frete);
     }
-    
-    public List<Cliente> listarTodosClientesAction(){
-        return clienteModel.listarTodosClientes();
+
+    public List<Frete> listarTodosFretes() {
+        return freteJDBC.listarTodos();
     }
-    
+
 }

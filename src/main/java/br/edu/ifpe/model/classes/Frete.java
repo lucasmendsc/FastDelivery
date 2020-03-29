@@ -21,18 +21,31 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
-import javax.print.attribute.standard.DateTimeAtCompleted;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
+
+@Entity
 public class Frete {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int codFrete;
+    
+    @Column(name = "valorFrete", length = 6, nullable = false)
     private double valorFrete;
-    private DateTimeAtCompleted dataHoraFrete;
+    
+    @Column(name = "dataHoraFrete", length = 4, nullable = false)
+    private LocalDateTime dataHoraFrete;
 
     public int getCodFrete() {
         return codFrete;
@@ -50,11 +63,11 @@ public class Frete {
         this.valorFrete = valorFrete;
     }
 
-    public DateTimeAtCompleted getDataHoraFrete() {
+    public LocalDateTime getDataHoraFrete() {
         return dataHoraFrete;
     }
 
-    public void setDataHoraFrete(DateTimeAtCompleted dataHoraFrete) {
+    public void setDataHoraFrete(LocalDateTime dataHoraFrete) {
         this.dataHoraFrete = dataHoraFrete;
     }
 
@@ -62,7 +75,7 @@ public class Frete {
         
     }
     
-    public Frete(double valorFrete, DateTimeAtCompleted dataHoraFrete) {
+    public Frete(double valorFrete, LocalDateTime dataHoraFrete) {
         this.valorFrete = valorFrete;
         this.dataHoraFrete = dataHoraFrete;
     }

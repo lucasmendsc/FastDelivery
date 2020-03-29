@@ -1,8 +1,9 @@
 
-import br.edu.ifpe.model.dao.ClienteDAO;
-import br.edu.ifpe.controller.ClienteController;
-import br.edu.ifpe.model.classes.Cliente;
-import java.time.LocalDate;
+import br.edu.ifpe.controller.PagamentoController;
+import br.edu.ifpe.controller.ProdutoController;
+import br.edu.ifpe.model.classes.Pagamento;
+import br.edu.ifpe.model.classes.Produto;
+import java.util.List;
 
 /*MIT License
 
@@ -25,21 +26,51 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
-
 /**
  *
  * @author Luciano
  */
 public class teste {
-    
+
     public static void main(String[] args) {
+
+        //INSERIR - OK
+        ProdutoController pc = new ProdutoController();
+//        Produto produto = new Produto("Teste2", 5);
+//        pc.inserirProdutoAction(produto);
         
-        ClienteDAO clientedao = new ClienteDAO();
         
-        clientedao.inserir(
-                new Cliente
-        ("nome","senha","cpf",LocalDate.now(),"telefone","email"));
+        //RECUPERAR - OK
+        
+        Produto produto = pc.recuperarProdutoAction(2);
+        //System.out.println("Produto recuperado: " + produto);
+        
+        //ALTERAR - OK
+//        System.out.println("Produto ANTES de ser alterado: " + produto);
+//        
+//        produto.setNomeProduto("FEIJAO");
+//        produto.setQuantProduto(10);
+//        
+//        pc.alterarProdutoAction(produto);
+//        
+//        Produto p2 = pc.recuperarProdutoAction(1);
+//        System.out.println("Produto DEPOIS de ser alterado: " + p2);
+        
+        //DELETAR
+        
+        List<Produto> p1 = pc.listarTodosProdutoAction();
+        System.out.println("Todos os produtos ANTES de ser deletado: " + p1.toString());
+        pc.deletarProdutoAction(produto);
+        List<Produto>p2 = pc.listarTodosProdutoAction();
+        System.out.println("Todos os produtos DEPOIS de ser deletado: " + p2.toString());
+        
+        //LISTAR - OK
+        
+//        List<Produto> produtos = pc.listarTodosProdutoAction();
+//        System.out.println("Todos os produtos: " + produtos.toString() + "\n");
+              
+        
+       
         
     }
-    
 }

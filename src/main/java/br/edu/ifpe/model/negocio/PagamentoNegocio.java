@@ -19,38 +19,38 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
-package br.edu.ifpe.controller;
+package br.edu.ifpe.model.negocio;
 
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.negocio.ClienteNegocio;
+import br.edu.ifpe.model.classes.Pagamento;
+import br.edu.ifpe.model.dao.PagamentoDAO;
 import java.util.List;
 
 /**
  *
  * @author Luciano
  */
-public class ClienteController {
+public class PagamentoNegocio {
     
-    ClienteNegocio clienteModel = new ClienteNegocio();
+    PagamentoDAO pagamentoJDBC = new PagamentoDAO();
     
-    public void inserirClienteAction (Cliente cliente){
-        clienteModel.inserirCliente(cliente);
+    public void inserirPagamento (Pagamento pagamento){
+        pagamentoJDBC.inserir(pagamento);
     }
-
-    public void alterarClienteAction (Cliente cliente){
-        clienteModel.alterarCliente(cliente);
-    }
-    
-    public Cliente recuperarClienteAction(int codigo){
-        return clienteModel.recuperarCliente(codigo);
+ 
+    public void alterarPagamento (Pagamento pagamento){
+        pagamentoJDBC.alterar(pagamento);
     }
     
-    public void deletarClienteAction (Cliente cliente){
-        clienteModel.deletarCliente(cliente);
+    public Pagamento recuperarPagamento (int codigo){
+        return pagamentoJDBC.recuperar(codigo);
     }
     
-    public List<Cliente> listarTodosClientesAction(){
-        return clienteModel.listarTodosClientes();
+    public void deletarPagamento (Pagamento pagamento){
+        pagamentoJDBC.deletar(pagamento);
+    }
+    
+    public List<Pagamento> listarTodosPagamentos(){
+        return pagamentoJDBC.listarTodos();
     }
     
 }

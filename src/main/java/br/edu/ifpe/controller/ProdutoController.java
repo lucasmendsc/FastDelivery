@@ -21,36 +21,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.controller;
 
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.negocio.ClienteNegocio;
+import br.edu.ifpe.model.classes.Produto;
+import br.edu.ifpe.model.negocio.ProdutoNegocio;
 import java.util.List;
 
 /**
  *
  * @author Luciano
  */
-public class ClienteController {
+public class ProdutoController {
     
-    ClienteNegocio clienteModel = new ClienteNegocio();
+    ProdutoNegocio produtoModel = new ProdutoNegocio();
     
-    public void inserirClienteAction (Cliente cliente){
-        clienteModel.inserirCliente(cliente);
+    public void inserirProdutoAction (Produto produto){
+        produtoModel.inserirProduto(produto);
     }
 
-    public void alterarClienteAction (Cliente cliente){
-        clienteModel.alterarCliente(cliente);
+    public void alterarProdutoAction (Produto produto){
+        produtoModel.alterarProduto(produto);
     }
     
-    public Cliente recuperarClienteAction(int codigo){
-        return clienteModel.recuperarCliente(codigo);
+    public Produto recuperarProdutoAction(int codigo){
+        return produtoModel.recuperarProduto(codigo);
     }
     
-    public void deletarClienteAction (Cliente cliente){
-        clienteModel.deletarCliente(cliente);
+    public void deletarProdutoAction (Produto produto){
+        produtoModel.deletarProduto(produto);
     }
     
-    public List<Cliente> listarTodosClientesAction(){
-        return clienteModel.listarTodosClientes();
+    public List<Produto> listarTodosProdutoAction(){
+        return produtoModel.listarTodosProdutos();
     }
     
 }

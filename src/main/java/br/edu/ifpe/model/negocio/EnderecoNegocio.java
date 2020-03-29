@@ -19,38 +19,40 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
-package br.edu.ifpe.controller;
+package br.edu.ifpe.model.negocio;
 
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.negocio.ClienteNegocio;
+import br.edu.ifpe.model.classes.Endereco;
+import br.edu.ifpe.model.dao.EnderecoDAO;
 import java.util.List;
 
 /**
  *
  * @author Luciano
  */
-public class ClienteController {
+public class EnderecoNegocio {
     
-    ClienteNegocio clienteModel = new ClienteNegocio();
+    EnderecoDAO enderecoJDBC = new EnderecoDAO();
     
-    public void inserirClienteAction (Cliente cliente){
-        clienteModel.inserirCliente(cliente);
+    public void inserirEndereco (Endereco endereco){
+        enderecoJDBC.inserir(endereco);
     }
-
-    public void alterarClienteAction (Cliente cliente){
-        clienteModel.alterarCliente(cliente);
-    }
-    
-    public Cliente recuperarClienteAction(int codigo){
-        return clienteModel.recuperarCliente(codigo);
+ 
+    public void alterarEndereco (Endereco endereco){
+        enderecoJDBC.alterar(endereco);
     }
     
-    public void deletarClienteAction (Cliente cliente){
-        clienteModel.deletarCliente(cliente);
+    public Endereco recuperarEndereco (int codigo){
+        return enderecoJDBC.recuperar(codigo);
     }
     
-    public List<Cliente> listarTodosClientesAction(){
-        return clienteModel.listarTodosClientes();
+    public void deletarEndereco (Endereco endereco){
+        enderecoJDBC.deletar(endereco);
     }
+    
+    public List<Endereco> listarTodosEnderecos(){
+        return enderecoJDBC.listarTodos();
+    }
+    
+    
     
 }

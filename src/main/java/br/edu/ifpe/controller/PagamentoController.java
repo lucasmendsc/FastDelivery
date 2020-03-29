@@ -21,36 +21,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.controller;
 
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.negocio.ClienteNegocio;
+import br.edu.ifpe.model.classes.Pagamento;
+import br.edu.ifpe.model.negocio.PagamentoNegocio;
 import java.util.List;
 
 /**
  *
  * @author Luciano
  */
-public class ClienteController {
+public class PagamentoController {
     
-    ClienteNegocio clienteModel = new ClienteNegocio();
+    PagamentoNegocio pagamentoModel = new PagamentoNegocio();
     
-    public void inserirClienteAction (Cliente cliente){
-        clienteModel.inserirCliente(cliente);
+    public void inserirPagamentoAction (Pagamento pagamento){
+        pagamentoModel.inserirPagamento(pagamento);
     }
 
-    public void alterarClienteAction (Cliente cliente){
-        clienteModel.alterarCliente(cliente);
+    public void alterarPagamentoAction (Pagamento pagamento){
+        pagamentoModel.alterarPagamento(pagamento);
     }
     
-    public Cliente recuperarClienteAction(int codigo){
-        return clienteModel.recuperarCliente(codigo);
+    public Pagamento recuperarPagamentoAction(int codigo){
+        return pagamentoModel.recuperarPagamento(codigo);
     }
     
-    public void deletarClienteAction (Cliente cliente){
-        clienteModel.deletarCliente(cliente);
+    public void deletarPagamentoAction (Pagamento pagamento){
+        pagamentoModel.deletarPagamento(pagamento);
     }
     
-    public List<Cliente> listarTodosClientesAction(){
-        return clienteModel.listarTodosClientes();
+    public List<Pagamento> listarTodosPagamentoAction(){
+        return pagamentoModel.listarTodosPagamentos();
     }
     
 }

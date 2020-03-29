@@ -22,20 +22,43 @@ SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
+
+@Entity
 public class Endereco {
  
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int codEndereco;
+    
+    @Column(name = "estadoEndereco", length = 20, nullable = false)
     private String estadoEndereco;
+    
+    @Column(name = "cidadeEndereco", length = 20, nullable = false)
     private String cidadeEndereco;
+    
+    @Column(name = "cepEndereco", length = 20, nullable = false)
     private String cepEndereco;
+    
+    @Column(name = "bairroEndereco", length = 20, nullable = false)
     private String bairroEndereco;
+    
+    @Column(name = "logradouroEndereco", length = 20, nullable = false)
     private String logradouroEndereco;
+    
+    @Column(name = "numeroEndereco", length = 10, nullable = false)
     private int numeroEndereco;
+    
+    @Column(name = "complementoEndereco", length = 20, nullable = false)
     private String complementoEndereco;
 
     public int getCodEndereco() {

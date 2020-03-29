@@ -19,38 +19,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
-package br.edu.ifpe.controller;
+package br.edu.ifpe.model.dao.interfaces;
 
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.negocio.ClienteNegocio;
-import java.util.List;
+import br.edu.ifpe.model.classes.Produto;
 
 /**
  *
  * @author Luciano
  */
-public class ClienteController {
-    
-    ClienteNegocio clienteModel = new ClienteNegocio();
-    
-    public void inserirClienteAction (Cliente cliente){
-        clienteModel.inserirCliente(cliente);
-    }
-
-    public void alterarClienteAction (Cliente cliente){
-        clienteModel.alterarCliente(cliente);
-    }
-    
-    public Cliente recuperarClienteAction(int codigo){
-        return clienteModel.recuperarCliente(codigo);
-    }
-    
-    public void deletarClienteAction (Cliente cliente){
-        clienteModel.deletarCliente(cliente);
-    }
-    
-    public List<Cliente> listarTodosClientesAction(){
-        return clienteModel.listarTodosClientes();
-    }
+public interface ProdutoInterfaceDAO extends DAO<Produto> {
     
 }
