@@ -22,24 +22,37 @@ SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
+
+@Entity
 public class Produto {
     
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int codProduto;
+    
+    @Column(name = "nomeProduto", length = 60, nullable = false)
     private String nomeProduto;
+    
+    @Column(name = "quantProduto", length = 6, nullable = false)
     private int quantProduto;
 
     public int getCodProduto() {
         return codProduto;
     }
 
-    public void setCodProduto(int codProduto) {
-        this.codProduto = codProduto;
-    }
+//    public void setCodProduto(int codProduto) {
+//        this.codProduto = codProduto;
+//    }
 
     public String getNomeProduto() {
         return nomeProduto;
@@ -61,8 +74,8 @@ public class Produto {
         
     }
     
-    public Produto(int codProduto, String nomeProduto, int quantProduto) {
-        this.codProduto = codProduto;
+    public Produto(String nomeProduto, int quantProduto) {
+        //this.codProduto = codProduto;
         this.nomeProduto = nomeProduto;
         this.quantProduto = quantProduto;
     }
