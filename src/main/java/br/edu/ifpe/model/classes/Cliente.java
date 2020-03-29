@@ -22,7 +22,6 @@ SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
 import java.time.LocalDate;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
