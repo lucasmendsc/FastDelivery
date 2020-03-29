@@ -17,6 +17,9 @@ A aplicação tem como diferencial a sua usabilidade, que a torna mais fácil de
 ## Público alvo
 Empresas do tipo restaurante/lanchonete. Os mesmo poderá ter acesso ao app através de (smartphone e web site).
 
+## Diagrama de classes
+![alt text](https://github.com/lucasmendsc/FastDelivery/blob/master/docs/Diagrama%20de%20classes.png)
+
 ## Monetização
 - Implantação;
 - Treinamento;
