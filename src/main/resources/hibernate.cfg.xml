@@ -48,5 +48,6 @@ Contributor(s):
     <property name="hibernate.connection.password">1234</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <mapping class="br.edu.ifpe.model.classes.Cliente"/>
+    <mapping class="br.edu.ifpe.model.classes.Endereco"/>
   </session-factory>
 </hibernate-configuration>

@@ -1,7 +1,9 @@
 
 import br.edu.ifpe.model.dao.ClienteDAO;
 import br.edu.ifpe.controller.ClienteController;
+import br.edu.ifpe.controller.EnderecoController;
 import br.edu.ifpe.model.classes.Cliente;
+import br.edu.ifpe.model.classes.Endereco;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -34,7 +36,9 @@ public class teste {
 
     public static void main(String[] args) {
 
-        ClienteDAO clientedao = new ClienteDAO();
+        /* Testes da classe básica CLIENTE - OK!*/
+        
+       // ClienteDAO clientedao = new ClienteDAO();
 
         //Teste - Inserção - OK!
 //        clientedao.inserir(
@@ -62,11 +66,47 @@ public class teste {
 //        List<Cliente> c2 = clientedao.listarTodos();
 //        System.out.println("Clientes cadastrados DEPOIS de deletar: " + c2.toString());
         
-        
-        
         //Teste - Listagem - OK!
 //        List<Cliente> c = clientedao.listarTodos();
 //        System.out.println("Clientes cadastrados: " + c.toString());
+
+
+
+
+
+        /* Testes da classe básica ENDERECO - EM ANDAMENTO!*/
+        
+        //Teste - Inserção - OK!
+        
+//        Endereco endereco = new Endereco("TESTE2", "TESTE2", "TESTE2", "TESTE2", "TESTE2", 2, "TESTE2");
+        EnderecoController ec = new EnderecoController();
+//        ec.inserirEnderecoAction(endereco);
+
+        //Teste - Recuperar - OK!
+        //Endereco end = ec.recuperarEnderecoAction(1);
+//        System.out.println("Endereco recuperado: " + end.toString());
+
+        //Teste - Alteração - OK!
+//        System.out.println("Endereco ANTES de ser alterado: " + end.toString());
+//        end.setBairroEndereco("ALTERAÇÃO DO BAIRRO");
+//        ec.alterarEnderecoAction(end);
+//        System.out.println("Endereco DEPOIS de ser alterado: " + end.toString());
+
+        // Teste - Deletar - OK!
+//        List<Endereco> e = ec.listarTodosEnderecosAction();
+//        System.out.println("Enderecos cadastrados ANTES de deletar: " + e.toString());
+//        Endereco end = ec.recuperarEnderecoAction(2);
+//        System.out.println("Endereco que vai ser deletado: " + end.toString());
+//        ec.deletarEnderecoAction(end);
+//        List<Endereco> c2 = ec.listarTodosEnderecosAction();
+//        System.out.println("Enderecos cadastrados DEPOIS de deletar: " + c2.toString());
+        
+        //Teste - Listagem - EM ANDAMENTO!
+        
+        List<Endereco> enderecos = ec.listarTodosEnderecosAction();
+        System.out.println("Enderecos Cadastrados: " + enderecos.toString());
+        
+
     }
 
 }
