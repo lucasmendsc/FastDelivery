@@ -1,18 +1,3 @@
-
-import br.edu.ifpe.model.dao.ClienteDAO;
-import br.edu.ifpe.controller.ClienteController;
-import br.edu.ifpe.controller.EnderecoController;
-import br.edu.ifpe.controller.FreteController;
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.classes.Endereco;
-import br.edu.ifpe.model.classes.Frete;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
-import javax.print.attribute.standard.DateTimeAtCompleted;
-
 /*MIT License
 
 Copyright (c) 2020 Lucas Mendes,Marcela Cardoso,Luciano Jr.
@@ -34,15 +19,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
+package br.edu.ifpe.model.dao.interfaces;
+
+import br.edu.ifpe.model.classes.Frete;
+
 /**
  *
  * @author Luciano
  */
-public class teste {
-
-    public static void main(String[] args) {
-
-        
-        
-    }
+public interface FreteInterfaceDAO extends DAO<Frete> {
+    
 }

@@ -21,8 +21,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.model.dao;
 
-import br.edu.ifpe.model.classes.Endereco;
-import br.edu.ifpe.model.dao.interfaces.EnderecoInterfaceDAO;
+import br.edu.ifpe.model.classes.Frete;
+import br.edu.ifpe.model.dao.interfaces.FreteInterfaceDAO;
 import br.edu.ifpe.model.dao.resources.HibernateUtil;
 import java.util.List;
 import javax.persistence.TypedQuery;
@@ -30,17 +30,17 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Luciano Júnior <lucianocljr7@gmail.com>
+ * @author Luciano
  */
-public class EnderecoDAO implements EnderecoInterfaceDAO{
+public class FreteDAO implements FreteInterfaceDAO {
 
     @Override
-    public void inserir(Endereco endereco) {
+    public void inserir(Frete frete) {
 
         Session session = HibernateUtil.getSession();
         try {
             session.getTransaction().begin();
-            session.save(endereco);
+            session.save(frete);
             session.getTransaction().commit();
         } catch (Exception e) {
             System.out.println("Erro ao INSERIR " + e.toString());
@@ -50,12 +50,12 @@ public class EnderecoDAO implements EnderecoInterfaceDAO{
     }
 
     @Override
-    public void alterar(Endereco endereco) {
-
+    public void alterar(Frete frete) {
+        
         Session session = HibernateUtil.getSession();
         try {
             session.getTransaction().begin();
-            session.update(endereco);
+            session.update(frete);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -66,26 +66,26 @@ public class EnderecoDAO implements EnderecoInterfaceDAO{
     }
 
     @Override
-    public Endereco recuperar(Integer codigo) {
-        Endereco endereco = null;
+    public Frete recuperar(Integer codigo) {
+        Frete frete = null;
 
         Session session = HibernateUtil.getSession();
         try {
-            endereco = session.find(Endereco.class, codigo);
+            frete = session.find(Frete.class, codigo);
             session.close();
         } catch (Exception e) {
             System.out.println("Erro ao RECUPERAR " + e.toString());
         }
-        return endereco;
+        return frete;
     }
 
     @Override
-    public void deletar(Endereco endereco) {
+    public void deletar(Frete frete) {
         Session session = HibernateUtil.getSession();
 
         try {
             session.getTransaction().begin();
-            session.delete(endereco);
+            session.delete(frete);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -96,15 +96,15 @@ public class EnderecoDAO implements EnderecoInterfaceDAO{
     }
 
     @Override
-    public List<Endereco> listarTodos() {
-        List<Endereco> enderecos;
+    public List<Frete> listarTodos() {
+        List<Frete> fretes;
 
         try (Session session = HibernateUtil.getSession()) {
 
-            TypedQuery<Endereco> c = session.createNativeQuery("select * from endereco", Endereco.class);
-            enderecos = c.getResultList();
-            if (enderecos != null) {
-                return enderecos;
+            TypedQuery<Frete> c = session.createNativeQuery("select * from frete", Frete.class);
+            fretes = c.getResultList();
+            if (fretes != null) {
+                return fretes;
             }
 
         } catch (Exception e) {
@@ -112,5 +112,4 @@ public class EnderecoDAO implements EnderecoInterfaceDAO{
         }
         return null;
     }
- }
-    
+}

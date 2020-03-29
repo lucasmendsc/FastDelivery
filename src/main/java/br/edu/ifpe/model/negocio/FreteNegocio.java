@@ -1,18 +1,3 @@
-
-import br.edu.ifpe.model.dao.ClienteDAO;
-import br.edu.ifpe.controller.ClienteController;
-import br.edu.ifpe.controller.EnderecoController;
-import br.edu.ifpe.controller.FreteController;
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.classes.Endereco;
-import br.edu.ifpe.model.classes.Frete;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
-import javax.print.attribute.standard.DateTimeAtCompleted;
-
 /*MIT License
 
 Copyright (c) 2020 Lucas Mendes,Marcela Cardoso,Luciano Jr.
@@ -34,15 +19,38 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
+package br.edu.ifpe.model.negocio;
+
+import br.edu.ifpe.model.classes.Frete;
+import br.edu.ifpe.model.dao.FreteDAO;
+import java.util.List;
+
 /**
  *
  * @author Luciano
  */
-public class teste {
+public class FreteNegocio {
 
-    public static void main(String[] args) {
+    FreteDAO freteJDBC = new FreteDAO();
 
-        
-        
+    public void inserirFrete(Frete frete) {
+        freteJDBC.inserir(frete);
     }
+
+    public void alterarFrete(Frete frete) {
+        freteJDBC.alterar(frete);
+    }
+
+    public Frete recuperarFrete(int codigo) {
+        return freteJDBC.recuperar(codigo);
+    }
+
+    public void deletarFrete(Frete frete) {
+        freteJDBC.deletar(frete);
+    }
+
+    public List<Frete> listarTodosFretes() {
+        return freteJDBC.listarTodos();
+    }
+
 }
