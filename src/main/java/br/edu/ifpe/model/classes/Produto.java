@@ -38,7 +38,7 @@ public class Produto {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int codProduto;
+    private int id;
     
     @Column(name = "nomeProduto", length = 60, nullable = false)
     private String nomeProduto;
@@ -46,13 +46,18 @@ public class Produto {
     @Column(name = "quantProduto", length = 6, nullable = false)
     private int quantProduto;
 
-    public int getCodProduto() {
-        return codProduto;
+    public Produto() {
     }
 
-//    public void setCodProduto(int codProduto) {
-//        this.codProduto = codProduto;
-//    }
+    public Produto(int id, String nomeProduto, int quantProduto) {
+        this.id = id;
+        this.nomeProduto = nomeProduto;
+        this.quantProduto = quantProduto;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public String getNomeProduto() {
         return nomeProduto;
@@ -70,54 +75,29 @@ public class Produto {
         this.quantProduto = quantProduto;
     }
 
-    public Produto(){
-        
-    }
-    
-    public Produto(String nomeProduto, int quantProduto) {
-        //this.codProduto = codProduto;
-        this.nomeProduto = nomeProduto;
-        this.quantProduto = quantProduto;
-    }
-
     @Override
     public String toString() {
-        return "Produto{" + "codProduto=" + codProduto + ", nomeProduto=" + nomeProduto + ", quantProduto=" + quantProduto + '}';
+        return "Produto{" + "nomeProduto=" + nomeProduto +
+                    ", quantProduto=" + quantProduto + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 23 * hash + this.codProduto;
-        hash = 23 * hash + Objects.hashCode(this.nomeProduto);
-        hash = 23 * hash + this.quantProduto;
-        return hash;
+        final int PRIMO = 11;
+        int resultado = 1;
+        resultado += (resultado * PRIMO) + id;
+        resultado += (resultado * PRIMO) + nomeProduto.hashCode();
+        return (resultado * PRIMO) + quantProduto;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if(!(obj instanceof Produto))
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+
+         if (!((Produto) obj).nomeProduto.equals(this.nomeProduto))
             return false;
-        }
-        final Produto other = (Produto) obj;
-        if (this.codProduto != other.codProduto) {
-            return false;
-        }
-        if (this.quantProduto != other.quantProduto) {
-            return false;
-        }
-        if (!Objects.equals(this.nomeProduto, other.nomeProduto)) {
-            return false;
-        }
-        return true;
+         
+        return ((Produto) obj).quantProduto == this.quantProduto;
     }
-    
-    
-    
 }

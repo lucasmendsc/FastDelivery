@@ -21,7 +21,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,167 +37,149 @@ public class Endereco {
  
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int codEndereco;
+    private int id;
     
     @Column(name = "estadoEndereco", length = 20, nullable = false)
-    private String estadoEndereco;
+    private String estado;
     
     @Column(name = "cidadeEndereco", length = 20, nullable = false)
-    private String cidadeEndereco;
+    private String cidade;
     
     @Column(name = "cepEndereco", length = 20, nullable = false)
-    private String cepEndereco;
+    private String cep;
     
     @Column(name = "bairroEndereco", length = 20, nullable = false)
-    private String bairroEndereco;
+    private String bairro;
     
     @Column(name = "logradouroEndereco", length = 20, nullable = false)
-    private String logradouroEndereco;
+    private String logradouro;
     
     @Column(name = "numeroEndereco", length = 10, nullable = false)
-    private int numeroEndereco;
+    private int numero;
     
     @Column(name = "complementoEndereco", length = 20, nullable = false)
-    private String complementoEndereco;
+    private String complemento;
 
-    public int getCodEndereco() {
-        return codEndereco;
+    public Endereco() {
     }
 
-//    public void setCodEndereco(int codEndereco) {
-//        this.codEndereco = codEndereco;
-//    }
-
-    public String getEstadoEndereco() {
-        return estadoEndereco;
+    public Endereco(int id, String estado, String cidade, String cep,
+            String bairro, String logradouro, int numero, String complemento) {
+        this.id = id;
+        this.estado = estado;
+        this.cidade = cidade;
+        this.cep = cep;
+        this.bairro = bairro;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
     }
 
-    public void setEstadoEndereco(String estadoEndereco) {
-        this.estadoEndereco = estadoEndereco;
+    public int getId() {
+        return id;
     }
-
-    public String getCidadeEndereco() {
-        return cidadeEndereco;
-    }
-
-    public void setCidadeEndereco(String cidadeEndereco) {
-        this.cidadeEndereco = cidadeEndereco;
-    }
-
-    public String getCepEndereco() {
-        return cepEndereco;
-    }
-
-    public void setCepEndereco(String cepEndereco) {
-        this.cepEndereco = cepEndereco;
-    }
-
-    public String getBairroEndereco() {
-        return bairroEndereco;
-    }
-
-    public void setBairroEndereco(String bairroEndereco) {
-        this.bairroEndereco = bairroEndereco;
-    }
-
-    public String getLogradouroEndereco() {
-        return logradouroEndereco;
-    }
-
-    public void setLogradouroEndereco(String logradouroEndereco) {
-        this.logradouroEndereco = logradouroEndereco;
-    }
-
-    public int getNumeroEndereco() {
-        return numeroEndereco;
-    }
-
-    public void setNumeroEndereco(int numeroEndereco) {
-        this.numeroEndereco = numeroEndereco;
-    }
-
-    public String getComplementoEndereco() {
-        return complementoEndereco;
-    }
-
-    public void setComplementoEndereco(String complementoEndereco) {
-        this.complementoEndereco = complementoEndereco;
-    }
-
-    public Endereco(){
-        
-    }    
     
-    public Endereco(String estadoEndereco, String cidadeEndereco, String cepEndereco, String bairroEndereco, String logradouroEndereco, int numeroEndereco, String complementoEndereco) {        
-        this.estadoEndereco = estadoEndereco;
-        this.cidadeEndereco = cidadeEndereco;
-        this.cepEndereco = cepEndereco;
-        this.bairroEndereco = bairroEndereco;
-        this.logradouroEndereco = logradouroEndereco;
-        this.numeroEndereco = numeroEndereco;
-        this.complementoEndereco = complementoEndereco;
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
     }
 
     @Override
     public String toString() {
-        return "Endereco{" + "codEndereco=" + codEndereco + ", estadoEndereco=" + estadoEndereco + ", cidadeEndereco=" + cidadeEndereco + ", cepEndereco=" + cepEndereco + ", bairroEndereco=" + bairroEndereco + ", logradouroEndereco=" + logradouroEndereco + ", numeroEndereco=" + numeroEndereco + ", complementoEndereco=" + complementoEndereco + '}';
+        return "Endereco{" + "estado=" + estado + ", cidade=" + cidade + 
+                ", cep=" + cep + ", bairro=" + bairro + ", logradouro=" + 
+                logradouro + ", numero=" + numero + ", complemento=" + 
+                complemento + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 37 * hash + this.codEndereco;
-        hash = 37 * hash + Objects.hashCode(this.estadoEndereco);
-        hash = 37 * hash + Objects.hashCode(this.cidadeEndereco);
-        hash = 37 * hash + Objects.hashCode(this.cepEndereco);
-        hash = 37 * hash + Objects.hashCode(this.bairroEndereco);
-        hash = 37 * hash + Objects.hashCode(this.logradouroEndereco);
-        hash = 37 * hash + this.numeroEndereco;
-        hash = 37 * hash + Objects.hashCode(this.complementoEndereco);
-        return hash;
+        final int PRIMO = 5;
+        int resultado = 1;
+        resultado += (resultado * PRIMO) + id;
+        resultado += (resultado * PRIMO) + estado.hashCode();
+        resultado += (resultado * PRIMO) + cidade.hashCode();
+        resultado += (resultado * PRIMO) + cep.hashCode();
+        resultado += (resultado * PRIMO) + bairro.hashCode();
+        resultado += (resultado * PRIMO) + logradouro.hashCode();
+        resultado += (resultado * PRIMO) + numero;
+        return (resultado * PRIMO) + complemento.hashCode() ;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if(!(obj instanceof Endereco))
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+
+        if (!((Endereco) obj).estado.equals(this.estado))
             return false;
-        }
-        final Endereco other = (Endereco) obj;
-        if (this.codEndereco != other.codEndereco) {
+
+        if (!((Endereco) obj).cidade.equals(this.cidade))
             return false;
-        }
-        if (this.numeroEndereco != other.numeroEndereco) {
+
+        if (!((Endereco) obj).cep.equals(this.cep))
             return false;
-        }
-        if (!Objects.equals(this.estadoEndereco, other.estadoEndereco)) {
+
+        if (!((Endereco) obj).bairro.equals(this.bairro))
             return false;
-        }
-        if (!Objects.equals(this.cidadeEndereco, other.cidadeEndereco)) {
+
+        if (!((Endereco) obj).logradouro.equals(this.logradouro))
             return false;
-        }
-        if (!Objects.equals(this.cepEndereco, other.cepEndereco)) {
+
+        if (((Endereco) obj).numero != this.numero)
             return false;
-        }
-        if (!Objects.equals(this.bairroEndereco, other.bairroEndereco)) {
-            return false;
-        }
-        if (!Objects.equals(this.logradouroEndereco, other.logradouroEndereco)) {
-            return false;
-        }
-        if (!Objects.equals(this.complementoEndereco, other.complementoEndereco)) {
-            return false;
-        }
-        return true;
-    }
-  
-    
-    
-    
-    
+
+        return ((Endereco) obj).complemento.equals(this.complemento);
+    }   
 }
