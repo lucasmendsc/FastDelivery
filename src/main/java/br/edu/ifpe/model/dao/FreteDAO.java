@@ -23,10 +23,10 @@ package br.edu.ifpe.model.dao;
 
 import br.edu.ifpe.model.classes.Frete;
 import br.edu.ifpe.model.dao.interfaces.FreteInterfaceDAO;
-import br.edu.ifpe.model.dao.resources.HibernateUtil;
+import br.edu.ifpe.model.dao.resources.HibernateUtill;
 import java.util.List;
-import javax.persistence.TypedQuery;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -34,82 +34,96 @@ import org.hibernate.Session;
  */
 public class FreteDAO implements FreteInterfaceDAO {
 
+    private static FreteDAO instance = null;
+    private final  Session SESSION;
+    private final Transaction TRANSACTION;
+
+    public static FreteDAO getInstance() {
+        if (instance == null) {
+            instance = new FreteDAO();
+        }
+        return instance;
+    }
+
+    public FreteDAO() {
+        this.SESSION = HibernateUtill.getInstance().getSession();
+        this.TRANSACTION = SESSION.beginTransaction();
+    }
+
     @Override
     public void inserir(Frete frete) {
 
-        Session session = HibernateUtil.getSession();
         try {
-            session.getTransaction().begin();
-            session.save(frete);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println("Erro ao INSERIR " + e.toString());
+            SESSION.save(frete);
+            TRANSACTION.commit();
+
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            TRANSACTION.rollback();
+
         } finally {
-            session.close();
+            SESSION.close();
         }
+
     }
 
     @Override
     public void alterar(Frete frete) {
-        
-        Session session = HibernateUtil.getSession();
+
         try {
-            session.getTransaction().begin();
-            session.update(frete);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            System.out.println("Erro ao ATUALIZAR " + e.toString());
+            SESSION.update(frete);
+            TRANSACTION.commit();
+
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            TRANSACTION.rollback();
+
         } finally {
-            session.close();
+            SESSION.close();
         }
+
     }
 
     @Override
     public Frete recuperar(Integer codigo) {
-        Frete frete = null;
-
-        Session session = HibernateUtil.getSession();
         try {
-            frete = session.find(Frete.class, codigo);
-            session.close();
-        } catch (Exception e) {
-            System.out.println("Erro ao RECUPERAR " + e.toString());
+            return (Frete) SESSION.createQuery
+                            ("FROM Frete where id=" + codigo).getResultList();
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            return null;
+        } finally {
+            SESSION.close();
         }
-        return frete;
     }
 
     @Override
     public void deletar(Frete frete) {
-        Session session = HibernateUtil.getSession();
 
         try {
-            session.getTransaction().begin();
-            session.delete(frete);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            System.err.println("Falha ao DELETAR " + e.toString());
+            SESSION.delete(frete);
+            TRANSACTION.commit();
+
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            TRANSACTION.rollback();
+
         } finally {
-            session.close();
+            SESSION.close();
         }
     }
 
     @Override
     public List<Frete> listarTodos() {
-        List<Frete> fretes;
+        List<Frete> fretes = null;
 
-        try (Session session = HibernateUtil.getSession()) {
-
-            TypedQuery<Frete> c = session.createNativeQuery("select * from frete", Frete.class);
-            fretes = c.getResultList();
-            if (fretes != null) {
-                return fretes;
-            }
-
-        } catch (Exception e) {
-            System.err.println("Erro ao recuperar todos" + e.toString());
+        try {
+            fretes = (List) SESSION.createQuery("FROM Frete").getResultList();
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+        } finally {
+            SESSION.close();
+            return fretes;
         }
-        return null;
     }
 }

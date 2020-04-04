@@ -23,90 +23,109 @@ package br.edu.ifpe.model.dao;
 
 import br.edu.ifpe.model.classes.Pagamento;
 import br.edu.ifpe.model.dao.interfaces.PagamentoInterfaceDAO;
-import br.edu.ifpe.model.dao.resources.HibernateUtil;
+import br.edu.ifpe.model.dao.resources.HibernateUtill;
 import java.util.List;
-import javax.persistence.TypedQuery;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author Luciano
  */
-public class PagamentoDAO implements PagamentoInterfaceDAO {
+public class PagamentoDAO implements PagamentoInterfaceDAO{
+    
+    private static PagamentoDAO instance = null;
+    private final  Session SESSION;
+    private final Transaction TRANSACTION;
+
+    public static PagamentoDAO getInstance() {
+        if (instance == null) {
+            instance = new PagamentoDAO();
+        }
+        return instance;
+    }
+
+    public PagamentoDAO() {
+        this.SESSION = HibernateUtill.getInstance().getSession();
+        this.TRANSACTION = SESSION.beginTransaction();
+    }
 
     @Override
     public void inserir(Pagamento pagamento) {
-        
-        Session session = HibernateUtil.getSession();
+
         try {
-            session.getTransaction().begin();
-            session.save(pagamento);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println("Erro ao INSERIR " + e.toString());
+            SESSION.save(pagamento);
+            TRANSACTION.commit();
+
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            TRANSACTION.rollback();
+
         } finally {
-            session.close();
-        }}
+            SESSION.close();
+        }
+
+    }
 
     @Override
     public void alterar(Pagamento pagamento) {
-        
-        Session session = HibernateUtil.getSession();
+
         try {
-            session.getTransaction().begin();
-            session.update(pagamento);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            System.out.println("Erro ao ATUALIZAR " + e.toString());
+            SESSION.update(pagamento);
+            TRANSACTION.commit();
+
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            TRANSACTION.rollback();
+
         } finally {
-            session.close();
-        }}
+            SESSION.close();
+        }
+
+    }
 
     @Override
     public Pagamento recuperar(Integer codigo) {
-        Pagamento pagamento = null;
-
-        Session session = HibernateUtil.getSession();
         try {
-            pagamento = session.find(Pagamento.class, codigo);
-            session.close();
-        } catch (Exception e) {
-            System.out.println("Erro ao RECUPERAR " + e.toString());
+            return (Pagamento) SESSION.createQuery
+                        ("FROM pagamento where id=" + codigo).getResultList();
+                           
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            return null;
+        } finally {
+            SESSION.close();
         }
-        return pagamento;
     }
 
     @Override
     public void deletar(Pagamento pagamento) {
-    Session session = HibernateUtil.getSession();
 
         try {
-            session.getTransaction().begin();
-            session.delete(pagamento);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            System.err.println("Falha ao DELETAR " + e.toString());
+            SESSION.delete(pagamento);
+            TRANSACTION.commit();
+
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            TRANSACTION.rollback();
+
         } finally {
-            session.close();
-        }}
+            SESSION.close();
+        }
+    }
 
     @Override
     public List<Pagamento> listarTodos() {
-        List<Pagamento> pagamentos;
+        List<Pagamento> pagamentos = null;
 
-        try (Session session = HibernateUtil.getSession()) {
-
-            TypedQuery<Pagamento> c = session.createNativeQuery("select * from pagamento", Pagamento.class);
-            pagamentos = c.getResultList();
-            if (pagamentos != null) {
-                return pagamentos;
-            }
-
-        } catch (Exception e) {
-            System.err.println("Erro ao recuperar todos" + e.toString());
+        try {
+            pagamentos = (List) SESSION.createQuery
+                            ("FROM Pagamento").getResultList();
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+        } finally {
+            SESSION.close();
+            return pagamentos;
         }
-        return null;}
-    
+    }
 }

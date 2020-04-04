@@ -23,10 +23,10 @@ package br.edu.ifpe.model.dao;
 
 import br.edu.ifpe.model.classes.Endereco;
 import br.edu.ifpe.model.dao.interfaces.EnderecoInterfaceDAO;
-import br.edu.ifpe.model.dao.resources.HibernateUtil;
+import br.edu.ifpe.model.dao.resources.HibernateUtill;
 import java.util.List;
-import javax.persistence.TypedQuery;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -34,83 +34,98 @@ import org.hibernate.Session;
  */
 public class EnderecoDAO implements EnderecoInterfaceDAO{
 
+    private static EnderecoDAO instance = null;
+    private final Session SESSION;
+    private final Transaction TRANSACTION;
+
+    public static EnderecoDAO getInstance() {
+        if (instance == null) {
+            instance = new EnderecoDAO();
+        }
+        return instance;
+    }
+
+    public EnderecoDAO() {
+        this.SESSION = HibernateUtill.getInstance().getSession();
+        this.TRANSACTION = SESSION.beginTransaction();
+    }
+
     @Override
     public void inserir(Endereco endereco) {
 
-        Session session = HibernateUtil.getSession();
         try {
-            session.getTransaction().begin();
-            session.save(endereco);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println("Erro ao INSERIR " + e.toString());
+            SESSION.save(endereco);
+            TRANSACTION.commit();
+
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            TRANSACTION.rollback();
+
         } finally {
-            session.close();
+            SESSION.close();
         }
+
     }
 
     @Override
     public void alterar(Endereco endereco) {
 
-        Session session = HibernateUtil.getSession();
         try {
-            session.getTransaction().begin();
-            session.update(endereco);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            System.out.println("Erro ao ATUALIZAR " + e.toString());
+            SESSION.update(endereco);
+            TRANSACTION.commit();
+
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            TRANSACTION.rollback();
+
         } finally {
-            session.close();
+            SESSION.close();
         }
+
     }
 
     @Override
     public Endereco recuperar(Integer codigo) {
-        Endereco endereco = null;
-
-        Session session = HibernateUtil.getSession();
         try {
-            endereco = session.find(Endereco.class, codigo);
-            session.close();
-        } catch (Exception e) {
-            System.out.println("Erro ao RECUPERAR " + e.toString());
+            return (Endereco) SESSION.createQuery
+                        ("FROM Endereco where id=" + codigo).getResultList();
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            return null;
+        } finally {
+            SESSION.close();
         }
-        return endereco;
     }
 
     @Override
     public void deletar(Endereco endereco) {
-        Session session = HibernateUtil.getSession();
 
         try {
-            session.getTransaction().begin();
-            session.delete(endereco);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            System.err.println("Falha ao DELETAR " + e.toString());
+            SESSION.delete(endereco);
+            TRANSACTION.commit();
+
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            TRANSACTION.rollback();
+
         } finally {
-            session.close();
+            SESSION.close();
         }
     }
 
     @Override
     public List<Endereco> listarTodos() {
-        List<Endereco> enderecos;
+        List<Endereco> enderecos = null;
 
-        try (Session session = HibernateUtil.getSession()) {
-
-            TypedQuery<Endereco> c = session.createNativeQuery("select * from endereco", Endereco.class);
-            enderecos = c.getResultList();
-            if (enderecos != null) {
-                return enderecos;
-            }
-
-        } catch (Exception e) {
-            System.err.println("Erro ao recuperar todos" + e.toString());
+        try{
+            enderecos = (List) SESSION.createQuery
+                ("FROM Endereco").getResultList();
+        }catch(Exception exc){
+            System.out.println(exc.getMessage());
+        }finally{
+            SESSION.close();
+            return enderecos;
         }
-        return null;
     }
  }
     

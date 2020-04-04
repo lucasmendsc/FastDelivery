@@ -23,91 +23,107 @@ package br.edu.ifpe.model.dao;
 
 import br.edu.ifpe.model.classes.Produto;
 import br.edu.ifpe.model.dao.interfaces.ProdutoInterfaceDAO;
-import br.edu.ifpe.model.dao.resources.HibernateUtil;
+import br.edu.ifpe.model.dao.resources.HibernateUtill;
 import java.util.List;
-import javax.persistence.TypedQuery;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author Luciano
  */
 public class ProdutoDAO implements ProdutoInterfaceDAO{
+    
+    private static ProdutoDAO instance = null;
+    private final Session SESSION;
+    private final Transaction TRANSACTION;
+
+    public static ProdutoDAO getInstance() {
+        if (instance == null) {
+            instance = new ProdutoDAO();
+        }
+        return instance;
+    }
+
+    public ProdutoDAO() {
+        this.SESSION = HibernateUtill.getInstance().getSession();
+        this.TRANSACTION = SESSION.beginTransaction();
+    }
 
     @Override
     public void inserir(Produto produto) {
-        Session session = HibernateUtil.getSession();
+
         try {
-            session.getTransaction().begin();
-            session.save(produto);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println("Erro ao INSERIR " + e.toString());
+            SESSION.save(produto);
+            TRANSACTION.commit();
+
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            TRANSACTION.rollback();
+
         } finally {
-            session.close();
+            SESSION.close();
         }
+
     }
 
     @Override
     public void alterar(Produto produto) {
-        
-        Session session = HibernateUtil.getSession();
+
         try {
-            session.getTransaction().begin();
-            session.update(produto);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            System.out.println("Erro ao ATUALIZAR " + e.toString());
+            SESSION.update(produto);
+            TRANSACTION.commit();
+
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            TRANSACTION.rollback();
+
         } finally {
-            session.close();
-        }}
+            SESSION.close();
+        }
+
+    }
 
     @Override
     public Produto recuperar(Integer codigo) {
-        Produto produto = null;
-
-        Session session = HibernateUtil.getSession();
         try {
-            produto = session.find(Produto.class, codigo);
-            session.close();
-        } catch (Exception e) {
-            System.out.println("Erro ao RECUPERAR " + e.toString());
+            return (Produto) SESSION.createQuery
+                            ("FROM Produto where id=" + codigo).getResultList();
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            return null;
+        } finally {
+            SESSION.close();
         }
-        return produto;
     }
 
     @Override
     public void deletar(Produto produto) {
-        Session session = HibernateUtil.getSession();
 
         try {
-            session.getTransaction().begin();
-            session.delete(produto);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            System.err.println("Falha ao DELETAR " + e.toString());
+            SESSION.delete(produto);
+            TRANSACTION.commit();
+
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+            TRANSACTION.rollback();
+
         } finally {
-            session.close();
+            SESSION.close();
         }
     }
 
     @Override
     public List<Produto> listarTodos() {
-        List<Produto> produtos;
+        List<Produto> produtos = null;
 
-        try (Session session = HibernateUtil.getSession()) {
-
-            TypedQuery<Produto> c = session.createNativeQuery("select * from produto", Produto.class);
-            produtos = c.getResultList();
-            if (produtos != null) {
-                return produtos;
-            }
-
-        } catch (Exception e) {
-            System.err.println("Erro ao recuperar todos" + e.toString());
+        try {
+            produtos = (List) SESSION.createQuery("FROM Produto").getResultList();
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+        } finally {
+            SESSION.close();
+            return produtos;
         }
-        return null;}
-    
+    }
 }

@@ -23,27 +23,31 @@ package br.edu.ifpe.model.dao.resources;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 /**
  *
  * @author Luciano
  */
-public class HibernateUtil {
+public class HibernateUtill {
     
-    private static SessionFactory sessionFactory;
+     private static HibernateUtill instance;
+    private static SessionFactory sessions;
 
-    public static Session getSession() {
-        if (sessionFactory == null) {
-            final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                    .configure() // configures settings from hibernate.cfg.xml
-                    .build();
-            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-
+    public static HibernateUtill getInstance() {
+        if (instance == null) {
+            instance = new HibernateUtill();
         }
-        return sessionFactory.openSession();
+        return instance;
+    }
+
+    private HibernateUtill() {
+        Configuration cfg = new Configuration().configure();
+        sessions = cfg.buildSessionFactory();
+    }
+
+    public Session getSession() {
+        return sessions.openSession();
     }
     
 }

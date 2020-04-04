@@ -33,24 +33,24 @@ public class FreteController {
     
     FreteNegocio freteModel = new FreteNegocio();
     
-    public void inserirFreteAction (Frete frete){
-        freteModel.inserirFrete(frete);
-    }
-
-    public void alterarFreteAction (Frete frete){
-        freteModel.alterarFrete(frete);
-    }
-    
-    public Frete recuperarFreteAction(int codigo){
-        return freteModel.recuperarFrete(codigo);
-    }
-    
-    public void deletarFreteAction (Frete frete){
-        freteModel.deletarFrete(frete);
-    }
-    
-    public List<Frete> listarTodosFretesAction(){
-        return freteModel.listarTodosFretes();
-    }
+//    public void inserirFreteAction (Frete frete){
+//        freteModel.inserirFrete(frete);
+//    }
+//
+//    public void alterarFreteAction (Frete frete){
+//        freteModel.alterarFrete(frete);
+//    }
+//    
+//    public Frete recuperarFreteAction(int codigo){
+//        return freteModel.recuperarFrete(codigo);
+//    }
+//    
+//    public void deletarFreteAction (Frete frete){
+//        freteModel.deletarFrete(frete);
+//    }
+//    
+//    public List<Frete> listarTodosFretesAction(){
+//        return freteModel.listarTodosFretes();
+//    }
     
 }

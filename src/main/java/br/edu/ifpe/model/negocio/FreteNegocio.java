@@ -33,24 +33,24 @@ public class FreteNegocio {
 
     FreteDAO freteJDBC = new FreteDAO();
 
-    public void inserirFrete(Frete frete) {
-        freteJDBC.inserir(frete);
-    }
-
-    public void alterarFrete(Frete frete) {
-        freteJDBC.alterar(frete);
-    }
-
-    public Frete recuperarFrete(int codigo) {
-        return freteJDBC.recuperar(codigo);
-    }
-
-    public void deletarFrete(Frete frete) {
-        freteJDBC.deletar(frete);
-    }
-
-    public List<Frete> listarTodosFretes() {
-        return freteJDBC.listarTodos();
-    }
+//    public void inserirFrete(Frete frete) {
+//        freteJDBC.inserir(frete);
+//    }
+//
+//    public void alterarFrete(Frete frete) {
+//        freteJDBC.alterar(frete);
+//    }
+//
+//    public Frete recuperarFrete(int codigo) {
+//        return freteJDBC.recuperar(codigo);
+//    }
+//
+//    public void deletarFrete(Frete frete) {
+//        freteJDBC.deletar(frete);
+//    }
+//
+//    public List<Frete> listarTodosFretes() {
+//        return freteJDBC.listarTodos();
+//    }
 
 }
