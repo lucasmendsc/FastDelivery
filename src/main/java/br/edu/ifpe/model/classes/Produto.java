@@ -37,7 +37,7 @@ import javax.persistence.Id;
 public class Produto {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
     @Column(name = "nomeProduto", length = 60, nullable = false)
@@ -49,8 +49,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(int id, String nomeProduto, int quantProduto) {
-        this.id = id;
+    public Produto( String nomeProduto, int quantProduto) {
         this.nomeProduto = nomeProduto;
         this.quantProduto = quantProduto;
     }

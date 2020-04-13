@@ -7,6 +7,7 @@ import br.edu.ifpe.model.classes.Pagamento;
 import br.edu.ifpe.model.classes.Produto;
 import br.edu.ifpe.model.dao.ClienteDAO;
 import br.edu.ifpe.model.dao.EnderecoDAO;
+import br.edu.ifpe.model.dao.ProdutoDAO;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -38,18 +39,16 @@ SOFTWARE.*/
 public class teste {
 
     public static void main(String[] args) {
-        Endereco endereco = new Endereco
-                                        (1, "estado", "cidade", "cep", "bairro",
-                                                "logradouro", 0, "complemento");
-
 
         
-        ClienteDAO.getInstance().alterar(
-                new Cliente(2, "nomeCliente1", "senhaCliente1", "cpfCliente1", 
-                        LocalDate.now(), "telefoneCliente1", 
-                                "emailCliente1",endereco));
+       Endereco endereco = new Endereco("1", "1", "1", "1",
+                "1", 0, "1");
+        EnderecoDAO.getInstance().inserir(endereco);
         
+        Cliente cliente = new Cliente("1", "1", "1", 
+                LocalDate.now(), "1", "1", endereco);
+        ClienteDAO.getInstance().inserir(cliente);
         
-        
+        ProdutoDAO.getInstance().inserir(new Produto("1", 2));
     }
 }

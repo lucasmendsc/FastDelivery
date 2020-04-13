@@ -38,8 +38,8 @@ import javax.persistence.OneToOne;
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int codCliente;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @Column(name = "nomeCliente", length = 30, nullable = false)
     private String nomeCliente;
@@ -67,10 +67,9 @@ public class Cliente {
 
     }
 
-    public Cliente(int codCliente, String nomeCliente, String senhaCliente, 
+    public Cliente(String nomeCliente, String senhaCliente, 
             String cpfCliente, LocalDate dtNascimentoCliente, 
             String telefoneCliente, String emailCliente, Endereco endereco) {
-        this.codCliente = codCliente;
         this.nomeCliente = nomeCliente;
         this.senhaCliente = senhaCliente;
         this.cpfCliente = cpfCliente;
@@ -80,6 +79,67 @@ public class Cliente {
         this.endereco = endereco;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+    public String getSenhaCliente() {
+        return senhaCliente;
+    }
+
+    public void setSenhaCliente(String senhaCliente) {
+        this.senhaCliente = senhaCliente;
+    }
+
+    public String getCpfCliente() {
+        return cpfCliente;
+    }
+
+    public void setCpfCliente(String cpfCliente) {
+        this.cpfCliente = cpfCliente;
+    }
+
+    public LocalDate getDtNascimentoCliente() {
+        return dtNascimentoCliente;
+    }
+
+    public void setDtNascimentoCliente(LocalDate dtNascimentoCliente) {
+        this.dtNascimentoCliente = dtNascimentoCliente;
+    }
+
+    public String getTelefoneCliente() {
+        return telefoneCliente;
+    }
+
+    public void setTelefoneCliente(String telefoneCliente) {
+        this.telefoneCliente = telefoneCliente;
+    }
+
+    public String getEmailCliente() {
+        return emailCliente;
+    }
+
+    public void setEmailCliente(String emailCliente) {
+        this.emailCliente = emailCliente;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    
     @Override
     public String toString() {
         return "Cliente{" + "nomeCliente=" + nomeCliente + ", senhaCliente=" + 
@@ -93,7 +153,7 @@ public class Cliente {
     public int hashCode() {
         final int PRIMO = 3;
         int resultado = 1;
-        resultado += (PRIMO * resultado) + codCliente;
+        resultado += (PRIMO * resultado) + id;
         resultado += (PRIMO * resultado) + nomeCliente.hashCode();
         resultado += (PRIMO * resultado) + senhaCliente.hashCode();
         resultado += (PRIMO * resultado) + cpfCliente.hashCode();

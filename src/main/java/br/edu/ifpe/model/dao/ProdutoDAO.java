@@ -32,11 +32,15 @@ import org.hibernate.Transaction;
  *
  * @author Luciano
  */
-public class ProdutoDAO implements ProdutoInterfaceDAO{
-    
-    private static ProdutoDAO instance = null;
-    private final Session SESSION;
-    private final Transaction TRANSACTION;
+public class ProdutoDAO implements ProdutoInterfaceDAO {
+
+    private final HibernateUtill UTILL;
+    private static ProdutoDAO instance;
+    private Session session;
+
+    public ProdutoDAO() {
+        UTILL = HibernateUtill.getInstance();
+    }
 
     public static ProdutoDAO getInstance() {
         if (instance == null) {
@@ -45,85 +49,77 @@ public class ProdutoDAO implements ProdutoInterfaceDAO{
         return instance;
     }
 
-    public ProdutoDAO() {
-        this.SESSION = HibernateUtill.getInstance().getSession();
-        this.TRANSACTION = SESSION.beginTransaction();
-    }
-
     @Override
     public void inserir(Produto produto) {
-
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            SESSION.save(produto);
-            TRANSACTION.commit();
-
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-            TRANSACTION.rollback();
-
+            session.save(produto);
+            transaction.commit();
+        } catch (Exception createProdutoException) {
+            System.out.println(createProdutoException.getMessage());
+            transaction.rollback();
         } finally {
-            SESSION.close();
+            session.close();
         }
-
-    }
-
-    @Override
-    public void alterar(Produto produto) {
-
-        try {
-            SESSION.update(produto);
-            TRANSACTION.commit();
-
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-            TRANSACTION.rollback();
-
-        } finally {
-            SESSION.close();
-        }
-
     }
 
     @Override
     public Produto recuperar(Integer codigo) {
         try {
-            return (Produto) SESSION.createQuery
-                            ("FROM Produto where id=" + codigo).getResultList();
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
+            session = UTILL.getSession();
+            return (Produto) session.createQuery(
+                    "FROM Produto where id=" + codigo).getSingleResult();
+        } catch (Exception readProdutoException) {
+            System.out.println(readProdutoException.getMessage());
             return null;
         } finally {
-            SESSION.close();
+            session.close();
+        }
+    }
+
+    @Override
+    public void alterar(Produto produto) {
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(produto);
+            transaction.commit();
+        } catch (Exception updateProdutoException) {
+            System.out.println(updateProdutoException.getMessage());
+            transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public void deletar(Produto produto) {
-
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            SESSION.delete(produto);
-            TRANSACTION.commit();
-
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-            TRANSACTION.rollback();
-
+            session.delete(produto);
+            transaction.commit();
+        } catch (Exception delProdutoException) {
+            System.out.println(delProdutoException.getMessage());
+            transaction.rollback();
         } finally {
-            SESSION.close();
+            session.close();
         }
     }
 
     @Override
     public List<Produto> listarTodos() {
+        session = UTILL.getSession();
         List<Produto> produtos = null;
-
         try {
-            produtos = (List) SESSION.createQuery("FROM Produto").getResultList();
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
+            produtos = (List) session.createQuery("FROM Produto").getResultList();
+        } catch (Exception readAllProdutosException) {
+            System.out.println(readAllProdutosException.getMessage());
         } finally {
-            SESSION.close();
+            session.close();
             return produtos;
         }
     }
+
 }

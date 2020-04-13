@@ -32,11 +32,15 @@ import org.hibernate.Transaction;
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
-public class EnderecoDAO implements EnderecoInterfaceDAO{
+public class EnderecoDAO implements EnderecoInterfaceDAO {
 
-    private static EnderecoDAO instance = null;
-    private final Session SESSION;
-    private final Transaction TRANSACTION;
+    private final HibernateUtill UTILL;
+    private static EnderecoDAO instance;
+    private Session session;
+
+    public EnderecoDAO() {
+        UTILL = HibernateUtill.getInstance();
+    }
 
     public static EnderecoDAO getInstance() {
         if (instance == null) {
@@ -45,87 +49,77 @@ public class EnderecoDAO implements EnderecoInterfaceDAO{
         return instance;
     }
 
-    public EnderecoDAO() {
-        this.SESSION = HibernateUtill.getInstance().getSession();
-        this.TRANSACTION = SESSION.beginTransaction();
-    }
-
     @Override
     public void inserir(Endereco endereco) {
-
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            SESSION.save(endereco);
-            TRANSACTION.commit();
-
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-            TRANSACTION.rollback();
-
+            session.save(endereco);
+            transaction.commit();
+        } catch (Exception createEnderecoException) {
+            System.out.println(createEnderecoException.getMessage());
+            transaction.rollback();
         } finally {
-            SESSION.close();
+            session.close();
         }
-
-    }
-
-    @Override
-    public void alterar(Endereco endereco) {
-
-        try {
-            SESSION.update(endereco);
-            TRANSACTION.commit();
-
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-            TRANSACTION.rollback();
-
-        } finally {
-            SESSION.close();
-        }
-
     }
 
     @Override
     public Endereco recuperar(Integer codigo) {
         try {
-            return (Endereco) SESSION.createQuery
-                        ("FROM Endereco where id=" + codigo).getResultList();
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
+            session = UTILL.getSession();
+            return (Endereco) session.createQuery(
+                    "FROM Endereco where id=" + codigo).getSingleResult();
+        } catch (Exception readEnderecoException) {
+            System.out.println(readEnderecoException.getMessage());
             return null;
         } finally {
-            SESSION.close();
+            session.close();
+        }
+    }
+
+    @Override
+    public void alterar(Endereco endereco) {
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(endereco);
+            transaction.commit();
+        } catch (Exception updateEnderecoException) {
+            System.out.println(updateEnderecoException.getMessage());
+            transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public void deletar(Endereco endereco) {
-
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            SESSION.delete(endereco);
-            TRANSACTION.commit();
-
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-            TRANSACTION.rollback();
-
+            session.delete(endereco);
+            transaction.commit();
+        } catch (Exception delEnderecoException) {
+            System.out.println(delEnderecoException.getMessage());
+            transaction.rollback();
         } finally {
-            SESSION.close();
+            session.close();
         }
     }
 
     @Override
     public List<Endereco> listarTodos() {
+        session = UTILL.getSession();
         List<Endereco> enderecos = null;
-
-        try{
-            enderecos = (List) SESSION.createQuery
-                ("FROM Endereco").getResultList();
-        }catch(Exception exc){
-            System.out.println(exc.getMessage());
-        }finally{
-            SESSION.close();
+        try {
+            enderecos = (List) session.createQuery
+                                            ("FROM Endereco").getResultList();
+        } catch (Exception readAllEnderecosException) {
+            System.out.println(readAllEnderecosException.getMessage());
+        } finally {
+            session.close();
             return enderecos;
         }
     }
- }
-    
+}

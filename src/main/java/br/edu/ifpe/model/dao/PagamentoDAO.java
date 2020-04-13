@@ -34,9 +34,13 @@ import org.hibernate.Transaction;
  */
 public class PagamentoDAO implements PagamentoInterfaceDAO{
     
-    private static PagamentoDAO instance = null;
-    private final  Session SESSION;
-    private final Transaction TRANSACTION;
+        private final HibernateUtill UTILL;
+    private static PagamentoDAO instance;
+    private Session session;
+
+    public PagamentoDAO() {
+        UTILL = HibernateUtill.getInstance();
+    }
 
     public static PagamentoDAO getInstance() {
         if (instance == null) {
@@ -45,86 +49,76 @@ public class PagamentoDAO implements PagamentoInterfaceDAO{
         return instance;
     }
 
-    public PagamentoDAO() {
-        this.SESSION = HibernateUtill.getInstance().getSession();
-        this.TRANSACTION = SESSION.beginTransaction();
-    }
-
     @Override
     public void inserir(Pagamento pagamento) {
-
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            SESSION.save(pagamento);
-            TRANSACTION.commit();
-
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-            TRANSACTION.rollback();
-
+            session.save(pagamento);
+            transaction.commit();
+        } catch (Exception createPagamentoException) {
+            System.out.println(createPagamentoException.getMessage());
+            transaction.rollback();
         } finally {
-            SESSION.close();
+            session.close();
         }
-
-    }
-
-    @Override
-    public void alterar(Pagamento pagamento) {
-
-        try {
-            SESSION.update(pagamento);
-            TRANSACTION.commit();
-
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-            TRANSACTION.rollback();
-
-        } finally {
-            SESSION.close();
-        }
-
     }
 
     @Override
     public Pagamento recuperar(Integer codigo) {
         try {
-            return (Pagamento) SESSION.createQuery
-                        ("FROM pagamento where id=" + codigo).getResultList();
-                           
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
+            session = UTILL.getSession();
+            return (Pagamento) session.createQuery(
+                    "FROM Pagamento where id=" + codigo).getSingleResult();
+        } catch (Exception readPagamentoException) {
+            System.out.println(readPagamentoException.getMessage());
             return null;
         } finally {
-            SESSION.close();
+            session.close();
+        }
+    }
+
+    @Override
+    public void alterar(Pagamento pagamento) {
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(pagamento);
+            transaction.commit();
+        } catch (Exception updatePagamentoException) {
+            System.out.println(updatePagamentoException.getMessage());
+            transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public void deletar(Pagamento pagamento) {
-
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            SESSION.delete(pagamento);
-            TRANSACTION.commit();
-
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-            TRANSACTION.rollback();
-
+            session.delete(pagamento);
+            transaction.commit();
+        } catch (Exception delPagamentoException) {
+            System.out.println(delPagamentoException.getMessage());
+            transaction.rollback();
         } finally {
-            SESSION.close();
+            session.close();
         }
     }
 
     @Override
     public List<Pagamento> listarTodos() {
+        session = UTILL.getSession();
         List<Pagamento> pagamentos = null;
-
         try {
-            pagamentos = (List) SESSION.createQuery
-                            ("FROM Pagamento").getResultList();
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
+            pagamentos = (List) session.createQuery
+                                            ("FROM Pagamento").getResultList();
+        } catch (Exception readAllPagamentosException) {
+            System.out.println(readAllPagamentosException.getMessage());
         } finally {
-            SESSION.close();
+            session.close();
             return pagamentos;
         }
     }

@@ -34,9 +34,13 @@ import org.hibernate.Transaction;
  */
 public class FreteDAO implements FreteInterfaceDAO {
 
-    private static FreteDAO instance = null;
-    private final  Session SESSION;
-    private final Transaction TRANSACTION;
+    private final HibernateUtill UTILL;
+    private static FreteDAO instance;
+    private Session session;
+
+    public FreteDAO() {
+        UTILL = HibernateUtill.getInstance();
+    }
 
     public static FreteDAO getInstance() {
         if (instance == null) {
@@ -45,84 +49,76 @@ public class FreteDAO implements FreteInterfaceDAO {
         return instance;
     }
 
-    public FreteDAO() {
-        this.SESSION = HibernateUtill.getInstance().getSession();
-        this.TRANSACTION = SESSION.beginTransaction();
-    }
-
     @Override
     public void inserir(Frete frete) {
-
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            SESSION.save(frete);
-            TRANSACTION.commit();
-
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-            TRANSACTION.rollback();
-
+            session.save(frete);
+            transaction.commit();
+        } catch (Exception createFreteException) {
+            System.out.println(createFreteException.getMessage());
+            transaction.rollback();
         } finally {
-            SESSION.close();
+            session.close();
         }
-
-    }
-
-    @Override
-    public void alterar(Frete frete) {
-
-        try {
-            SESSION.update(frete);
-            TRANSACTION.commit();
-
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-            TRANSACTION.rollback();
-
-        } finally {
-            SESSION.close();
-        }
-
     }
 
     @Override
     public Frete recuperar(Integer codigo) {
         try {
-            return (Frete) SESSION.createQuery
-                            ("FROM Frete where id=" + codigo).getResultList();
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
+            session = UTILL.getSession();
+            return (Frete) session.createQuery(
+                    "FROM Frete where id=" + codigo).getSingleResult();
+        } catch (Exception readFreteException) {
+            System.out.println(readFreteException.getMessage());
             return null;
         } finally {
-            SESSION.close();
+            session.close();
+        }
+    }
+
+    @Override
+    public void alterar(Frete frete) {
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(frete);
+            transaction.commit();
+        } catch (Exception updateFreteException) {
+            System.out.println(updateFreteException.getMessage());
+            transaction.rollback();
+        } finally {
+            session.close();
         }
     }
 
     @Override
     public void deletar(Frete frete) {
-
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            SESSION.delete(frete);
-            TRANSACTION.commit();
-
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-            TRANSACTION.rollback();
-
+            session.delete(frete);
+            transaction.commit();
+        } catch (Exception delFreteException) {
+            System.out.println(delFreteException.getMessage());
+            transaction.rollback();
         } finally {
-            SESSION.close();
+            session.close();
         }
     }
 
     @Override
     public List<Frete> listarTodos() {
+        session = UTILL.getSession();
         List<Frete> fretes = null;
-
         try {
-            fretes = (List) SESSION.createQuery("FROM Frete").getResultList();
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
+            fretes = (List) session.createQuery
+                                            ("FROM Frete").getResultList();
+        } catch (Exception readAllFretesException) {
+            System.out.println(readAllFretesException.getMessage());
         } finally {
-            SESSION.close();
+            session.close();
             return fretes;
         }
     }

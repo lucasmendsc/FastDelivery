@@ -36,36 +36,35 @@ import javax.persistence.Id;
 public class Endereco {
  
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @Column(name = "estadoEndereco", length = 20, nullable = false)
+    @Column( length = 20, nullable = false)
     private String estado;
     
-    @Column(name = "cidadeEndereco", length = 20, nullable = false)
+    @Column( nullable = false)
     private String cidade;
     
-    @Column(name = "cepEndereco", length = 20, nullable = false)
+    @Column( length = 20, nullable = false)
     private String cep;
     
-    @Column(name = "bairroEndereco", length = 20, nullable = false)
+    @Column(length = 20, nullable = false)
     private String bairro;
     
-    @Column(name = "logradouroEndereco", length = 20, nullable = false)
+    @Column( length = 20, nullable = false)
     private String logradouro;
     
-    @Column(name = "numeroEndereco", length = 10, nullable = false)
+    @Column( length = 10, nullable = false)
     private int numero;
     
-    @Column(name = "complementoEndereco", length = 20, nullable = false)
+    @Column( length = 20, nullable = false)
     private String complemento;
 
     public Endereco() {
     }
 
-    public Endereco(int id, String estado, String cidade, String cep,
+    public Endereco(String estado, String cidade, String cep,
             String bairro, String logradouro, int numero, String complemento) {
-        this.id = id;
         this.estado = estado;
         this.cidade = cidade;
         this.cep = cep;
