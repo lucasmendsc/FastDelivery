@@ -21,13 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.model.dao;
 
-import br.edu.ifpe.model.dao.resources.HibernateUtil;
+import br.edu.ifpe.model.dao.resources.HibernateUtill;
 import br.edu.ifpe.model.classes.Cliente;
 import br.edu.ifpe.model.dao.interfaces.ClienteInterfaceDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.TypedQuery;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -35,32 +36,31 @@ import org.hibernate.Session;
  */
 public class ClienteDAO implements ClienteInterfaceDAO {
 
-    @Override
-    public void inserir(Cliente cliente) {
+    private final HibernateUtill UTILL;
+    private static ClienteDAO instance;
+    private Session session;
 
-        Session session = HibernateUtil.getSession();
-        try {
-            session.getTransaction().begin();
-            session.save(cliente);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println("Erro ao INSERIR " + e.toString());
-        } finally {
-            session.close();
+    public ClienteDAO() {
+        UTILL = HibernateUtill.getInstance();
+    }
+
+    public static ClienteDAO getInstance() {
+        if (instance == null) {
+            instance = new ClienteDAO();
         }
+        return instance;
     }
 
     @Override
-    public void alterar(Cliente cliente) {
-
-        Session session = HibernateUtil.getSession();
+    public void inserir(Cliente cliente) {
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            session.getTransaction().begin();
-            session.update(cliente);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            System.out.println("Erro ao ATUALIZAR " + e.toString());
+            session.save(cliente);
+            transaction.commit();
+        } catch (Exception createClienteException) {
+            System.out.println(createClienteException.getMessage());
+            transaction.rollback();
         } finally {
             session.close();
         }
@@ -68,29 +68,43 @@ public class ClienteDAO implements ClienteInterfaceDAO {
 
     @Override
     public Cliente recuperar(Integer codigo) {
-        Cliente cliente = null;
-
-        Session session = HibernateUtil.getSession();
         try {
-            cliente = session.find(Cliente.class, codigo);
+            session = UTILL.getSession();
+            return (Cliente) session.createQuery(
+                    "FROM Cliente where id=" + codigo).getSingleResult();
+        } catch (Exception readClienteException) {
+            System.out.println(readClienteException.getMessage());
+            return null;
+        } finally {
             session.close();
-        } catch (Exception e) {
-            System.out.println("Erro ao RECUPERAR " + e.toString());
         }
-        return cliente;
+    }
+
+    @Override
+    public void alterar(Cliente cliente) {
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(cliente);
+            transaction.commit();
+        } catch (Exception updateClienteException) {
+            System.out.println(updateClienteException.getMessage());
+            transaction.rollback();
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public void deletar(Cliente cliente) {
-        Session session = HibernateUtil.getSession();
-
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            session.getTransaction().begin();
             session.delete(cliente);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            System.err.println("Falha ao DELETAR " + e.toString());
+            transaction.commit();
+        } catch (Exception delClienteException) {
+            System.out.println(delClienteException.getMessage());
+            transaction.rollback();
         } finally {
             session.close();
         }
@@ -98,19 +112,16 @@ public class ClienteDAO implements ClienteInterfaceDAO {
 
     @Override
     public List<Cliente> listarTodos() {
-        List<Cliente> clientes;
-
-        try (Session session = HibernateUtil.getSession()) {
-
-            TypedQuery<Cliente> c = session.createNativeQuery("select * from cliente", Cliente.class);
-            clientes = c.getResultList();
-            if (clientes != null) {
-                return clientes;
-            }
-
-        } catch (Exception e) {
-            System.err.println("Erro ao recuperar todos" + e.toString());
+        session = UTILL.getSession();
+        List<Cliente> clientes = null;
+        try {
+            clientes = (List) session.createQuery
+                                ("FROM Cliente").getResultList();
+        } catch (Exception readAllClientesException) {
+            System.out.println(readAllClientesException.getMessage());
+        } finally {
+            session.close();
+            return clientes;
         }
-        return null;
     }
 }

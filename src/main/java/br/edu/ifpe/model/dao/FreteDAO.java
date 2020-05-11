@@ -23,10 +23,10 @@ package br.edu.ifpe.model.dao;
 
 import br.edu.ifpe.model.classes.Frete;
 import br.edu.ifpe.model.dao.interfaces.FreteInterfaceDAO;
-import br.edu.ifpe.model.dao.resources.HibernateUtil;
+import br.edu.ifpe.model.dao.resources.HibernateUtill;
 import java.util.List;
-import javax.persistence.TypedQuery;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -34,32 +34,31 @@ import org.hibernate.Session;
  */
 public class FreteDAO implements FreteInterfaceDAO {
 
-    @Override
-    public void inserir(Frete frete) {
+    private final HibernateUtill UTILL;
+    private static FreteDAO instance;
+    private Session session;
 
-        Session session = HibernateUtil.getSession();
-        try {
-            session.getTransaction().begin();
-            session.save(frete);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println("Erro ao INSERIR " + e.toString());
-        } finally {
-            session.close();
+    public FreteDAO() {
+        UTILL = HibernateUtill.getInstance();
+    }
+
+    public static FreteDAO getInstance() {
+        if (instance == null) {
+            instance = new FreteDAO();
         }
+        return instance;
     }
 
     @Override
-    public void alterar(Frete frete) {
-        
-        Session session = HibernateUtil.getSession();
+    public void inserir(Frete frete) {
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            session.getTransaction().begin();
-            session.update(frete);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            System.out.println("Erro ao ATUALIZAR " + e.toString());
+            session.save(frete);
+            transaction.commit();
+        } catch (Exception createFreteException) {
+            System.out.println(createFreteException.getMessage());
+            transaction.rollback();
         } finally {
             session.close();
         }
@@ -67,29 +66,43 @@ public class FreteDAO implements FreteInterfaceDAO {
 
     @Override
     public Frete recuperar(Integer codigo) {
-        Frete frete = null;
-
-        Session session = HibernateUtil.getSession();
         try {
-            frete = session.find(Frete.class, codigo);
+            session = UTILL.getSession();
+            return (Frete) session.createQuery(
+                    "FROM Frete where id=" + codigo).getSingleResult();
+        } catch (Exception readFreteException) {
+            System.out.println(readFreteException.getMessage());
+            return null;
+        } finally {
             session.close();
-        } catch (Exception e) {
-            System.out.println("Erro ao RECUPERAR " + e.toString());
         }
-        return frete;
+    }
+
+    @Override
+    public void alterar(Frete frete) {
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(frete);
+            transaction.commit();
+        } catch (Exception updateFreteException) {
+            System.out.println(updateFreteException.getMessage());
+            transaction.rollback();
+        } finally {
+            session.close();
+        }
     }
 
     @Override
     public void deletar(Frete frete) {
-        Session session = HibernateUtil.getSession();
-
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            session.getTransaction().begin();
             session.delete(frete);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            System.err.println("Falha ao DELETAR " + e.toString());
+            transaction.commit();
+        } catch (Exception delFreteException) {
+            System.out.println(delFreteException.getMessage());
+            transaction.rollback();
         } finally {
             session.close();
         }
@@ -97,19 +110,16 @@ public class FreteDAO implements FreteInterfaceDAO {
 
     @Override
     public List<Frete> listarTodos() {
-        List<Frete> fretes;
-
-        try (Session session = HibernateUtil.getSession()) {
-
-            TypedQuery<Frete> c = session.createNativeQuery("select * from frete", Frete.class);
-            fretes = c.getResultList();
-            if (fretes != null) {
-                return fretes;
-            }
-
-        } catch (Exception e) {
-            System.err.println("Erro ao recuperar todos" + e.toString());
+        session = UTILL.getSession();
+        List<Frete> fretes = null;
+        try {
+            fretes = (List) session.createQuery
+                                            ("FROM Frete").getResultList();
+        } catch (Exception readAllFretesException) {
+            System.out.println(readAllFretesException.getMessage());
+        } finally {
+            session.close();
+            return fretes;
         }
-        return null;
     }
 }

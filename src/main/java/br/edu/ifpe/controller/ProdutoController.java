@@ -33,24 +33,24 @@ public class ProdutoController {
     
     ProdutoNegocio produtoModel = new ProdutoNegocio();
     
-    public void inserirProdutoAction (Produto produto){
-        produtoModel.inserirProduto(produto);
-    }
-
-    public void alterarProdutoAction (Produto produto){
-        produtoModel.alterarProduto(produto);
-    }
-    
-    public Produto recuperarProdutoAction(int codigo){
-        return produtoModel.recuperarProduto(codigo);
-    }
-    
-    public void deletarProdutoAction (Produto produto){
-        produtoModel.deletarProduto(produto);
-    }
-    
-    public List<Produto> listarTodosProdutoAction(){
-        return produtoModel.listarTodosProdutos();
-    }
+//    public void inserirProdutoAction (Produto produto){
+//        produtoModel.inserirProduto(produto);
+//    }
+//
+//    public void alterarProdutoAction (Produto produto){
+//        produtoModel.alterarProduto(produto);
+//    }
+//    
+//    public Produto recuperarProdutoAction(int codigo){
+//        return produtoModel.recuperarProduto(codigo);
+//    }
+//    
+//    public void deletarProdutoAction (Produto produto){
+//        produtoModel.deletarProduto(produto);
+//    }
+//    
+//    public List<Produto> listarTodosProdutoAction(){
+//        return produtoModel.listarTodosProdutos();
+//    }
     
 }

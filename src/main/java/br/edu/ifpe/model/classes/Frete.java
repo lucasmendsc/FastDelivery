@@ -22,12 +22,16 @@ SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -39,21 +43,37 @@ public class Frete {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int codFrete;
+    private int id;
     
     @Column(name = "valorFrete", length = 6, nullable = false)
     private double valorFrete;
     
     @Column(name = "dataHoraFrete", length = 4, nullable = false)
     private LocalDateTime dataHoraFrete;
+    
+    @OneToOne
+    @JoinColumn(name = "cod_endereco")
+    private Endereco endereco;
+    
+    @OneToMany
+    @JoinColumn(name = "cod_produto")
+    private List<Produto> produtos;
 
-    public int getCodFrete() {
-        return codFrete;
+    public Frete() {
     }
 
-//    public void setCodFrete(int codFrete) {
-//        this.codFrete = codFrete;
-//    }
+    public Frete(int id, double valorFrete, LocalDateTime dataHoraFrete, 
+                        Endereco endereco, List<Produto> produtos) {
+        this.id = id;
+        this.valorFrete = valorFrete;
+        this.dataHoraFrete = dataHoraFrete;
+        this.endereco = endereco;
+        this.produtos = produtos;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public double getValorFrete() {
         return valorFrete;
@@ -71,53 +91,55 @@ public class Frete {
         this.dataHoraFrete = dataHoraFrete;
     }
 
-    public Frete(){
-        
+    public Endereco getEndereco() {
+        return endereco;
     }
-    
-    public Frete(double valorFrete, LocalDateTime dataHoraFrete) {
-        this.valorFrete = valorFrete;
-        this.dataHoraFrete = dataHoraFrete;
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 
     @Override
     public String toString() {
-        return "Frete{" + "codFrete=" + codFrete + ", valorFrete=" + valorFrete + ", dataHoraFrete=" + dataHoraFrete + '}';
+        return "Frete{" + "valorFrete=" + valorFrete + ", dataHoraFrete=" + 
+                dataHoraFrete + ", endereco=" + endereco + ", produtos=" + 
+                produtos + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 83 * hash + this.codFrete;
-        hash = 83 * hash + (int) (Double.doubleToLongBits(this.valorFrete) ^ (Double.doubleToLongBits(this.valorFrete) >>> 32));
-        hash = 83 * hash + Objects.hashCode(this.dataHoraFrete);
-        return hash;
+        final int PRIMO = 5;
+        int resultado = 1;
+        resultado += (resultado * PRIMO) + id;
+        resultado += (resultado * PRIMO) + (int) valorFrete;
+        resultado += (resultado * PRIMO) + dataHoraFrete.hashCode();
+        resultado += (resultado * PRIMO) + endereco.hashCode();
+        
+        return (resultado * PRIMO) + produtos.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+       if(!(obj instanceof Frete))
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+
+        if (((Frete) obj).valorFrete != this.valorFrete)
             return false;
-        }
-        final Frete other = (Frete) obj;
-        if (this.codFrete != other.codFrete) {
+
+         if (!((Frete) obj).dataHoraFrete.equals(this.dataHoraFrete))
             return false;
-        }
-        if (Double.doubleToLongBits(this.valorFrete) != Double.doubleToLongBits(other.valorFrete)) {
+
+         if (!((Frete) obj).endereco.equals(this.endereco))
             return false;
-        }
-        if (!Objects.equals(this.dataHoraFrete, other.dataHoraFrete)) {
-            return false;
-        }
-        return true;
-    }
-    
-    
-    
+
+        return ((Frete) obj).produtos.equals(this.produtos);
+    } 
 }
