@@ -22,23 +22,53 @@ SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
+@Entity
 public class Pagamento {
-    
-    private int codPagamento;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    @Column(name = "tipoPagamento", length = 30, nullable = false)
     private String tipoPagamento;
+
+    @Column(name = "valorPagamento", length = 6, nullable = false)
     private double valorPagamento;
 
-    public int getCodPagamento() {
-        return codPagamento;
+    @OneToOne
+    @JoinColumn(name = "cod_cliente")
+    private Cliente cliente;
+
+    @OneToOne
+    @JoinColumn(name = "cod_frete")
+    private Frete frete;
+
+    public Pagamento() {
     }
 
-    public void setCodPagamento(int codPagamento) {
-        this.codPagamento = codPagamento;
+    public Pagamento(int id, String tipoPagamento, double valorPagamento,
+            Cliente cliente, Frete frete) {
+        this.id = id;
+        this.tipoPagamento = tipoPagamento;
+        this.valorPagamento = valorPagamento;
+        this.cliente = cliente;
+        this.frete = frete;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTipoPagamento() {
@@ -57,54 +87,55 @@ public class Pagamento {
         this.valorPagamento = valorPagamento;
     }
 
-    public Pagamento(){
-        
+    public Cliente getCliente() {
+        return cliente;
     }
-    
-    public Pagamento(int codPagamento, String tipoPagamento, double valorPagamento) {
-        this.codPagamento = codPagamento;
-        this.tipoPagamento = tipoPagamento;
-        this.valorPagamento = valorPagamento;
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Frete getFrete() {
+        return frete;
+    }
+
+    public void setFrete(Frete frete) {
+        this.frete = frete;
     }
 
     @Override
     public String toString() {
-        return "Pagamento{" + "codPagamento=" + codPagamento + ", tipoPagamento=" + tipoPagamento + ", valorPagamento=" + valorPagamento + '}';
+        return "Pagamento{" + "tipoPagamento=" + tipoPagamento
+                + ", valorPagamento=" + valorPagamento + ", cliente="
+                + cliente + ", frete=" + frete + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 67 * hash + this.codPagamento;
-        hash = 67 * hash + Objects.hashCode(this.tipoPagamento);
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.valorPagamento) ^ (Double.doubleToLongBits(this.valorPagamento) >>> 32));
-        return hash;
+        final int PRIMO = 7;
+        int resultado = 1;
+        resultado += (resultado * PRIMO) + id;
+        resultado += (resultado * PRIMO) + tipoPagamento.hashCode();
+        resultado += (resultado * PRIMO) + (int) valorPagamento;
+        resultado += (resultado * PRIMO) + cliente.hashCode();
+        return (resultado * PRIMO) + frete.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if(!(obj instanceof Pagamento))
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+
+         if (!((Pagamento) obj).tipoPagamento.equals(this.tipoPagamento))
             return false;
-        }
-        final Pagamento other = (Pagamento) obj;
-        if (this.codPagamento != other.codPagamento) {
+         
+         if (((Pagamento) obj).valorPagamento != this.valorPagamento)
             return false;
-        }
-        if (Double.doubleToLongBits(this.valorPagamento) != Double.doubleToLongBits(other.valorPagamento)) {
+
+         if (!((Pagamento) obj).cliente.equals(this.cliente))
             return false;
-        }
-        if (!Objects.equals(this.tipoPagamento, other.tipoPagamento)) {
-            return false;
-        }
-        return true;
+
+        return ((Pagamento) obj).frete.equals(this.frete);
     }
-    
-    
-    
+
 }

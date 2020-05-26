@@ -1,16 +1,3 @@
-
-import br.edu.ifpe.controller.PagamentoController;
-import br.edu.ifpe.controller.ProdutoController;
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.classes.Endereco;
-import br.edu.ifpe.model.classes.Pagamento;
-import br.edu.ifpe.model.classes.Produto;
-import br.edu.ifpe.model.dao.ClienteDAO;
-import br.edu.ifpe.model.dao.EnderecoDAO;
-import br.edu.ifpe.model.dao.ProdutoDAO;
-import java.time.LocalDate;
-import java.util.List;
-
 /*MIT License
 
 Copyright (c) 2020 Lucas Mendes,Marcela Cardoso,Luciano Jr.
@@ -32,23 +19,35 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
+package br.edu.ifpe.model.dao.resources;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 /**
  *
  * @author Luciano
  */
-public class teste {
+public class HibernateUtill {
+    
+     private static HibernateUtill instance;
+    private static SessionFactory sessions;
 
-    public static void main(String[] args) {
-
-        
-       Endereco endereco = new Endereco("1", "1", "1", "1",
-                "1", 0, "1");
-        EnderecoDAO.getInstance().inserir(endereco);
-        
-        Cliente cliente = new Cliente("1", "1", "1", 
-                LocalDate.now(), "1", "1", endereco);
-        ClienteDAO.getInstance().inserir(cliente);
-        
-        ProdutoDAO.getInstance().inserir(new Produto("1", 2));
+    public static HibernateUtill getInstance() {
+        if (instance == null) {
+            instance = new HibernateUtill();
+        }
+        return instance;
     }
+
+    private HibernateUtill() {
+        Configuration cfg = new Configuration().configure();
+        sessions = cfg.buildSessionFactory();
+    }
+
+    public Session getSession() {
+        return sessions.openSession();
+    }
+    
 }

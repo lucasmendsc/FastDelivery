@@ -22,23 +22,40 @@ SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
 import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
+
+@Entity
 public class Produto {
     
-    private int codProduto;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    
+    @Column(name = "nomeProduto", length = 60, nullable = false)
     private String nomeProduto;
+    
+    @Column(name = "quantProduto", length = 6, nullable = false)
     private int quantProduto;
 
-    public int getCodProduto() {
-        return codProduto;
+    public Produto() {
     }
 
-    public void setCodProduto(int codProduto) {
-        this.codProduto = codProduto;
+    public Produto( String nomeProduto, int quantProduto) {
+        this.nomeProduto = nomeProduto;
+        this.quantProduto = quantProduto;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getNomeProduto() {
@@ -57,54 +74,29 @@ public class Produto {
         this.quantProduto = quantProduto;
     }
 
-    public Produto(){
-        
-    }
-    
-    public Produto(int codProduto, String nomeProduto, int quantProduto) {
-        this.codProduto = codProduto;
-        this.nomeProduto = nomeProduto;
-        this.quantProduto = quantProduto;
-    }
-
     @Override
     public String toString() {
-        return "Produto{" + "codProduto=" + codProduto + ", nomeProduto=" + nomeProduto + ", quantProduto=" + quantProduto + '}';
+        return "Produto{" + "nomeProduto=" + nomeProduto +
+                    ", quantProduto=" + quantProduto + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 23 * hash + this.codProduto;
-        hash = 23 * hash + Objects.hashCode(this.nomeProduto);
-        hash = 23 * hash + this.quantProduto;
-        return hash;
+        final int PRIMO = 11;
+        int resultado = 1;
+        resultado += (resultado * PRIMO) + id;
+        resultado += (resultado * PRIMO) + nomeProduto.hashCode();
+        return (resultado * PRIMO) + quantProduto;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if(!(obj instanceof Produto))
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+
+         if (!((Produto) obj).nomeProduto.equals(this.nomeProduto))
             return false;
-        }
-        final Produto other = (Produto) obj;
-        if (this.codProduto != other.codProduto) {
-            return false;
-        }
-        if (this.quantProduto != other.quantProduto) {
-            return false;
-        }
-        if (!Objects.equals(this.nomeProduto, other.nomeProduto)) {
-            return false;
-        }
-        return true;
+         
+        return ((Produto) obj).quantProduto == this.quantProduto;
     }
-    
-    
-    
 }

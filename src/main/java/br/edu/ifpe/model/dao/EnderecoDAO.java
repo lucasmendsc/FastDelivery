@@ -21,12 +21,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.model.dao;
 
+import br.edu.ifpe.model.classes.Endereco;
+import br.edu.ifpe.model.dao.interfaces.EnderecoInterfaceDAO;
 import br.edu.ifpe.model.dao.resources.HibernateUtill;
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.dao.interfaces.ClienteInterfaceDAO;
-import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -34,32 +32,32 @@ import org.hibernate.Transaction;
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
-public class ClienteDAO implements ClienteInterfaceDAO {
+public class EnderecoDAO implements EnderecoInterfaceDAO {
 
     private final HibernateUtill UTILL;
-    private static ClienteDAO instance;
+    private static EnderecoDAO instance;
     private Session session;
 
-    public ClienteDAO() {
+    public EnderecoDAO() {
         UTILL = HibernateUtill.getInstance();
     }
 
-    public static ClienteDAO getInstance() {
+    public static EnderecoDAO getInstance() {
         if (instance == null) {
-            instance = new ClienteDAO();
+            instance = new EnderecoDAO();
         }
         return instance;
     }
 
     @Override
-    public void inserir(Cliente cliente) {
+    public void inserir(Endereco endereco) {
         session = UTILL.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.save(cliente);
+            session.save(endereco);
             transaction.commit();
-        } catch (Exception createClienteException) {
-            System.out.println(createClienteException.getMessage());
+        } catch (Exception createEnderecoException) {
+            System.out.println(createEnderecoException.getMessage());
             transaction.rollback();
         } finally {
             session.close();
@@ -67,13 +65,13 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     }
 
     @Override
-    public Cliente recuperar(Integer codigo) {
+    public Endereco recuperar(Integer codigo) {
         try {
             session = UTILL.getSession();
-            return (Cliente) session.createQuery(
-                    "FROM Cliente where id=" + codigo).getSingleResult();
-        } catch (Exception readClienteException) {
-            System.out.println(readClienteException.getMessage());
+            return (Endereco) session.createQuery(
+                    "FROM Endereco where id=" + codigo).getSingleResult();
+        } catch (Exception readEnderecoException) {
+            System.out.println(readEnderecoException.getMessage());
             return null;
         } finally {
             session.close();
@@ -81,14 +79,14 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     }
 
     @Override
-    public void alterar(Cliente cliente) {
+    public void alterar(Endereco endereco) {
         session = UTILL.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.update(cliente);
+            session.update(endereco);
             transaction.commit();
-        } catch (Exception updateClienteException) {
-            System.out.println(updateClienteException.getMessage());
+        } catch (Exception updateEnderecoException) {
+            System.out.println(updateEnderecoException.getMessage());
             transaction.rollback();
         } finally {
             session.close();
@@ -96,14 +94,14 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     }
 
     @Override
-    public void deletar(Cliente cliente) {
+    public void deletar(Endereco endereco) {
         session = UTILL.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.delete(cliente);
+            session.delete(endereco);
             transaction.commit();
-        } catch (Exception delClienteException) {
-            System.out.println(delClienteException.getMessage());
+        } catch (Exception delEnderecoException) {
+            System.out.println(delEnderecoException.getMessage());
             transaction.rollback();
         } finally {
             session.close();
@@ -111,17 +109,17 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     }
 
     @Override
-    public List<Cliente> listarTodos() {
+    public List<Endereco> listarTodos() {
         session = UTILL.getSession();
-        List<Cliente> clientes = null;
+        List<Endereco> enderecos = null;
         try {
-            clientes = (List) session.createQuery
-                                ("FROM Cliente").getResultList();
-        } catch (Exception readAllClientesException) {
-            System.out.println(readAllClientesException.getMessage());
+            enderecos = (List) session.createQuery
+                                            ("FROM Endereco").getResultList();
+        } catch (Exception readAllEnderecosException) {
+            System.out.println(readAllEnderecosException.getMessage());
         } finally {
             session.close();
-            return clientes;
+            return enderecos;
         }
     }
 }
