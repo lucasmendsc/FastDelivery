@@ -1,0 +1,36 @@
+<!--
+Autor : Marcela Cardoso
+-->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head> <link rel="stylesheet" type="text/css" href="css/cadastroProduto.css" media="screen" /> </h:head>
+    <h:body>
+        <h:form>
+
+            <div id="formProduto"> 
+
+                 <fieldset style="color: white">
+                    <legend style="font-size:18pt">CADASTRO PRODUTO </legend>
+                <p:panelGrid columns="2">
+
+                    <h:outputText styleClass="txt" value="Nome:" />
+                    <p:inputText styleClass="box" value=""/>
+
+                    <h:outputText styleClass="txt" value="Quantidade:" />
+                    <p:inputText styleClass="box" value=""/>
+
+                </p:panelGrid>
+              </fieldset>      
+                    
+            </div>
+            <h:commandButton styleClass="botaoCadastrar" value="Cadastrar"/>
+        </h:form>
+    </h:body>
+</html>
+
+

@@ -1,0 +1,50 @@
+/* 
+    Author: Marcela Cardoso
+*/
+
+@charset "UTF-8";
+
+body{
+    background-image:url("../imagens/telacadastro.png");
+    background-size:cover;     
+}
+
+#formCliente{
+    position:absolute;
+    bottom:470px!important;
+    left:250px!important;
+      
+}
+
+#formEndereco{
+   position:absolute;
+    bottom:120px!important;
+    left:250px!important;
+   
+}
+
+.box{
+    background:white!important;
+}
+
+.txt{
+   color:black!important; 
+   font-size:15pt!important; 
+  
+}
+
+.ui-panelgrid td {
+    background-color:darkseagreen!important;
+}
+
+
+.botaoCadastrar{
+    position:absolute;
+    bottom:30px!important;
+    left:560px!important;
+    padding:5px 50px!important;  
+    font-size:18pt!important;
+    color:black!important;
+    background:white!important;
+    border-radius: 12px!important;
+}
