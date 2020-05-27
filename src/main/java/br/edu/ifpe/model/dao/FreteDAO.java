@@ -21,45 +21,43 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.model.dao;
 
+import br.edu.ifpe.model.classes.Frete;
+import br.edu.ifpe.model.dao.interfaces.FreteInterfaceDAO;
 import br.edu.ifpe.model.dao.resources.HibernateUtill;
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.dao.interfaces.ClienteInterfaceDAO;
-import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
  *
- * @author Luciano Júnior <lucianocljr7@gmail.com>
+ * @author Luciano
  */
-public class ClienteDAO implements ClienteInterfaceDAO {
+public class FreteDAO implements FreteInterfaceDAO {
 
     private final HibernateUtill UTILL;
-    private static ClienteDAO instance;
+    private static FreteDAO instance;
     private Session session;
 
-    public ClienteDAO() {
+    public FreteDAO() {
         UTILL = HibernateUtill.getInstance();
     }
 
-    public static ClienteDAO getInstance() {
+    public static FreteDAO getInstance() {
         if (instance == null) {
-            instance = new ClienteDAO();
+            instance = new FreteDAO();
         }
         return instance;
     }
 
     @Override
-    public void inserir(Cliente cliente) {
+    public void inserir(Frete frete) {
         session = UTILL.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.save(cliente);
+            session.save(frete);
             transaction.commit();
-        } catch (Exception createClienteException) {
-            System.out.println(createClienteException.getMessage());
+        } catch (Exception createFreteException) {
+            System.out.println(createFreteException.getMessage());
             transaction.rollback();
         } finally {
             session.close();
@@ -67,13 +65,13 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     }
 
     @Override
-    public Cliente recuperar(Integer codigo) {
+    public Frete recuperar(Integer codigo) {
         try {
             session = UTILL.getSession();
-            return (Cliente) session.createQuery(
-                    "FROM Cliente where id=" + codigo).getSingleResult();
-        } catch (Exception readClienteException) {
-            System.out.println(readClienteException.getMessage());
+            return (Frete) session.createQuery(
+                    "FROM Frete where id=" + codigo).getSingleResult();
+        } catch (Exception readFreteException) {
+            System.out.println(readFreteException.getMessage());
             return null;
         } finally {
             session.close();
@@ -81,14 +79,14 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     }
 
     @Override
-    public void alterar(Cliente cliente) {
+    public void alterar(Frete frete) {
         session = UTILL.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.update(cliente);
+            session.update(frete);
             transaction.commit();
-        } catch (Exception updateClienteException) {
-            System.out.println(updateClienteException.getMessage());
+        } catch (Exception updateFreteException) {
+            System.out.println(updateFreteException.getMessage());
             transaction.rollback();
         } finally {
             session.close();
@@ -96,14 +94,14 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     }
 
     @Override
-    public void deletar(Cliente cliente) {
+    public void deletar(Frete frete) {
         session = UTILL.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.delete(cliente);
+            session.delete(frete);
             transaction.commit();
-        } catch (Exception delClienteException) {
-            System.out.println(delClienteException.getMessage());
+        } catch (Exception delFreteException) {
+            System.out.println(delFreteException.getMessage());
             transaction.rollback();
         } finally {
             session.close();
@@ -111,17 +109,17 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     }
 
     @Override
-    public List<Cliente> listarTodos() {
+    public List<Frete> listarTodos() {
         session = UTILL.getSession();
-        List<Cliente> clientes = null;
+        List<Frete> fretes = null;
         try {
-            clientes = (List) session.createQuery
-                                ("FROM Cliente").getResultList();
-        } catch (Exception readAllClientesException) {
-            System.out.println(readAllClientesException.getMessage());
+            fretes = (List) session.createQuery
+                                            ("FROM Frete").getResultList();
+        } catch (Exception readAllFretesException) {
+            System.out.println(readAllFretesException.getMessage());
         } finally {
             session.close();
-            return clientes;
+            return fretes;
         }
     }
 }

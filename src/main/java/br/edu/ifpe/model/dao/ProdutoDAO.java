@@ -21,45 +21,43 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.model.dao;
 
+import br.edu.ifpe.model.classes.Produto;
+import br.edu.ifpe.model.dao.interfaces.ProdutoInterfaceDAO;
 import br.edu.ifpe.model.dao.resources.HibernateUtill;
-import br.edu.ifpe.model.classes.Cliente;
-import br.edu.ifpe.model.dao.interfaces.ClienteInterfaceDAO;
-import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
  *
- * @author Luciano Júnior <lucianocljr7@gmail.com>
+ * @author Luciano
  */
-public class ClienteDAO implements ClienteInterfaceDAO {
+public class ProdutoDAO implements ProdutoInterfaceDAO {
 
     private final HibernateUtill UTILL;
-    private static ClienteDAO instance;
+    private static ProdutoDAO instance;
     private Session session;
 
-    public ClienteDAO() {
+    public ProdutoDAO() {
         UTILL = HibernateUtill.getInstance();
     }
 
-    public static ClienteDAO getInstance() {
+    public static ProdutoDAO getInstance() {
         if (instance == null) {
-            instance = new ClienteDAO();
+            instance = new ProdutoDAO();
         }
         return instance;
     }
 
     @Override
-    public void inserir(Cliente cliente) {
+    public void inserir(Produto produto) {
         session = UTILL.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.save(cliente);
+            session.save(produto);
             transaction.commit();
-        } catch (Exception createClienteException) {
-            System.out.println(createClienteException.getMessage());
+        } catch (Exception createProdutoException) {
+            System.out.println(createProdutoException.getMessage());
             transaction.rollback();
         } finally {
             session.close();
@@ -67,13 +65,13 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     }
 
     @Override
-    public Cliente recuperar(Integer codigo) {
+    public Produto recuperar(Integer codigo) {
         try {
             session = UTILL.getSession();
-            return (Cliente) session.createQuery(
-                    "FROM Cliente where id=" + codigo).getSingleResult();
-        } catch (Exception readClienteException) {
-            System.out.println(readClienteException.getMessage());
+            return (Produto) session.createQuery(
+                    "FROM Produto where id=" + codigo).getSingleResult();
+        } catch (Exception readProdutoException) {
+            System.out.println(readProdutoException.getMessage());
             return null;
         } finally {
             session.close();
@@ -81,14 +79,14 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     }
 
     @Override
-    public void alterar(Cliente cliente) {
+    public void alterar(Produto produto) {
         session = UTILL.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.update(cliente);
+            session.update(produto);
             transaction.commit();
-        } catch (Exception updateClienteException) {
-            System.out.println(updateClienteException.getMessage());
+        } catch (Exception updateProdutoException) {
+            System.out.println(updateProdutoException.getMessage());
             transaction.rollback();
         } finally {
             session.close();
@@ -96,14 +94,14 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     }
 
     @Override
-    public void deletar(Cliente cliente) {
+    public void deletar(Produto produto) {
         session = UTILL.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.delete(cliente);
+            session.delete(produto);
             transaction.commit();
-        } catch (Exception delClienteException) {
-            System.out.println(delClienteException.getMessage());
+        } catch (Exception delProdutoException) {
+            System.out.println(delProdutoException.getMessage());
             transaction.rollback();
         } finally {
             session.close();
@@ -111,17 +109,17 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     }
 
     @Override
-    public List<Cliente> listarTodos() {
+    public List<Produto> listarTodos() {
         session = UTILL.getSession();
-        List<Cliente> clientes = null;
+        List<Produto> produtos = null;
         try {
-            clientes = (List) session.createQuery
-                                ("FROM Cliente").getResultList();
-        } catch (Exception readAllClientesException) {
-            System.out.println(readAllClientesException.getMessage());
+            produtos = (List) session.createQuery("FROM Produto").getResultList();
+        } catch (Exception readAllProdutosException) {
+            System.out.println(readAllProdutosException.getMessage());
         } finally {
             session.close();
-            return clientes;
+            return produtos;
         }
     }
+
 }

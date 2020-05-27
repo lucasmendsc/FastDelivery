@@ -22,12 +22,13 @@ SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
 import java.time.LocalDate;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -37,10 +38,10 @@ import javax.persistence.Id;
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int codCliente;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    @Column(name = "nomeCliente", length = 60, nullable = false)
+    @Column(name = "nomeCliente", length = 30, nullable = false)
     private String nomeCliente;
 
     @Column(name = "senhaCliente", length = 20, nullable = false)
@@ -57,30 +58,31 @@ public class Cliente {
 
     @Column(name = "emailCliente", nullable = false)
     private String emailCliente;
+    
+    @OneToOne
+    @JoinColumn(name ="cod_endereco")
+    private Endereco endereco;
 
     public Cliente() {
 
     }
 
-    public Cliente(String nomeCliente, String senhaCliente, String cpfCliente,
-            LocalDate dtNascimentoCliente, String telefoneCliente, 
-            String emailCliente) {
-            
+    public Cliente(String nomeCliente, String senhaCliente, 
+            String cpfCliente, LocalDate dtNascimentoCliente, 
+            String telefoneCliente, String emailCliente, Endereco endereco) {
         this.nomeCliente = nomeCliente;
         this.senhaCliente = senhaCliente;
         this.cpfCliente = cpfCliente;
         this.dtNascimentoCliente = dtNascimentoCliente;
         this.telefoneCliente = telefoneCliente;
         this.emailCliente = emailCliente;
+        this.endereco = endereco;
     }
 
-    public int getCodCliente() {
-        return codCliente;
+    public int getId() {
+        return id;
     }
 
-//    public void setCodCliente(int codCliente) {
-//        this.codCliente = codCliente;
-//    }
     public String getNomeCliente() {
         return nomeCliente;
     }
@@ -129,28 +131,37 @@ public class Cliente {
         this.emailCliente = emailCliente;
     }
 
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    
     @Override
     public String toString() {
-        return "Cliente{" + ", nomeCliente=" + nomeCliente + ", senhaCliente="
-                + senhaCliente + ", cpfCliente=" + cpfCliente
-                + ", dtNascimentoCliente=" + dtNascimentoCliente
-                + ", telefoneCliente=" + telefoneCliente + ", emailCliente="
-                + emailCliente + '}';
+        return "Cliente{" + "nomeCliente=" + nomeCliente + ", senhaCliente=" + 
+                senhaCliente + ", cpfCliente=" + cpfCliente + 
+                ", dtNascimentoCliente=" + dtNascimentoCliente + 
+                ", telefoneCliente=" + telefoneCliente + ", emailCliente=" +
+                emailCliente + ", endereco=" + endereco + '}';
     }
 
     @Override
     public int hashCode() {
-        final int PRIMO = 21;
+        final int PRIMO = 3;
         int resultado = 1;
-        resultado = (PRIMO * resultado) + codCliente;
-        resultado = (PRIMO * resultado) + nomeCliente.hashCode();
-        resultado = (PRIMO * resultado) + senhaCliente.hashCode();
-        resultado = (PRIMO * resultado) + cpfCliente.hashCode();
-        resultado = (PRIMO * resultado) + dtNascimentoCliente.hashCode();
-        resultado = (PRIMO * resultado) + telefoneCliente.hashCode();
-        resultado = (PRIMO * resultado) + emailCliente.hashCode();
+        resultado += (PRIMO * resultado) + id;
+        resultado += (PRIMO * resultado) + nomeCliente.hashCode();
+        resultado += (PRIMO * resultado) + senhaCliente.hashCode();
+        resultado += (PRIMO * resultado) + cpfCliente.hashCode();
+        resultado += (PRIMO * resultado) + dtNascimentoCliente.hashCode();
+        resultado += (PRIMO * resultado) + telefoneCliente.hashCode();
+        resultado += (PRIMO * resultado) + emailCliente.hashCode();
 
-        return resultado;
+        return (resultado * PRIMO) + endereco.hashCode();
     }
 
     @Override

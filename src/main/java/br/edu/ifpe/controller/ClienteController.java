@@ -23,6 +23,7 @@ package br.edu.ifpe.controller;
 
 import br.edu.ifpe.model.classes.Cliente;
 import br.edu.ifpe.model.negocio.ClienteNegocio;
+import java.util.List;
 
 /**
  *
@@ -34,6 +35,22 @@ public class ClienteController {
     
     public void inserirClienteAction (Cliente cliente){
         clienteModel.inserirCliente(cliente);
+    }
+
+    public void alterarClienteAction (Cliente cliente){
+        clienteModel.alterarCliente(cliente);
+    }
+    
+    public Cliente recuperarClienteAction(int codigo){
+        return clienteModel.recuperarCliente(codigo);
+    }
+    
+    public void deletarClienteAction (Cliente cliente){
+        clienteModel.deletarCliente(cliente);
+    }
+    
+    public List<Cliente> listarTodosClientesAction(){
+        return clienteModel.listarTodosClientes();
     }
     
 }
