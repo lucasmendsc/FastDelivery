@@ -10,6 +10,7 @@ Autor : Marcela Cardoso
       xmlns:p="http://primefaces.org/ui">
     <h:head> <link rel="stylesheet" type="text/css" href="css/cadastroProduto.css" media="screen" /> </h:head>
     <h:body>
+     <p:growl id='growl'/>
         <h:form>
 
             <div id="formProduto"> 
@@ -19,16 +20,16 @@ Autor : Marcela Cardoso
                 <p:panelGrid columns="2">
 
                     <h:outputText styleClass="txt" value="Nome:" />
-                    <p:inputText styleClass="box" value=""/>
+                    <p:inputText styleClass="box" value="#{produtoController.produto.nomeProduto}"/>
 
                     <h:outputText styleClass="txt" value="Quantidade:" />
-                    <p:inputText styleClass="box" value=""/>
+                    <p:inputText styleClass="box" value="#{produtoController.produto.quantProduto}"/>
 
                 </p:panelGrid>
               </fieldset>      
                     
             </div>
-            <h:commandButton styleClass="botaoCadastrar" value="Cadastrar"/>
+            <h:commandButton styleClass="botaoCadastrar" value="Cadastrar" action="#{produtoController.inserirProdutoAction()}"/>
         </h:form>
     </h:body>
 </html>

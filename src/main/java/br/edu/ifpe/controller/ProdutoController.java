@@ -23,34 +23,69 @@ package br.edu.ifpe.controller;
 
 import br.edu.ifpe.model.classes.Produto;
 import br.edu.ifpe.model.negocio.ProdutoNegocio;
+import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author Luciano
  */
-public class ProdutoController {
-    
-    ProdutoNegocio produtoModel = new ProdutoNegocio();
-    
-//    public void inserirProdutoAction (Produto produto){
+@SuppressWarnings("serial")
+@ManagedBean(name = "produtoController")
+public class ProdutoController implements Serializable {
+
+    private ProdutoNegocio produtoModel = null;
+    private Produto produto;
+
+//    ProdutoNegocio produtoModel = new ProdutoNegocio();
+    public ProdutoController() {
+        this.produto = new Produto();
+        this.produtoModel = new ProdutoNegocio();
+    }
+
+    public void inserirProdutoAction() {
 //        produtoModel.inserirProduto(produto);
-//    }
-//
-//    public void alterarProdutoAction (Produto produto){
-//        produtoModel.alterarProduto(produto);
-//    }
-//    
-//    public Produto recuperarProdutoAction(int codigo){
-//        return produtoModel.recuperarProduto(codigo);
-//    }
-//    
-//    public void deletarProdutoAction (Produto produto){
-//        produtoModel.deletarProduto(produto);
-//    }
-//    
-//    public List<Produto> listarTodosProdutoAction(){
-//        return produtoModel.listarTodosProdutos();
-//    }
+        this.produtoModel.inserirProduto(this.produto);
+        this.produto = new Produto();
+        FacesMessage mensagem = new FacesMessage("Produto Cadastrado com Sucesso");
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        contexto.addMessage(null, mensagem);
+
+    }
+
+    public void alterarProdutoAction(Produto produto) {
+        produtoModel.alterarProduto(produto);
+    }
+
+    public Produto recuperarProdutoAction(int codigo) {
+        return produtoModel.recuperarProduto(codigo);
+    }
+
+    public void deletarProdutoAction(Produto produto) {
+        produtoModel.deletarProduto(produto);
+    }
+
+    public List<Produto> listarTodosProdutoAction() {
+        return produtoModel.listarTodosProdutos();
+    }
+
+    public ProdutoNegocio getProdutoModel() {
+        return produtoModel;
+    }
+
+    public void setProdutoModel(ProdutoNegocio produtoModel) {
+        this.produtoModel = produtoModel;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
     
 }

@@ -23,34 +23,68 @@ package br.edu.ifpe.controller;
 
 import br.edu.ifpe.model.classes.Cliente;
 import br.edu.ifpe.model.negocio.ClienteNegocio;
+import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author Luciano
  */
-public class ClienteController {
-    
-    ClienteNegocio clienteModel = new ClienteNegocio();
-    
-    public void inserirClienteAction (Cliente cliente){
-        clienteModel.inserirCliente(cliente);
+@SuppressWarnings("serial")
+@ManagedBean(name = "clienteController")
+public class ClienteController implements Serializable {
+
+    //    ClienteNegocio clienteModel = new ClienteNegocio();
+    private ClienteNegocio clienteModel = null;
+    private Cliente cliente;
+
+    public ClienteController() {
+        this.cliente = new Cliente();
+        this.clienteModel = new ClienteNegocio();
     }
 
-    public void alterarClienteAction (Cliente cliente){
+    public void inserirClienteAction() {
+//        clienteModel.inserirCliente(cliente);
+        this.clienteModel.inserirCliente(this.cliente);
+        this.cliente = new Cliente();
+        FacesMessage mensagem = new FacesMessage("Cliente Cadastrado com Sucesso");
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        contexto.addMessage(null, mensagem);
+    }
+    
+    public void alterarClienteAction(Cliente cliente) {
         clienteModel.alterarCliente(cliente);
     }
-    
-    public Cliente recuperarClienteAction(int codigo){
+
+    public Cliente recuperarClienteAction(int codigo) {
         return clienteModel.recuperarCliente(codigo);
     }
-    
-    public void deletarClienteAction (Cliente cliente){
+
+    public void deletarClienteAction(Cliente cliente) {
         clienteModel.deletarCliente(cliente);
     }
-    
-    public List<Cliente> listarTodosClientesAction(){
+
+    public List<Cliente> listarTodosClientesAction() {
         return clienteModel.listarTodosClientes();
     }
-    
+
+    public ClienteNegocio getClienteModel() {
+        return clienteModel;
+    }
+
+    public void setClienteModel(ClienteNegocio clienteModel) {
+        this.clienteModel = clienteModel;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
 }

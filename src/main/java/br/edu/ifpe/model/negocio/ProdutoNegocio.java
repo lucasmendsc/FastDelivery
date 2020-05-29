@@ -33,24 +33,24 @@ public class ProdutoNegocio {
     
     ProdutoDAO produtoJDBC = new ProdutoDAO();
     
-//    public void inserirProduto (Produto produto){
-//        produtoJDBC.inserir(produto);
-//    }
-// 
-//    public void alterarProduto (Produto produto){
-//        produtoJDBC.alterar(produto);
-//    }
-//    
-//    public Produto recuperarProduto (int codigo){
-//        return produtoJDBC.recuperar(codigo);
-//    }
-//    
-//    public void deletarProduto (Produto produto){
-//        produtoJDBC.deletar(produto);
-//    }
-//    
-//    public List<Produto> listarTodosProdutos(){
-//        return produtoJDBC.listarTodos();
-//    } 
+    public void inserirProduto (Produto produto){
+        produtoJDBC.inserir(produto);
+    }
+ 
+    public void alterarProduto (Produto produto){
+        produtoJDBC.alterar(produto);
+    }
+    
+    public Produto recuperarProduto (int codigo){
+        return produtoJDBC.recuperar(codigo);
+    }
+    
+    public void deletarProduto (Produto produto){
+        produtoJDBC.deletar(produto);
+    }
+    
+    public List<Produto> listarTodosProdutos(){
+        return produtoJDBC.listarTodos();
+    } 
     
 }

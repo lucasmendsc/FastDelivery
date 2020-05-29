@@ -21,6 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,9 +32,9 @@ import javax.persistence.Id;
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
-
+@SuppressWarnings("serial")
 @Entity
-public class Endereco {
+public class Endereco implements Serializable{
  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
