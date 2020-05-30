@@ -19,65 +19,65 @@
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.*/
-//package br.edu.ifpe.model.dao;
-//
-//import br.edu.ifpe.model.classes.Produto;
-//import java.util.List;
-//import org.junit.AfterClass;
-//import org.junit.Test;
-//import static org.junit.Assert.*;
-//import org.junit.BeforeClass;
-//
-///**
-// *
-// * @author Lucas Mendes <lucas.mendes147@live.com>
-// */
-//public class T2ProdutoDAOTest {
-//   private static Produto produto;
-//   private static Produto prod;
-//
-//    @BeforeClass
-//    public static void deveInserirProdutos() {
-//        produto = new Produto("nomeProduto", 0);
-//        prod = new Produto("nome1", 1);
-//        ProdutoDAO.getInstance().inserir(produto);
-//        ProdutoDAO.getInstance().inserir(prod);
-//
-//    }
-//
-//    @Test
-//    public void deveRecuperarProduto() {
-//        assertEquals("deveRecuperarProduto", produto,
-//                ProdutoDAO.getInstance().recuperar
-//                        (ProdutoDAO.getInstance().listarTodos().size() - 1));
-//    }
-//    
-//        @Test
-//    public void deveAlterarProduto() {
-//        produto.setNomeProduto("nomeAlterado");
-//        produto.setQuantProduto(1212);
-//        
-//        ProdutoDAO.getInstance().alterar(produto);
-//        assertEquals("deveAlterarProduto", produto,
-//                ProdutoDAO.getInstance().recuperar(
-//                        ProdutoDAO.getInstance().listarTodos().size() - 1));
-//    }
-//
-//    @Test
-//    public void deveRecuperarTodosProdutos() {           
-//        ProdutoDAO.getInstance().inserir(prod);
-//
-//        List<Produto> produtos = ProdutoDAO.getInstance().listarTodos();
-//
-//        assertTrue(produtos.contains(prod));
-//        assertTrue(produtos.contains(produto));
-//    }
-//
-//    @AfterClass()
-//    public static void deveDeletarProdutos() {
-//        ProdutoDAO.getInstance().deletar(produto);
-//        ProdutoDAO.getInstance().deletar(prod);
-//    }
-//
-//   
-//}
+package br.edu.ifpe.model.dao;
+
+import br.edu.ifpe.model.classes.Produto;
+import java.util.List;
+import org.junit.AfterClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+import org.junit.BeforeClass;
+
+/**
+ *
+ * @author Lucas Mendes <lucas.mendes147@live.com>
+ */
+public class T2ProdutoDAOTest {
+   private static Produto produto;
+   private static Produto prod;
+
+    @BeforeClass
+    public static void deveInserirProdutos() {
+        produto = new Produto("nomeProduto", 0);
+        prod = new Produto("nome1", 1);
+        ProdutoDAO.getInstance().inserir(produto);
+        ProdutoDAO.getInstance().inserir(prod);
+
+    }
+
+    @Test
+    public void deveRecuperarProduto() {
+        List<Produto> produtos = ProdutoDAO.getInstance().listarTodos();
+        assertEquals("deveRecuperarProduto", produto,
+                    produtos.get(produtos.size() - 2));
+    }
+    
+        @Test
+    public void deveAlterarProduto() {
+        produto.setNomeProduto("nomeAlterado");
+        produto.setQuantProduto(1212);
+        
+        ProdutoDAO.getInstance().alterar(produto);
+        List<Produto> produtos = ProdutoDAO.getInstance().listarTodos();
+        assertEquals("deveAlterarProduto", produto,
+                produtos.get(produtos.size() - 1));
+    }
+
+    @Test
+    public void deveRecuperarTodosProdutos() {           
+        ProdutoDAO.getInstance().inserir(prod);
+
+        List<Produto> produtos = ProdutoDAO.getInstance().listarTodos();
+
+        assertTrue(produtos.contains(prod));
+        assertTrue(produtos.contains(produto));
+    }
+
+    @AfterClass()
+    public static void deveDeletarProdutos() {
+        ProdutoDAO.getInstance().deletar(produto);
+        ProdutoDAO.getInstance().deletar(prod);
+    }
+
+   
+}
