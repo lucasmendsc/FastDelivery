@@ -9,11 +9,11 @@ body{
     background-size:cover;     
 }
 
-img {
+/*img {
     position:absolute;
-    left: 40px;   
+    left:100px;   
     top:200px;   
-}      
+}      */
 .botaohome{
     font-size:20pt !important;
     font-style: oblique!important;

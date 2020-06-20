@@ -23,13 +23,14 @@ package br.edu.ifpe.model.negocio;
 
 import br.edu.ifpe.model.classes.Produto;
 import br.edu.ifpe.model.dao.ProdutoDAO;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Luciano
  */
-public class ProdutoNegocio {
+public class ProdutoNegocio implements Serializable{
     
     ProdutoDAO produtoJDBC = new ProdutoDAO();
     

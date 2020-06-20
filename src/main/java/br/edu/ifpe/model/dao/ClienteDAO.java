@@ -24,9 +24,7 @@ package br.edu.ifpe.model.dao;
 import br.edu.ifpe.model.dao.resources.HibernateUtill;
 import br.edu.ifpe.model.classes.Cliente;
 import br.edu.ifpe.model.dao.interfaces.ClienteInterfaceDAO;
-import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -98,13 +96,16 @@ public class ClienteDAO implements ClienteInterfaceDAO {
     @Override
     public void deletar(Cliente cliente) {
         session = UTILL.getSession();
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = null;
         try {
+            transaction = session.beginTransaction();
             session.delete(cliente);
             transaction.commit();
         } catch (Exception delClienteException) {
             System.out.println(delClienteException.getMessage());
-            transaction.rollback();
+            if(transaction != null) {
+                transaction.rollback();
+            }
         } finally {
             session.close();
         }
@@ -121,7 +122,9 @@ public class ClienteDAO implements ClienteInterfaceDAO {
             System.out.println(readAllClientesException.getMessage());
         } finally {
             session.close();
-            return clientes;
         }
+        return clientes;
+      
     }
+    
 }

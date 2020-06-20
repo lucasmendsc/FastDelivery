@@ -26,24 +26,32 @@ import br.edu.ifpe.model.negocio.ProdutoNegocio;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
 /**
  *
  * @author Luciano
+ * @author Marcela
  */
 @SuppressWarnings("serial")
-@ManagedBean(name = "produtoController")
+@Named(value = "produtoController")
+@ViewScoped
 public class ProdutoController implements Serializable {
 
     private ProdutoNegocio produtoModel = null;
     private Produto produto;
+    private Produto selectedProduto;
 
 //    ProdutoNegocio produtoModel = new ProdutoNegocio();
     public ProdutoController() {
         this.produto = new Produto();
         this.produtoModel = new ProdutoNegocio();
+        String codigo = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+        if(codigo != null) {
+            this.selectedProduto = produtoModel.recuperarProduto(Integer.parseInt(codigo));
+    }
     }
 
     public void inserirProdutoAction() {
@@ -56,8 +64,10 @@ public class ProdutoController implements Serializable {
 
     }
 
-    public void alterarProdutoAction(Produto produto) {
-        produtoModel.alterarProduto(produto);
+    public String alterarProdutoAction() {
+        this.produtoModel.alterarProduto(this.selectedProduto);
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produto alterado com sucesso"));
+        return "listarProduto.xhtml?faces-redirect=true";
     }
 
     public Produto recuperarProdutoAction(int codigo) {
@@ -87,5 +97,18 @@ public class ProdutoController implements Serializable {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+
+    public Produto getSelectedProduto() {
+        return selectedProduto;
+    }
+
+    public void setSelectedProduto(Produto selectedProduto) {
+        this.selectedProduto = selectedProduto;
+    }
     
-}
+     public String linkAlterar(Integer id) {
+        return "alterarProduto.xhtml?faces-redirect=true&id=" + id;
+    }
+}  
+    
+

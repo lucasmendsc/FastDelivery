@@ -7,7 +7,7 @@ Autor : Marcela Cardoso
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head> <link rel="stylesheet" type="text/css" href="css/cadastroCliente.css" media="screen" /> </h:head>
+    <h:head> <link rel="stylesheet" type="text/css" href="resources/css/cadastroCliente.css" media="screen" /> </h:head>
     <h:body>
         <p:growl id='growl'/>
         <h:form>
@@ -61,7 +61,9 @@ Autor : Marcela Cardoso
                         <p:inputText styleClass="box" value="#{clienteController.cliente.endereco.logradouro}"/>
                         
                          <h:outputText styleClass="txt" value="Número:" />
-                         <p:inputText styleClass="box" value="#{clienteController.cliente.endereco.numero}"/>
+                         <p:inputText styleClass="box" value="#{clienteController.cliente.endereco.numero}">
+                             <f:convertNumber integerOnly="true"/>
+                         </p:inputText>
                         
                          <h:outputText styleClass="txt" value="Complemento:" />
                          <p:inputText styleClass="box" value="#{clienteController.cliente.endereco.complemento}"/>

@@ -32,9 +32,9 @@ import javax.persistence.Id;
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
-@SuppressWarnings("serial")
+
 @Entity
-public class Endereco implements Serializable{
+public class Endereco implements Serializable {
  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,7 +56,7 @@ public class Endereco implements Serializable{
     private String logradouro;
     
     @Column( length = 10, nullable = false)
-    private int numero;
+    private Integer numero;
     
     @Column( length = 20, nullable = false)
     private String complemento;
@@ -65,7 +65,7 @@ public class Endereco implements Serializable{
     }
 
     public Endereco(String estado, String cidade, String cep,
-            String bairro, String logradouro, int numero, String complemento) {
+            String bairro, String logradouro, Integer numero, String complemento) {
         this.estado = estado;
         this.cidade = cidade;
         this.cep = cep;
@@ -119,11 +119,11 @@ public class Endereco implements Serializable{
         this.logradouro = logradouro;
     }
 
-    public int getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
     }
 
@@ -145,41 +145,27 @@ public class Endereco implements Serializable{
 
     @Override
     public int hashCode() {
-        final int PRIMO = 5;
-        int resultado = 1;
-        resultado += (resultado * PRIMO) + id;
-        resultado += (resultado * PRIMO) + estado.hashCode();
-        resultado += (resultado * PRIMO) + cidade.hashCode();
-        resultado += (resultado * PRIMO) + cep.hashCode();
-        resultado += (resultado * PRIMO) + bairro.hashCode();
-        resultado += (resultado * PRIMO) + logradouro.hashCode();
-        resultado += (resultado * PRIMO) + numero;
-        return (resultado * PRIMO) + complemento.hashCode() ;
+        int hash = 3;
+        hash = 97 * hash + this.id;
+        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof Endereco))
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
-
-        if (!((Endereco) obj).estado.equals(this.estado))
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-
-        if (!((Endereco) obj).cidade.equals(this.cidade))
+        }
+        final Endereco other = (Endereco) obj;
+        if (this.id != other.id) {
             return false;
+        }
+        return true;
+    }
 
-        if (!((Endereco) obj).cep.equals(this.cep))
-            return false;
-
-        if (!((Endereco) obj).bairro.equals(this.bairro))
-            return false;
-
-        if (!((Endereco) obj).logradouro.equals(this.logradouro))
-            return false;
-
-        if (((Endereco) obj).numero != this.numero)
-            return false;
-
-        return ((Endereco) obj).complemento.equals(this.complemento);
-    }   
 }
