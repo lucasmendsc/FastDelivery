@@ -45,12 +45,12 @@ public class Produto implements Serializable{
     private String nomeProduto;
     
     @Column(name = "quantProduto", length = 6, nullable = false)
-    private int quantProduto;
+    private Integer quantProduto;
 
     public Produto() {
     }
 
-    public Produto( String nomeProduto, int quantProduto) {
+    public Produto( String nomeProduto, Integer quantProduto) {
         this.nomeProduto = nomeProduto;
         this.quantProduto = quantProduto;
     }
@@ -67,11 +67,11 @@ public class Produto implements Serializable{
         this.nomeProduto = nomeProduto;
     }
 
-    public int getQuantProduto() {
+    public Integer getQuantProduto() {
         return quantProduto;
     }
 
-    public void setQuantProduto(int quantProduto) {
+    public void setQuantProduto(Integer quantProduto) {
         this.quantProduto = quantProduto;
     }
 
@@ -92,12 +92,24 @@ public class Produto implements Serializable{
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof Produto))
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
-
-         if (!((Produto) obj).nomeProduto.equals(this.nomeProduto))
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-         
-        return ((Produto) obj).quantProduto == this.quantProduto;
+        }
+        final Produto other = (Produto) obj;
+        if (!Objects.equals(this.nomeProduto, other.nomeProduto)) {
+            return false;
+        }
+        if (!Objects.equals(this.quantProduto, other.quantProduto)) {
+            return false;
+        }
+        return true;
     }
+
+   
 }

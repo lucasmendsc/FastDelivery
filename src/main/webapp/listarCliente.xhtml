@@ -1,37 +1,41 @@
-<!--
-Autor : Marcela Cardoso
--->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head> <link rel="stylesheet" type="text/css" href="css/listarCliente.css" media="screen" /> 
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+    <h:head> 
+        <meta name="author" content="Marcela Cardoso" />
+        <link href="resources/css/listarCliente.css" rel="stylesheet" type="text/css"/>
     </h:head>
     <h:body>
-        <h:form >
-            <p:dataTable value="#{clienteController.listarTodosClientesAction()}"
-                         var="item" rowKey="#{item.id}" paginator="true" rows="10" selectionMode="sigle" >
-                <p:column headerText="Código">
+        <h:form id="form_ls_cliente">
+            <p:dataTable value="#{clienteController.listarTodosClientesAction()}" paginatorPosition="bottom" 
+                         var="item" rowKey="#{item.id}" paginator="true" rows="10"  >
+                <p:column headerText="CÓDIGO" style="">
                     #{item.id}
                 </p:column>
                 <p:column headerText="CPF">
                     #{item.cpfCliente}       
                 </p:column>
-                <p:column headerText="Nome">
+                <p:column headerText="NOME">
                     #{item.nomeCliente}
                 </p:column>
-                <p:column headerText="Telefone">
+                <p:column headerText="TELEFONE">
                     #{item.telefoneCliente}         
                 </p:column>
-                <p:column headerText="Emaill">
+                <p:column headerText="EMAIL">
                     #{item.emailCliente}         
                 </p:column>
-                
-            </p:dataTable>
+                <p:column headerText="OPERAÇÕES">
+                    <p:commandButton styleClass="botaoAlterar" icon="ui-icon-pencil" value="Alterar" action="#{clienteController.linkAlterar(item.id)}"/>
+                    <p:commandButton styleClass="botaoDeletar" icon= "ui-icon-trash" value="Deletar" actionListener="#{clienteController.deletarClienteAction(item)}" 
+                                     update=":form_ls_cliente">
+                    </p:commandButton>
+                </p:column>
 
+            </p:dataTable>
         </h:form>
 
     </h:body>

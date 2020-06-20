@@ -63,12 +63,12 @@ public class Cliente implements Serializable{
     @Column(name = "emailCliente", nullable = false)
     private String emailCliente;
     
-   @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name ="cod_endereco")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_endereco")
     private Endereco endereco;
 
     public Cliente() {
-    this.endereco = new Endereco();
+        this.endereco = new Endereco();
     }
 
     public Cliente(String nomeCliente, String senhaCliente, 

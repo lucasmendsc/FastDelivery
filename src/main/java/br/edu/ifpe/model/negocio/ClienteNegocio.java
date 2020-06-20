@@ -23,13 +23,15 @@ package br.edu.ifpe.model.negocio;
 
 import br.edu.ifpe.model.dao.ClienteDAO;
 import br.edu.ifpe.model.classes.Cliente;
+import java.io.Serializable;
 import java.util.List;
+
 
 /**
  *
  * @author Luciano
  */
-public class ClienteNegocio {
+public class ClienteNegocio implements Serializable {
     
     ClienteDAO clienteJDBC = new ClienteDAO();
     
@@ -52,4 +54,5 @@ public class ClienteNegocio {
     public List<Cliente> listarTodosClientes(){
         return clienteJDBC.listarTodos();
     } 
+       
 }
