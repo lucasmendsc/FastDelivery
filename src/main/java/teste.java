@@ -2,13 +2,26 @@
 import br.edu.ifpe.controller.PagamentoController;
 import br.edu.ifpe.controller.PedidoController;
 import br.edu.ifpe.controller.ProdutoController;
+<<<<<<< HEAD
 import br.edu.ifpe.model.classes.ItemPedido;
+=======
+import br.edu.ifpe.model.classes.Cliente;
+import br.edu.ifpe.model.classes.Endereco;
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
 import br.edu.ifpe.model.classes.Pagamento;
 import br.edu.ifpe.model.classes.Pedido;
 import br.edu.ifpe.model.classes.Produto;
+<<<<<<< HEAD
 import br.edu.ifpe.model.dao.ItemPedidoDAO;
 import java.time.LocalDate;
 import java.util.ArrayList;
+=======
+import br.edu.ifpe.model.dao.ClienteDAO;
+import br.edu.ifpe.model.dao.EnderecoDAO;
+import br.edu.ifpe.model.dao.ProdutoDAO;
+import java.time.LocalDate;
+import java.util.List;
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
 
 /*MIT License
 
@@ -39,6 +52,7 @@ public class teste {
 
     public static void main(String[] args) {
 
+<<<<<<< HEAD
        Produto p1 = new Produto("t1", 10, 5);
        
        ProdutoController pc = new ProdutoController();
@@ -64,5 +78,17 @@ public class teste {
        
        pedController.inserirPedidoAction(pedido);
        
+=======
+        
+       Endereco endereco = new Endereco("1", "1", "1", "1",
+                "1", 0, "1");
+        EnderecoDAO.getInstance().inserir(endereco);
+        
+        Cliente cliente = new Cliente("1", "1", "1", 
+                LocalDate.now(), "1", "1", endereco);
+        ClienteDAO.getInstance().inserir(cliente);
+        
+        ProdutoDAO.getInstance().inserir(new Produto("1", 2));
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
     }
 }

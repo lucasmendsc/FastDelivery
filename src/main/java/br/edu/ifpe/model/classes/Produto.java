@@ -39,8 +39,8 @@ import javax.persistence.ManyToOne;
 public class Produto {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int codProduto;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     
     @Column(name = "nomeProduto", length = 60, nullable = false)
     private String nomeProduto;
@@ -51,15 +51,24 @@ public class Produto {
     @Column(name = "quantProduto", length = 6, nullable = false)
     private int quantProduto;
 
+<<<<<<< HEAD
     @ManyToOne(cascade = CascadeType.ALL)
     private ItemPedido itemPedido;
     public int getCodProduto() {
         return codProduto;
+=======
+    public Produto() {
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
     }
 
-//    public void setCodProduto(int codProduto) {
-//        this.codProduto = codProduto;
-//    }
+    public Produto( String nomeProduto, int quantProduto) {
+        this.nomeProduto = nomeProduto;
+        this.quantProduto = quantProduto;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public String getNomeProduto() {
         return nomeProduto;
@@ -85,6 +94,7 @@ public class Produto {
         this.quantProduto = quantProduto;
     }
 
+<<<<<<< HEAD
     public Produto(){
         
     }
@@ -99,20 +109,35 @@ public class Produto {
     @Override
     public String toString() {
         return "Produto{" + "codProduto=" + codProduto + ", nomeProduto=" + nomeProduto + ", valorProduto=" + valorProduto + ", quantProduto=" + quantProduto + '}';
+=======
+    @Override
+    public String toString() {
+        return "Produto{" + "nomeProduto=" + nomeProduto +
+                    ", quantProduto=" + quantProduto + '}';
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
     }
 
     @Override
     public int hashCode() {
+<<<<<<< HEAD
         int hash = 7;
         hash = 61 * hash + this.codProduto;
         hash = 61 * hash + Objects.hashCode(this.nomeProduto);
         hash = 61 * hash + (int) (Double.doubleToLongBits(this.valorProduto) ^ (Double.doubleToLongBits(this.valorProduto) >>> 32));
         hash = 61 * hash + this.quantProduto;
         return hash;
+=======
+        final int PRIMO = 11;
+        int resultado = 1;
+        resultado += (resultado * PRIMO) + id;
+        resultado += (resultado * PRIMO) + nomeProduto.hashCode();
+        return (resultado * PRIMO) + quantProduto;
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
     }
 
     @Override
     public boolean equals(Object obj) {
+<<<<<<< HEAD
         if (this == obj) {
             return true;
         }
@@ -130,14 +155,20 @@ public class Produto {
             return false;
         }
         if (this.quantProduto != other.quantProduto) {
+=======
+        if(!(obj instanceof Produto))
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
             return false;
-        }
-        if (!Objects.equals(this.nomeProduto, other.nomeProduto)) {
+
+         if (!((Produto) obj).nomeProduto.equals(this.nomeProduto))
             return false;
-        }
-        return true;
+         
+        return ((Produto) obj).quantProduto == this.quantProduto;
     }
+<<<<<<< HEAD
 
     
     
+=======
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
 }

@@ -33,6 +33,7 @@ public class PedidoController {
     
     PedidoNegocio pedidoModel = new PedidoNegocio();
     
+<<<<<<< HEAD:src/main/java/br/edu/ifpe/controller/PedidoController.java
     public void inserirPedidoAction (Pedido pagamento){
         pedidoModel.inserirPedido(pagamento);
     }
@@ -52,5 +53,26 @@ public class PedidoController {
     public List<Pedido> listarTodosPedidoAction(){
         return pedidoModel.listarTodosPedidos();
     }
+=======
+//    public void inserirFreteAction (Frete frete){
+//        freteModel.inserirFrete(frete);
+//    }
+//
+//    public void alterarFreteAction (Frete frete){
+//        freteModel.alterarFrete(frete);
+//    }
+//    
+//    public Frete recuperarFreteAction(int codigo){
+//        return freteModel.recuperarFrete(codigo);
+//    }
+//    
+//    public void deletarFreteAction (Frete frete){
+//        freteModel.deletarFrete(frete);
+//    }
+//    
+//    public List<Frete> listarTodosFretesAction(){
+//        return freteModel.listarTodosFretes();
+//    }
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77:src/main/java/br/edu/ifpe/controller/FreteController.java
     
 }

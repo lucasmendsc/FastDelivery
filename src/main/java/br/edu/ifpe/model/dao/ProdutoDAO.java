@@ -23,26 +23,56 @@ package br.edu.ifpe.model.dao;
 
 import br.edu.ifpe.model.classes.Produto;
 import br.edu.ifpe.model.dao.interfaces.ProdutoInterfaceDAO;
-import br.edu.ifpe.model.dao.resources.HibernateUtil;
+import br.edu.ifpe.model.dao.resources.HibernateUtill;
 import java.util.List;
-import javax.persistence.TypedQuery;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author Luciano
  */
-public class ProdutoDAO implements ProdutoInterfaceDAO{
+public class ProdutoDAO implements ProdutoInterfaceDAO {
+
+    private final HibernateUtill UTILL;
+    private static ProdutoDAO instance;
+    private Session session;
+
+    public ProdutoDAO() {
+        UTILL = HibernateUtill.getInstance();
+    }
+
+    public static ProdutoDAO getInstance() {
+        if (instance == null) {
+            instance = new ProdutoDAO();
+        }
+        return instance;
+    }
 
     @Override
     public void inserir(Produto produto) {
-        Session session = HibernateUtil.getSession();
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            session.getTransaction().begin();
             session.save(produto);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println("Erro ao INSERIR " + e.toString());
+            transaction.commit();
+        } catch (Exception createProdutoException) {
+            System.out.println(createProdutoException.getMessage());
+            transaction.rollback();
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public Produto recuperar(Integer codigo) {
+        try {
+            session = UTILL.getSession();
+            return (Produto) session.createQuery(
+                    "FROM Produto where id=" + codigo).getSingleResult();
+        } catch (Exception readProdutoException) {
+            System.out.println(readProdutoException.getMessage());
+            return null;
         } finally {
             session.close();
         }
@@ -50,44 +80,29 @@ public class ProdutoDAO implements ProdutoInterfaceDAO{
 
     @Override
     public void alterar(Produto produto) {
-        
-        Session session = HibernateUtil.getSession();
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            session.getTransaction().begin();
             session.update(produto);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            System.out.println("Erro ao ATUALIZAR " + e.toString());
+            transaction.commit();
+        } catch (Exception updateProdutoException) {
+            System.out.println(updateProdutoException.getMessage());
+            transaction.rollback();
         } finally {
             session.close();
-        }}
-
-    @Override
-    public Produto recuperar(Integer codigo) {
-        Produto produto = null;
-
-        Session session = HibernateUtil.getSession();
-        try {
-            produto = session.find(Produto.class, codigo);
-            session.close();
-        } catch (Exception e) {
-            System.out.println("Erro ao RECUPERAR " + e.toString());
         }
-        return produto;
     }
 
     @Override
     public void deletar(Produto produto) {
-        Session session = HibernateUtil.getSession();
-
+        session = UTILL.getSession();
+        Transaction transaction = session.beginTransaction();
         try {
-            session.getTransaction().begin();
             session.delete(produto);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            session.getTransaction().rollback();
-            System.err.println("Falha ao DELETAR " + e.toString());
+            transaction.commit();
+        } catch (Exception delProdutoException) {
+            System.out.println(delProdutoException.getMessage());
+            transaction.rollback();
         } finally {
             session.close();
         }
@@ -95,19 +110,16 @@ public class ProdutoDAO implements ProdutoInterfaceDAO{
 
     @Override
     public List<Produto> listarTodos() {
-        List<Produto> produtos;
-
-        try (Session session = HibernateUtil.getSession()) {
-
-            TypedQuery<Produto> c = session.createNativeQuery("select * from produto", Produto.class);
-            produtos = c.getResultList();
-            if (produtos != null) {
-                return produtos;
-            }
-
-        } catch (Exception e) {
-            System.err.println("Erro ao recuperar todos" + e.toString());
+        session = UTILL.getSession();
+        List<Produto> produtos = null;
+        try {
+            produtos = (List) session.createQuery("FROM Produto").getResultList();
+        } catch (Exception readAllProdutosException) {
+            System.out.println(readAllProdutosException.getMessage());
+        } finally {
+            session.close();
+            return produtos;
         }
-        return null;}
-    
+    }
+
 }
