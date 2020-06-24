@@ -43,8 +43,8 @@ public class Pagamento {
     @Column(name = "tipoPagamento", length = 30, nullable = false)
     private String tipoPagamento;
     
-    @Column(name = "valorPagamento", length = 6, nullable = false)
-    private double valorPagamento;
+    @Column(name = "valorTotalPagamento", length = 6, nullable = false)
+    private double valorTotalPagamento;
 
     public int getCodPagamento() {
         return codPagamento;
@@ -62,26 +62,26 @@ public class Pagamento {
         this.tipoPagamento = tipoPagamento;
     }
 
-    public double getValorPagamento() {
-        return valorPagamento;
+    public double getValorTotalPagamento() {
+        return valorTotalPagamento;
     }
 
-    public void setValorPagamento(double valorPagamento) {
-        this.valorPagamento = valorPagamento;
+    public void setValorTotalPagamento(double valorTotalPagamento) {
+        this.valorTotalPagamento = valorTotalPagamento;
     }
 
     public Pagamento(){
         
     }
     
-    public Pagamento(String tipoPagamento, double valorPagamento) {
+    public Pagamento(String tipoPagamento, double valorTotalPagamento) {
         this.tipoPagamento = tipoPagamento;
-        this.valorPagamento = valorPagamento;
+        this.valorTotalPagamento = valorTotalPagamento;
     }
 
     @Override
     public String toString() {
-        return "Pagamento{" + "codPagamento=" + codPagamento + ", tipoPagamento=" + tipoPagamento + ", valorPagamento=" + valorPagamento + '}';
+        return "Pagamento{" + "codPagamento=" + codPagamento + ", tipoPagamento=" + tipoPagamento + ", valorTotalPagamento=" + valorTotalPagamento + '}';
     }
 
     @Override
@@ -89,7 +89,7 @@ public class Pagamento {
         int hash = 5;
         hash = 67 * hash + this.codPagamento;
         hash = 67 * hash + Objects.hashCode(this.tipoPagamento);
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.valorPagamento) ^ (Double.doubleToLongBits(this.valorPagamento) >>> 32));
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.valorTotalPagamento) ^ (Double.doubleToLongBits(this.valorTotalPagamento) >>> 32));
         return hash;
     }
 
@@ -108,7 +108,7 @@ public class Pagamento {
         if (this.codPagamento != other.codPagamento) {
             return false;
         }
-        if (Double.doubleToLongBits(this.valorPagamento) != Double.doubleToLongBits(other.valorPagamento)) {
+        if (Double.doubleToLongBits(this.valorTotalPagamento) != Double.doubleToLongBits(other.valorTotalPagamento)) {
             return false;
         }
         if (!Objects.equals(this.tipoPagamento, other.tipoPagamento)) {
@@ -116,7 +116,4 @@ public class Pagamento {
         }
         return true;
     }
-    
-    
-    
 }

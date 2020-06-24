@@ -19,38 +19,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
-package br.edu.ifpe.model.negocio;
+package br.edu.ifpe.model.dao.interfaces;
 
-import br.edu.ifpe.model.classes.Frete;
-import br.edu.ifpe.model.dao.FreteDAO;
-import java.util.List;
+import br.edu.ifpe.model.classes.ItemPedido;
 
 /**
  *
  * @author Luciano
  */
-public class FreteNegocio {
-
-    FreteDAO freteJDBC = new FreteDAO();
-
-    public void inserirFrete(Frete frete) {
-        freteJDBC.inserir(frete);
-    }
-
-    public void alterarFrete(Frete frete) {
-        freteJDBC.alterar(frete);
-    }
-
-    public Frete recuperarFrete(int codigo) {
-        return freteJDBC.recuperar(codigo);
-    }
-
-    public void deletarFrete(Frete frete) {
-        freteJDBC.deletar(frete);
-    }
-
-    public List<Frete> listarTodosFretes() {
-        return freteJDBC.listarTodos();
-    }
-
+public interface ItemPedidoInterfaceDAO extends DAO<ItemPedido>{
+    
 }

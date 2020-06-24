@@ -1,9 +1,14 @@
 
 import br.edu.ifpe.controller.PagamentoController;
+import br.edu.ifpe.controller.PedidoController;
 import br.edu.ifpe.controller.ProdutoController;
+import br.edu.ifpe.model.classes.ItemPedido;
 import br.edu.ifpe.model.classes.Pagamento;
+import br.edu.ifpe.model.classes.Pedido;
 import br.edu.ifpe.model.classes.Produto;
-import java.util.List;
+import br.edu.ifpe.model.dao.ItemPedidoDAO;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 /*MIT License
 
@@ -34,43 +39,30 @@ public class teste {
 
     public static void main(String[] args) {
 
-        //INSERIR - OK
-        ProdutoController pc = new ProdutoController();
-//        Produto produto = new Produto("Teste2", 5);
-//        pc.inserirProdutoAction(produto);
-        
-        
-        //RECUPERAR - OK
-        
-        Produto produto = pc.recuperarProdutoAction(2);
-        //System.out.println("Produto recuperado: " + produto);
-        
-        //ALTERAR - OK
-//        System.out.println("Produto ANTES de ser alterado: " + produto);
-//        
-//        produto.setNomeProduto("FEIJAO");
-//        produto.setQuantProduto(10);
-//        
-//        pc.alterarProdutoAction(produto);
-//        
-//        Produto p2 = pc.recuperarProdutoAction(1);
-//        System.out.println("Produto DEPOIS de ser alterado: " + p2);
-        
-        //DELETAR
-        
-        List<Produto> p1 = pc.listarTodosProdutoAction();
-        System.out.println("Todos os produtos ANTES de ser deletado: " + p1.toString());
-        pc.deletarProdutoAction(produto);
-        List<Produto>p2 = pc.listarTodosProdutoAction();
-        System.out.println("Todos os produtos DEPOIS de ser deletado: " + p2.toString());
-        
-        //LISTAR - OK
-        
-//        List<Produto> produtos = pc.listarTodosProdutoAction();
-//        System.out.println("Todos os produtos: " + produtos.toString() + "\n");
-              
-        
+       Produto p1 = new Produto("t1", 10, 5);
        
-        
+       ProdutoController pc = new ProdutoController();
+       
+       ArrayList<Produto> produtos =  new ArrayList<>();
+       produtos.add(p1);
+       
+       ItemPedido itemPedido = new ItemPedido(produtos, 0);
+       
+       ItemPedidoDAO item = new ItemPedidoDAO();
+       
+       item.inserir(itemPedido);
+       
+       Pagamento formPag = new Pagamento("A vista", 100);
+       
+       PagamentoController pagamentoc = new PagamentoController();
+       
+       pagamentoc.inserirPagamentoAction(formPag);
+       
+       Pedido pedido = new Pedido(5, LocalDate.now(), formPag, itemPedido);
+       
+       PedidoController pedController = new PedidoController();
+       
+       pedController.inserirPedidoAction(pedido);
+       
     }
 }

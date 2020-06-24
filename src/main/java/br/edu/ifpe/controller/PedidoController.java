@@ -21,36 +21,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.controller;
 
-import br.edu.ifpe.model.classes.Frete;
-import br.edu.ifpe.model.negocio.FreteNegocio;
+import br.edu.ifpe.model.classes.Pedido;
+import br.edu.ifpe.model.negocio.PedidoNegocio;
 import java.util.List;
 
 /**
  *
  * @author Luciano
  */
-public class FreteController {
+public class PedidoController {
     
-    FreteNegocio freteModel = new FreteNegocio();
+    PedidoNegocio pedidoModel = new PedidoNegocio();
     
-    public void inserirFreteAction (Frete frete){
-        freteModel.inserirFrete(frete);
+    public void inserirPedidoAction (Pedido pagamento){
+        pedidoModel.inserirPedido(pagamento);
     }
 
-    public void alterarFreteAction (Frete frete){
-        freteModel.alterarFrete(frete);
+    public void alterarPedidoAction (Pedido pagamento){
+        pedidoModel.alterarPedido(pagamento);
     }
     
-    public Frete recuperarFreteAction(int codigo){
-        return freteModel.recuperarFrete(codigo);
+    public Pedido recuperarPedidoAction(int codigo){
+        return pedidoModel.recuperarPedido(codigo);
     }
     
-    public void deletarFreteAction (Frete frete){
-        freteModel.deletarFrete(frete);
+    public void deletarPedidoAction (Pedido pedido){
+        pedidoModel.deletarPedido(pedido);
     }
     
-    public List<Frete> listarTodosFretesAction(){
-        return freteModel.listarTodosFretes();
+    public List<Pedido> listarTodosPedidoAction(){
+        return pedidoModel.listarTodosPedidos();
     }
     
 }

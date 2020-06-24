@@ -21,8 +21,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.model.dao;
 
-import br.edu.ifpe.model.classes.Frete;
-import br.edu.ifpe.model.dao.interfaces.FreteInterfaceDAO;
+import br.edu.ifpe.model.classes.Pedido;
+import br.edu.ifpe.model.dao.interfaces.PedidoInterfaceDAO;
 import br.edu.ifpe.model.dao.resources.HibernateUtil;
 import java.util.List;
 import javax.persistence.TypedQuery;
@@ -32,15 +32,14 @@ import org.hibernate.Session;
  *
  * @author Luciano
  */
-public class FreteDAO implements FreteInterfaceDAO {
+public class PedidoDAO implements PedidoInterfaceDAO {
 
     @Override
-    public void inserir(Frete frete) {
-
+    public void inserir(Pedido pedido) {
         Session session = HibernateUtil.getSession();
         try {
             session.getTransaction().begin();
-            session.save(frete);
+            session.save(pedido);
             session.getTransaction().commit();
         } catch (Exception e) {
             System.out.println("Erro ao INSERIR " + e.toString());
@@ -50,12 +49,11 @@ public class FreteDAO implements FreteInterfaceDAO {
     }
 
     @Override
-    public void alterar(Frete frete) {
-        
+    public void alterar(Pedido pedido) {
         Session session = HibernateUtil.getSession();
         try {
             session.getTransaction().begin();
-            session.update(frete);
+            session.update(pedido);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -66,26 +64,26 @@ public class FreteDAO implements FreteInterfaceDAO {
     }
 
     @Override
-    public Frete recuperar(Integer codigo) {
-        Frete frete = null;
+    public Pedido recuperar(Integer codigo) {
+        Pedido pedido = null;
 
         Session session = HibernateUtil.getSession();
         try {
-            frete = session.find(Frete.class, codigo);
+            pedido = session.find(Pedido.class, codigo);
             session.close();
         } catch (Exception e) {
             System.out.println("Erro ao RECUPERAR " + e.toString());
         }
-        return frete;
+        return pedido;
     }
 
     @Override
-    public void deletar(Frete frete) {
+    public void deletar(Pedido pedido) {
         Session session = HibernateUtil.getSession();
 
         try {
             session.getTransaction().begin();
-            session.delete(frete);
+            session.delete(pedido);
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -93,18 +91,19 @@ public class FreteDAO implements FreteInterfaceDAO {
         } finally {
             session.close();
         }
+
     }
 
     @Override
-    public List<Frete> listarTodos() {
-        List<Frete> fretes;
+    public List<Pedido> listarTodos() {
+        List<Pedido> pedidos;
 
         try (Session session = HibernateUtil.getSession()) {
 
-            TypedQuery<Frete> c = session.createNativeQuery("select * from frete", Frete.class);
-            fretes = c.getResultList();
-            if (fretes != null) {
-                return fretes;
+            TypedQuery<Pedido> c = session.createNativeQuery("select * from pedido", Pedido.class);
+            pedidos = c.getResultList();
+            if (pedidos != null) {
+                return pedidos;
             }
 
         } catch (Exception e) {
@@ -112,4 +111,5 @@ public class FreteDAO implements FreteInterfaceDAO {
         }
         return null;
     }
+
 }

@@ -22,11 +22,13 @@ SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -43,9 +45,14 @@ public class Produto {
     @Column(name = "nomeProduto", length = 60, nullable = false)
     private String nomeProduto;
     
+    @Column (name = "valorProduto", nullable = false)
+    private double valorProduto;
+    
     @Column(name = "quantProduto", length = 6, nullable = false)
     private int quantProduto;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private ItemPedido itemPedido;
     public int getCodProduto() {
         return codProduto;
     }
@@ -62,6 +69,14 @@ public class Produto {
         this.nomeProduto = nomeProduto;
     }
 
+    public double getValorProduto() {
+        return valorProduto;
+    }
+    
+    public void setValorProduto(double valorProduto) {
+        this.valorProduto = valorProduto;
+    }
+    
     public int getQuantProduto() {
         return quantProduto;
     }
@@ -74,23 +89,25 @@ public class Produto {
         
     }
     
-    public Produto(String nomeProduto, int quantProduto) {
+    public Produto(String nomeProduto, double valorProduto, int quantProduto) {
         //this.codProduto = codProduto;
         this.nomeProduto = nomeProduto;
+        this.valorProduto = valorProduto;
         this.quantProduto = quantProduto;
     }
 
     @Override
     public String toString() {
-        return "Produto{" + "codProduto=" + codProduto + ", nomeProduto=" + nomeProduto + ", quantProduto=" + quantProduto + '}';
+        return "Produto{" + "codProduto=" + codProduto + ", nomeProduto=" + nomeProduto + ", valorProduto=" + valorProduto + ", quantProduto=" + quantProduto + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 23 * hash + this.codProduto;
-        hash = 23 * hash + Objects.hashCode(this.nomeProduto);
-        hash = 23 * hash + this.quantProduto;
+        int hash = 7;
+        hash = 61 * hash + this.codProduto;
+        hash = 61 * hash + Objects.hashCode(this.nomeProduto);
+        hash = 61 * hash + (int) (Double.doubleToLongBits(this.valorProduto) ^ (Double.doubleToLongBits(this.valorProduto) >>> 32));
+        hash = 61 * hash + this.quantProduto;
         return hash;
     }
 
@@ -109,6 +126,9 @@ public class Produto {
         if (this.codProduto != other.codProduto) {
             return false;
         }
+        if (Double.doubleToLongBits(this.valorProduto) != Double.doubleToLongBits(other.valorProduto)) {
+            return false;
+        }
         if (this.quantProduto != other.quantProduto) {
             return false;
         }
@@ -117,7 +137,7 @@ public class Produto {
         }
         return true;
     }
-    
+
     
     
 }
