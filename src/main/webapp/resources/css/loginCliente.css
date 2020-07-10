@@ -1,0 +1,71 @@
+/* 
+    Author: Marcela Cardoso
+*/
+
+@charset "UTF-8";
+
+body {
+    background-image:url("../imagens/telalogin.jpg");
+    background-size:cover;
+}
+
+img{
+    position:absolute;
+    bottom:500px!important;
+    left:150px!important;
+}
+
+.caixadetexto {
+    font-size:20pt!important;
+    color:white; 
+    padding:5px!important;
+} 
+
+form{
+    position:absolute;
+    bottom:400px!important;
+    left:250px!important;
+}
+
+.botaoLogar{
+    position:absolute;
+    border-radius: 12px!important;
+    left:400px!important;
+    bottom:340px!important;
+    font-size:18pt!important;
+    color:white!important;
+    background:darkmagenta;
+}
+
+#botaoCadastro{
+    position:absolute;
+    bottom:100px!important;
+    left:150px!important; 
+}
+
+.botaoCadastro{
+    padding:5px 80px!important;  
+    font-size:18pt!important;
+    color:white!important;
+    background:green!important;
+    border-radius: 12px!important;
+}
+
+#botaoLink{
+    position:absolute;
+    bottom:140px!important;
+    left:185px!important; 
+}
+
+.botaoLink{
+    color:white!important; 
+    background: transparent;
+    padding: 5px 5px!important;
+    font-size:11pt!important;
+    border:transparent;
+}
+
+.txt{
+    padding: 3px 30px!important;
+}
+

@@ -23,34 +23,35 @@ package br.edu.ifpe.model.negocio;
 
 import br.edu.ifpe.model.classes.Produto;
 import br.edu.ifpe.model.dao.ProdutoDAO;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author Luciano
  */
-public class ProdutoNegocio {
+public class ProdutoNegocio implements Serializable{
     
     ProdutoDAO produtoJDBC = new ProdutoDAO();
     
-//    public void inserirProduto (Produto produto){
-//        produtoJDBC.inserir(produto);
-//    }
-// 
-//    public void alterarProduto (Produto produto){
-//        produtoJDBC.alterar(produto);
-//    }
-//    
-//    public Produto recuperarProduto (int codigo){
-//        return produtoJDBC.recuperar(codigo);
-//    }
-//    
-//    public void deletarProduto (Produto produto){
-//        produtoJDBC.deletar(produto);
-//    }
-//    
-//    public List<Produto> listarTodosProdutos(){
-//        return produtoJDBC.listarTodos();
-//    } 
+    public void inserirProduto (Produto produto){
+        produtoJDBC.inserir(produto);
+    }
+ 
+    public void alterarProduto (Produto produto){
+        produtoJDBC.alterar(produto);
+    }
+    
+    public Produto recuperarProduto (int codigo){
+        return produtoJDBC.recuperar(codigo);
+    }
+    
+    public void deletarProduto (Produto produto){
+        produtoJDBC.deletar(produto);
+    }
+    
+    public List<Produto> listarTodosProdutos(){
+        return produtoJDBC.listarTodos();
+    } 
     
 }

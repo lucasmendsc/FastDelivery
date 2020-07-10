@@ -23,34 +23,92 @@ package br.edu.ifpe.controller;
 
 import br.edu.ifpe.model.classes.Produto;
 import br.edu.ifpe.model.negocio.ProdutoNegocio;
+import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
 /**
  *
  * @author Luciano
+ * @author Marcela
  */
-public class ProdutoController {
-    
-    ProdutoNegocio produtoModel = new ProdutoNegocio();
-    
-//    public void inserirProdutoAction (Produto produto){
+@SuppressWarnings("serial")
+@Named(value = "produtoController")
+@ViewScoped
+public class ProdutoController implements Serializable {
+
+    private ProdutoNegocio produtoModel = null;
+    private Produto produto;
+    private Produto selectedProduto;
+
+//    ProdutoNegocio produtoModel = new ProdutoNegocio();
+    public ProdutoController() {
+        this.produto = new Produto();
+        this.produtoModel = new ProdutoNegocio();
+        String codigo = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+        if(codigo != null) {
+            this.selectedProduto = produtoModel.recuperarProduto(Integer.parseInt(codigo));
+    }
+    }
+
+    public void inserirProdutoAction() {
 //        produtoModel.inserirProduto(produto);
-//    }
-//
-//    public void alterarProdutoAction (Produto produto){
-//        produtoModel.alterarProduto(produto);
-//    }
-//    
-//    public Produto recuperarProdutoAction(int codigo){
-//        return produtoModel.recuperarProduto(codigo);
-//    }
-//    
-//    public void deletarProdutoAction (Produto produto){
-//        produtoModel.deletarProduto(produto);
-//    }
-//    
-//    public List<Produto> listarTodosProdutoAction(){
-//        return produtoModel.listarTodosProdutos();
-//    }
+        this.produtoModel.inserirProduto(this.produto);
+        this.produto = new Produto();
+        FacesMessage mensagem = new FacesMessage("Produto Cadastrado com Sucesso");
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        contexto.addMessage(null, mensagem);
+
+    }
+
+    public String alterarProdutoAction() {
+        this.produtoModel.alterarProduto(this.selectedProduto);
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Produto alterado com sucesso"));
+        return "listarProduto.xhtml?faces-redirect=true";
+    }
+
+    public Produto recuperarProdutoAction(int codigo) {
+        return produtoModel.recuperarProduto(codigo);
+    }
+
+    public void deletarProdutoAction(Produto produto) {
+        produtoModel.deletarProduto(produto);
+    }
+
+    public List<Produto> listarTodosProdutoAction() {
+        return produtoModel.listarTodosProdutos();
+    }
+
+    public ProdutoNegocio getProdutoModel() {
+        return produtoModel;
+    }
+
+    public void setProdutoModel(ProdutoNegocio produtoModel) {
+        this.produtoModel = produtoModel;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public Produto getSelectedProduto() {
+        return selectedProduto;
+    }
+
+    public void setSelectedProduto(Produto selectedProduto) {
+        this.selectedProduto = selectedProduto;
+    }
     
-}
+     public String linkAlterar(Integer id) {
+        return "alterarProduto.xhtml?faces-redirect=true&id=" + id;
+    }
+}  
+    
+

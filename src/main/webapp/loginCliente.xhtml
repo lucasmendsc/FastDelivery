@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="resources/css/loginCliente.css" media="screen" />s
+    </head>
+    <img src="resources/imagens/acaigrande.png" alt=""/>
+    <body>
+        <h:form>
+            <p:panelGrid columns="2"> 
+
+                <h:outputLabel styleClass="caixadetexto"  value="Login:" for="login" />
+                <h:inputText styleClass="txt" id="login" value=""/>
+
+                <h:outputLabel styleClass="caixadetexto" value="Senha:" for="senha" />
+                <h:inputText styleClass="txt" id="senha" value=""/>
+
+            </p:panelGrid> 
+        </h:form>
+
+        <h:commandButton styleClass="botaoLogar" value="Logar" />   
+
+        <div id="botaoCadastro">
+            <h:commandButton styleClass="botaoCadastro" id="botaoCadastro" value="Cadastre-se"/>
+        </div>
+
+        <div id="botaoLink">
+            <h:commandButton styleClass="botaoLink" id="botaoLink" value="Esqueceu a senha?"/>
+        </div>
+        
+    </body>
+</html>
+

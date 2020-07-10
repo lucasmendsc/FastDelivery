@@ -33,26 +33,24 @@ public class EnderecoNegocio {
     
     EnderecoDAO enderecoJDBC = new EnderecoDAO();
     
-//    public void inserirEndereco (Endereco endereco){
-//        enderecoJDBC.inserir(endereco);
-//    }
-// 
-//    public void alterarEndereco (Endereco endereco){
-//        enderecoJDBC.alterar(endereco);
-//    }
-//    
-//    public Endereco recuperarEndereco (int codigo){
-//        return enderecoJDBC.recuperar(codigo);
-//    }
-//    
-//    public void deletarEndereco (Endereco endereco){
-//        enderecoJDBC.deletar(endereco);
-//    }
-//    
-//    public List<Endereco> listarTodosEnderecos(){
-//        return enderecoJDBC.listarTodos();
-//    }
-//    
+    public void inserirEndereco (Endereco endereco){
+        enderecoJDBC.inserir(endereco);
+    }
+ 
+    public void alterarEndereco (Endereco endereco){
+        enderecoJDBC.alterar(endereco);
+    }
     
+    public Endereco recuperarEndereco (int codigo){
+        return enderecoJDBC.recuperar(codigo);
+    }
     
+    public void deletarEndereco (Endereco endereco){
+        enderecoJDBC.deletar(endereco);
+    }
+    
+    public List<Endereco> listarTodosEnderecos(){
+        return enderecoJDBC.listarTodos();
+    }
+       
 }

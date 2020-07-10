@@ -1,0 +1,55 @@
+/* 
+    Author: Marcela Cardoso
+*/
+
+@charset "UTF-8";
+
+body{
+    background-image:url("../imagens/telaperfil.png");
+    background-size:cover;     
+}
+
+/*img {
+    position:absolute;
+    left:100px;   
+    top:200px;   
+}      */
+.botaohome{
+    font-size:20pt !important;
+    font-style: oblique!important;
+    position:absolute;
+    background:white!important; 
+    padding:5px 30px!important;
+    left:450px!important;
+    top:380px!important;         
+}        
+.botaoalterar{
+    font-size:20pt !important;
+    font-style: oblique!important;
+    position: absolute;
+    background: white!important;
+    padding:5px 25px!important;
+    left:450px!important;       
+    top:510px!important;           
+}       
+.botaolistar{
+    font-size:20pt !important;
+    font-style: oblique!important;
+    position: absolute;
+    background: white!important;
+    padding:5px 31px!important;
+    left:450px!important;     
+    top:640px!important;     
+}
+
+.botaopedido{
+    font-size:20pt!important;
+    font-style: oblique!important;
+    position:absolute;
+    background:white!important;
+    padding:5px 25px!important;
+    left:450px!important;
+    top:770px!important; 
+}
+
+

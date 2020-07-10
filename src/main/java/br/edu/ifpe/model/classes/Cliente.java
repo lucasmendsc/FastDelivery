@@ -21,9 +21,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,8 +37,9 @@ import javax.persistence.OneToOne;
  *
  * @author Luciano Júnior <lucianocljr7@gmail.com>
  */
+@SuppressWarnings("serial")
 @Entity
-public class Cliente {
+public class Cliente implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +54,7 @@ public class Cliente {
     @Column(name = "cpfCliente", length = 11, nullable = false)
     private String cpfCliente;
 
-    @Column(name = "dtNascimentoCliente", nullable = false)
+    @Column(name = "dtNascimentoCliente", nullable = true)
     private LocalDate dtNascimentoCliente;
 
     @Column(name = "telefoneCliente", nullable = false)
@@ -59,12 +63,12 @@ public class Cliente {
     @Column(name = "emailCliente", nullable = false)
     private String emailCliente;
     
-    @OneToOne
-    @JoinColumn(name ="cod_endereco")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cod_endereco")
     private Endereco endereco;
 
     public Cliente() {
-
+        this.endereco = new Endereco();
     }
 
     public Cliente(String nomeCliente, String senhaCliente, 

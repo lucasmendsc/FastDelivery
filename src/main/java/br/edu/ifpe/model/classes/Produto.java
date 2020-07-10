@@ -33,7 +33,7 @@ import javax.persistence.ManyToOne;
 
 /**
  *
- * @author Luciano Júnior <lucianocljr7@gmail.com>
+ * @author Luciano Jï¿½nior <lucianocljr7@gmail.com>
  */
 @SuppressWarnings("serial")
 @Entity
@@ -54,7 +54,6 @@ public class Produto implements Serializable{
 
     @ManyToOne(cascade = CascadeType.ALL)
     private ItemPedido itemPedido;
-
     public Produto(){
         
     }
@@ -76,7 +75,6 @@ public class Produto implements Serializable{
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
     }
-
     public double getValorProduto() {
         return valorProduto;
     }
@@ -106,28 +104,5 @@ public class Produto implements Serializable{
         resultado += (resultado * PRIMO) + nomeProduto.hashCode();
         return (resultado * PRIMO) + quantProduto;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Produto other = (Produto) obj;
-      
-        if (this.codProduto != other.codProduto) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.valorProduto) != Double.doubleToLongBits(other.valorProduto)) {
-            return false;
-        }
-        if (this.quantProduto != other.quantProduto) {
-            return false;
-	      }
-    }
 }
+
