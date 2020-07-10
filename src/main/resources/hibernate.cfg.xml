@@ -47,11 +47,18 @@ Contributor(s):
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">ifpe</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
+    <!-- Mapiamento das classes -->
+    
     <mapping class="br.edu.ifpe.model.classes.Cliente"/>
+   
     <mapping class="br.edu.ifpe.model.classes.Endereco"/>
+
     <mapping class="br.edu.ifpe.model.classes.Pagamento"/>
+
     <mapping class="br.edu.ifpe.model.classes.Produto"/>
+
     <mapping class="br.edu.ifpe.model.classes.Pedido"/>
+
     <mapping class="br.edu.ifpe.model.classes.ItemPedido"/>
   </session-factory>
 </hibernate-configuration>

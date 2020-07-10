@@ -1,4 +1,4 @@
-﻿/*MIT License
+?/*MIT License
 
 Copyright (c) 2020 Lucas Mendes,Marcela Cardoso,Luciano Jr.
 
@@ -21,6 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.model.classes;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -32,11 +33,11 @@ import javax.persistence.ManyToOne;
 
 /**
  *
- * @author Luciano Júnior <lucianocljr7@gmail.com>
+ * @author Luciano J�nior <lucianocljr7@gmail.com>
  */
-
+@SuppressWarnings("serial")
 @Entity
-public class Produto {
+public class Produto implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,7 +50,7 @@ public class Produto {
     private double valorProduto;
     
     @Column(name = "quantProduto", length = 6, nullable = false)
-    private int quantProduto;
+    private Integer quantProduto;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private ItemPedido itemPedido;
@@ -88,7 +89,7 @@ public class Produto {
         return quantProduto;
     }
 
-    public void setQuantProduto(int quantProduto) {
+    public void setQuantProduto(Integer quantProduto) {
         this.quantProduto = quantProduto;
     }
 
@@ -118,6 +119,7 @@ public class Produto {
             return false;
         }
         final Produto other = (Produto) obj;
+      
         if (this.codProduto != other.codProduto) {
             return false;
         }
@@ -126,8 +128,6 @@ public class Produto {
         }
         if (this.quantProduto != other.quantProduto) {
             return false;
-	}
-	
-	return true;
+	      }
     }
 }
