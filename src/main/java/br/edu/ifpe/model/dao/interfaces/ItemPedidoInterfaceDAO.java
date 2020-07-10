@@ -21,12 +21,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.model.dao.interfaces;
 
-import br.edu.ifpe.model.classes.Frete;
+import br.edu.ifpe.model.classes.ItemPedido;
 
 /**
  *
  * @author Luciano
  */
-public interface FreteInterfaceDAO extends DAO<Frete> {
+public interface ItemPedidoInterfaceDAO extends DAO<ItemPedido>{
     
 }

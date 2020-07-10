@@ -1,4 +1,4 @@
-/*MIT License
+?/*MIT License
 
 Copyright (c) 2020 Lucas Mendes,Marcela Cardoso,Luciano Jr.
 
@@ -23,15 +23,17 @@ package br.edu.ifpe.model.classes;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
- * @author Luciano Júnior <lucianocljr7@gmail.com>
+ * @author Luciano J�nior <lucianocljr7@gmail.com>
  */
 @SuppressWarnings("serial")
 @Entity
@@ -44,14 +46,21 @@ public class Produto implements Serializable{
     @Column(name = "nomeProduto", length = 60, nullable = false)
     private String nomeProduto;
     
+    @Column (name = "valorProduto", nullable = false)
+    private double valorProduto;
+    
     @Column(name = "quantProduto", length = 6, nullable = false)
     private Integer quantProduto;
 
-    public Produto() {
+    @ManyToOne(cascade = CascadeType.ALL)
+    private ItemPedido itemPedido;
+    public Produto(){
+        
     }
-
-    public Produto( String nomeProduto, Integer quantProduto) {
+    
+    public Produto(String nomeProduto, double valorProduto, int quantProduto) {
         this.nomeProduto = nomeProduto;
+        this.valorProduto = valorProduto;
         this.quantProduto = quantProduto;
     }
 
@@ -66,8 +75,15 @@ public class Produto implements Serializable{
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
     }
-
-    public Integer getQuantProduto() {
+    public double getValorProduto() {
+        return valorProduto;
+    }
+    
+    public void setValorProduto(double valorProduto) {
+        this.valorProduto = valorProduto;
+    }
+    
+    public int getQuantProduto() {
         return quantProduto;
     }
 
@@ -77,8 +93,7 @@ public class Produto implements Serializable{
 
     @Override
     public String toString() {
-        return "Produto{" + "nomeProduto=" + nomeProduto +
-                    ", quantProduto=" + quantProduto + '}';
+        return "Produto{" + "codProduto=" + codProduto + ", nomeProduto=" + nomeProduto + ", valorProduto=" + valorProduto + ", quantProduto=" + quantProduto + '}';
     }
 
     @Override
@@ -89,27 +104,5 @@ public class Produto implements Serializable{
         resultado += (resultado * PRIMO) + nomeProduto.hashCode();
         return (resultado * PRIMO) + quantProduto;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Produto other = (Produto) obj;
-        if (!Objects.equals(this.nomeProduto, other.nomeProduto)) {
-            return false;
-        }
-        if (!Objects.equals(this.quantProduto, other.quantProduto)) {
-            return false;
-        }
-        return true;
-    }
-
-   
 }
+
