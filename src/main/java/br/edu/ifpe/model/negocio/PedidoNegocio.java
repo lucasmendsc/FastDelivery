@@ -21,14 +21,41 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 package br.edu.ifpe.model.negocio;
 
-import br.edu.ifpe.model.classes.Frete;
-import br.edu.ifpe.model.dao.FreteDAO;
+import br.edu.ifpe.model.classes.Pedido;
+import br.edu.ifpe.model.dao.PedidoDAO;
 import java.util.List;
 
 /**
  *
  * @author Luciano
  */
+<<<<<<< HEAD:src/main/java/br/edu/ifpe/model/negocio/PedidoNegocio.java
+public class PedidoNegocio {
+    
+    PedidoDAO pedidoJDBC = new PedidoDAO();
+    
+    public void inserirPedido (Pedido pedido){
+        pedidoJDBC.inserir(pedido);
+    }
+ 
+    public void alterarPedido (Pedido pedido){
+        pedidoJDBC.alterar(pedido);
+    }
+    
+    public Pedido recuperarPedido (int codigo){
+        return pedidoJDBC.recuperar(codigo);
+    }
+    
+    public void deletarPedido (Pedido pedido){
+        pedidoJDBC.deletar(pedido);
+    }
+    
+    public List<Pedido> listarTodosPedidos(){
+        return pedidoJDBC.listarTodos();
+    }
+    
+}
+=======
 public class FreteNegocio {
 
     FreteDAO freteJDBC = new FreteDAO();
@@ -54,3 +81,4 @@ public class FreteNegocio {
 //    }
 
 }
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77:src/main/java/br/edu/ifpe/model/negocio/FreteNegocio.java

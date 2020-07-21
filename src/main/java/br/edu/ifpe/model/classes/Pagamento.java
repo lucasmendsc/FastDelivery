@@ -43,9 +43,15 @@ public class Pagamento {
 
     @Column(name = "tipoPagamento", length = 30, nullable = false)
     private String tipoPagamento;
+<<<<<<< HEAD
+    
+    @Column(name = "valorTotalPagamento", length = 6, nullable = false)
+    private double valorTotalPagamento;
+=======
 
     @Column(name = "valorPagamento", length = 6, nullable = false)
     private double valorPagamento;
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
 
     @OneToOne
     @JoinColumn(name = "cod_cliente")
@@ -79,17 +85,23 @@ public class Pagamento {
         this.tipoPagamento = tipoPagamento;
     }
 
-    public double getValorPagamento() {
-        return valorPagamento;
+    public double getValorTotalPagamento() {
+        return valorTotalPagamento;
     }
 
-    public void setValorPagamento(double valorPagamento) {
-        this.valorPagamento = valorPagamento;
+    public void setValorTotalPagamento(double valorTotalPagamento) {
+        this.valorTotalPagamento = valorTotalPagamento;
     }
 
     public Cliente getCliente() {
         return cliente;
     }
+<<<<<<< HEAD
+    
+    public Pagamento(String tipoPagamento, double valorTotalPagamento) {
+        this.tipoPagamento = tipoPagamento;
+        this.valorTotalPagamento = valorTotalPagamento;
+=======
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
@@ -101,17 +113,29 @@ public class Pagamento {
 
     public void setFrete(Frete frete) {
         this.frete = frete;
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
     }
 
     @Override
     public String toString() {
+<<<<<<< HEAD
+        return "Pagamento{" + "codPagamento=" + codPagamento + ", tipoPagamento=" + tipoPagamento + ", valorTotalPagamento=" + valorTotalPagamento + '}';
+=======
         return "Pagamento{" + "tipoPagamento=" + tipoPagamento
                 + ", valorPagamento=" + valorPagamento + ", cliente="
                 + cliente + ", frete=" + frete + '}';
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
     }
 
     @Override
     public int hashCode() {
+<<<<<<< HEAD
+        int hash = 5;
+        hash = 67 * hash + this.codPagamento;
+        hash = 67 * hash + Objects.hashCode(this.tipoPagamento);
+        hash = 67 * hash + (int) (Double.doubleToLongBits(this.valorTotalPagamento) ^ (Double.doubleToLongBits(this.valorTotalPagamento) >>> 32));
+        return hash;
+=======
         final int PRIMO = 7;
         int resultado = 1;
         resultado += (resultado * PRIMO) + id;
@@ -119,6 +143,7 @@ public class Pagamento {
         resultado += (resultado * PRIMO) + (int) valorPagamento;
         resultado += (resultado * PRIMO) + cliente.hashCode();
         return (resultado * PRIMO) + frete.hashCode();
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
     }
 
     @Override
@@ -128,8 +153,13 @@ public class Pagamento {
 
          if (!((Pagamento) obj).tipoPagamento.equals(this.tipoPagamento))
             return false;
+<<<<<<< HEAD
+        }
+        if (Double.doubleToLongBits(this.valorTotalPagamento) != Double.doubleToLongBits(other.valorTotalPagamento)) {
+=======
          
          if (((Pagamento) obj).valorPagamento != this.valorPagamento)
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
             return false;
 
          if (!((Pagamento) obj).cliente.equals(this.cliente))
@@ -137,5 +167,8 @@ public class Pagamento {
 
         return ((Pagamento) obj).frete.equals(this.frete);
     }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
 }
