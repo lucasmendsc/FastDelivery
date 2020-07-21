@@ -5,29 +5,29 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-
-    <h:head>
-        <link rel="stylesheet" type="text/css" href="resources/css/perfilCliente.css" media="screen" />
+    <h:head> 
+        <link href="resources/css/perfilCliente.css" rel="stylesheet" type="text/css"/>
     </h:head>
 
     <h:body>
-        <p:commandButton styleClass="botaohome" value="Home">
-         
-        </p:commandButton>
+        <h:form>
+            <p:growl id="messages"/>
 
-        <p:commandButton styleClass="botaoalterar" value="Alterar">
-           
-        </p:commandButton>
-
-        <p:commandButton styleClass="botaolistar" value="Listar" >
-            
-        </p:commandButton>
-
-        <p:commandButton styleClass="botaopedido" value="Pedido">
-           
-        </p:commandButton>
+            <p:menu toggleable="true">
+                <p:submenu label="CADASTRAR">
+                    <p:menuitem value="Cliente" action="#{clienteController.linkCadastroCliente()}"/>
+                    <p:menuitem value="Produro" action="#{clienteController.linkCadastroProduto()}"/>
+                </p:submenu>
+                <p:submenu label="LISTAR">
+                    <p:menuitem value="Cliente" action="#{clienteController.linkListaCliente()}"/>
+                    <p:menuitem value="Produto" action="#{clienteController.linkListaProduto()}"/>
+                </p:submenu>
+                <p:submenu label="REALIZAR PEDIDOS">
+                    <p:menuitem value="Pedido" action="#{menuView.delete}" update="messages" ajax="false" icon=" ui-icon-triangle-1-e"/>
+                    <p:menuitem value="Listar Pedidos" icon=" ui-icon-triangle-1-e"/>
+                </p:submenu>
+            </p:menu>
+        </h:form>
 
     </h:body>
-
 </html>
-

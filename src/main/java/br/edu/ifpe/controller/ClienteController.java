@@ -25,7 +25,6 @@ import br.edu.ifpe.model.classes.Cliente;
 import br.edu.ifpe.model.negocio.ClienteNegocio;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -111,4 +110,37 @@ public class ClienteController implements Serializable {
     public String linkAlterar(Integer id) {
         return "alterarCliente.xhtml?faces-redirect=true&id=" + id;
     }
+    
+   	public String linkListar() {
+		return "listarCliente.xhtml?faces-redirect=true";
+	}
+        
+        public String linkHome() {
+		return "loginCliente.xhtml?faces-redirect=true";
+	}
+        
+         public String linkCadastroCliente() {
+		return "cadastroCliente.xhtml?faces-redirect=true";
+	}
+         
+           public String linkCadastroProduto() {
+		return "cadastroProduto.xhtml?faces-redirect=true";
+	}
+           
+         public String linkListaCliente() {
+		return "listarCliente.xhtml?faces-redirect=true";   
+
 }
+          public String linkListaProduto() {
+		return "listarProduto.xhtml?faces-redirect=true";
+         
+}
+    
+}
+
+
+
+
+
+
+

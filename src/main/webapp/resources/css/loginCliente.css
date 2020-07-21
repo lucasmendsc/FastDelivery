@@ -12,60 +12,71 @@ body {
 img{
     position:absolute;
     bottom:500px!important;
-    left:150px!important;
-}
-
-.caixadetexto {
-    font-size:20pt!important;
-    color:white; 
-    padding:5px!important;
-} 
-
-form{
-    position:absolute;
-    bottom:400px!important;
     left:250px!important;
 }
 
-.botaoLogar{
-    position:absolute;
+.caixatexto{
+    color: #ffffff !important;
+    font-size: 18pt!important;
+}
+
+form{
+    position:relative;
+    top: 450px!important;
+    left: 230px!important;
+    width: 600px !important;
+}
+
+.ui-panelgrid .ui-widget-content {
+    background: none !important;
+    border: none !important;
+}
+
+form .botaoLogar{
+    position: absolute;
     border-radius: 12px!important;
-    left:400px!important;
-    bottom:340px!important;
-    font-size:18pt!important;
+    left:425px!important;
+    top: 42px!important;
+    font-size:16pt!important;
     color:white!important;
     background:darkmagenta;
+    padding: 2px 20px;
 }
 
-#botaoCadastro{
-    position:absolute;
-    bottom:100px!important;
-    left:150px!important; 
+form #botaoCadastro{
+    position: absolute;
+    top: 180px!important;
+    left:20px!important; 
 }
 
-.botaoCadastro{
-    padding:5px 80px!important;  
-    font-size:18pt!important;
+form .botaoCadastro{
+    padding:8px 100px!important;  
+    font-size: 18pt!important;
     color:white!important;
-    background:green!important;
+    background:#008000!important;
     border-radius: 12px!important;
 }
 
-#botaoLink{
-    position:absolute;
-    bottom:140px!important;
-    left:185px!important; 
+form #botaoLink{
+    position: absolute;
+    top:90px!important;
+    left:150px!important; 
+    color: #ffffff!important; 
 }
 
-.botaoLink{
-    color:white!important; 
+form .botaoLink{
+    color: white!important; 
     background: transparent;
     padding: 5px 5px!important;
-    font-size:11pt!important;
-    border:transparent;
+    font-size: 11pt!important;
+    border :transparent;
+    text-decoration: none !important;
 }
 
-.txt{
-    padding: 3px 30px!important;
+form .botaoLink:hover {
+    cursor: pointer !important;
+    text-decoration: underline !important;
+   
 }
+
 
