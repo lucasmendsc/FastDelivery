@@ -5,33 +5,33 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <head>
-        <link rel="stylesheet" type="text/css" href="resources/css/loginCliente.css" media="screen" />s
-    </head>
-    <img src="resources/imagens/acaigrande.png" alt=""/>
-    <body>
+    <h:head>
+        <link rel="stylesheet" type="text/css" href="resources/css/loginCliente.css" media="screen" />
+    </h:head>
+    <h:body>
+        <img src="resources/imagens/acaimedio.png" alt=""/>
         <h:form>
-            <p:panelGrid columns="2"> 
+            <p:growl id="messages"/>
+            <p:panelGrid columns="2" > 
 
-                <h:outputLabel styleClass="caixadetexto"  value="Login:" for="login" />
-                <h:inputText styleClass="txt" id="login" value=""/>
+                <h:outputLabel styleClass="caixatexto" value="Login:" for="login" />
+                <p:inputText styleClass="txt" id="login" value="#{loginController.login}"/>
 
-                <h:outputLabel styleClass="caixadetexto" value="Senha:" for="senha" />
-                <h:inputText styleClass="txt" id="senha" value=""/>
+                <h:outputLabel styleClass="caixatexto" value="Senha:" for="senha" />
+                <p:password styleClass="txt" id="senha" value="#{loginController.senha}"/>
 
             </p:panelGrid> 
+
+            <h:commandButton styleClass="botaoLogar" value="Logar"  action="#{loginController.loginCliente()}"/>   
+
+            <div id="botaoLink">
+                <h:commandLink styleClass="botaoLink" id="botaoLink" value="Esqueceu a senha?" action="#"/>
+            </div>
+
+            <div id="botaoCadastro">
+                <h:commandButton styleClass="botaoCadastro" id="botaoCadastro" value="Cadastre-se" action="#{clienteController.linkCadastroCliente()}"/>
+            </div>
         </h:form>
-
-        <h:commandButton styleClass="botaoLogar" value="Logar" />   
-
-        <div id="botaoCadastro">
-            <h:commandButton styleClass="botaoCadastro" id="botaoCadastro" value="Cadastre-se"/>
-        </div>
-
-        <div id="botaoLink">
-            <h:commandButton styleClass="botaoLink" id="botaoLink" value="Esqueceu a senha?"/>
-        </div>
-        
-    </body>
+    </h:body>
 </html>
 
