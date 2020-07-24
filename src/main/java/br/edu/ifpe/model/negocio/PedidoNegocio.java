@@ -29,7 +29,6 @@ import java.util.List;
  *
  * @author Luciano
  */
-<<<<<<< HEAD:src/main/java/br/edu/ifpe/model/negocio/PedidoNegocio.java
 public class PedidoNegocio {
     
     PedidoDAO pedidoJDBC = new PedidoDAO();
@@ -55,30 +54,3 @@ public class PedidoNegocio {
     }
     
 }
-=======
-public class FreteNegocio {
-
-    FreteDAO freteJDBC = new FreteDAO();
-
-//    public void inserirFrete(Frete frete) {
-//        freteJDBC.inserir(frete);
-//    }
-//
-//    public void alterarFrete(Frete frete) {
-//        freteJDBC.alterar(frete);
-//    }
-//
-//    public Frete recuperarFrete(int codigo) {
-//        return freteJDBC.recuperar(codigo);
-//    }
-//
-//    public void deletarFrete(Frete frete) {
-//        freteJDBC.deletar(frete);
-//    }
-//
-//    public List<Frete> listarTodosFretes() {
-//        return freteJDBC.listarTodos();
-//    }
-
-}
->>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77:src/main/java/br/edu/ifpe/model/negocio/FreteNegocio.java

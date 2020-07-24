@@ -32,9 +32,9 @@ import org.hibernate.Transaction;
  *
  * @author Luciano
  */
-public class PagamentoDAO implements PagamentoInterfaceDAO{
-    
-        private final HibernateUtill UTILL;
+public class PagamentoDAO implements PagamentoInterfaceDAO {
+
+    private final HibernateUtill UTILL;
     private static PagamentoDAO instance;
     private Session session;
 
@@ -113,8 +113,7 @@ public class PagamentoDAO implements PagamentoInterfaceDAO{
         session = UTILL.getSession();
         List<Pagamento> pagamentos = null;
         try {
-            pagamentos = (List) session.createQuery
-                                            ("FROM Pagamento").getResultList();
+            pagamentos = (List) session.createQuery("FROM Pagamento").getResultList();
         } catch (Exception readAllPagamentosException) {
             System.out.println(readAllPagamentosException.getMessage());
         } finally {

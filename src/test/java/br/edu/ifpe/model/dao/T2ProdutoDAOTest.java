@@ -38,8 +38,8 @@ public class T2ProdutoDAOTest {
 
     @BeforeClass
     public static void deveInserirProdutos() {
-        produto = new Produto("nomeProduto", 0);
-        prod = new Produto("nome1", 1);
+        produto = new Produto("nome000", 3, 4);
+        prod = new Produto("nome1", 1,1);
         ProdutoDAO.getInstance().inserir(produto);
         ProdutoDAO.getInstance().inserir(prod);
 

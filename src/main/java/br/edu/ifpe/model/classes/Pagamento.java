@@ -43,34 +43,25 @@ public class Pagamento {
 
     @Column(name = "tipoPagamento", length = 30, nullable = false)
     private String tipoPagamento;
-<<<<<<< HEAD
     
     @Column(name = "valorTotalPagamento", length = 6, nullable = false)
     private double valorTotalPagamento;
-=======
 
     @Column(name = "valorPagamento", length = 6, nullable = false)
     private double valorPagamento;
->>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
 
     @OneToOne
     @JoinColumn(name = "cod_cliente")
     private Cliente cliente;
-
-    @OneToOne
-    @JoinColumn(name = "cod_frete")
-    private Frete frete;
-
     public Pagamento() {
     }
 
     public Pagamento(int id, String tipoPagamento, double valorPagamento,
-            Cliente cliente, Frete frete) {
+            Cliente cliente) {
         this.id = id;
         this.tipoPagamento = tipoPagamento;
         this.valorPagamento = valorPagamento;
         this.cliente = cliente;
-        this.frete = frete;
     }
 
     public int getId() {
@@ -96,79 +87,56 @@ public class Pagamento {
     public Cliente getCliente() {
         return cliente;
     }
-<<<<<<< HEAD
-    
-    public Pagamento(String tipoPagamento, double valorTotalPagamento) {
-        this.tipoPagamento = tipoPagamento;
-        this.valorTotalPagamento = valorTotalPagamento;
-=======
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
-    public Frete getFrete() {
-        return frete;
-    }
-
-    public void setFrete(Frete frete) {
-        this.frete = frete;
->>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
-    }
-
-    @Override
-    public String toString() {
-<<<<<<< HEAD
-        return "Pagamento{" + "codPagamento=" + codPagamento + ", tipoPagamento=" + tipoPagamento + ", valorTotalPagamento=" + valorTotalPagamento + '}';
-=======
-        return "Pagamento{" + "tipoPagamento=" + tipoPagamento
-                + ", valorPagamento=" + valorPagamento + ", cliente="
-                + cliente + ", frete=" + frete + '}';
->>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
-    }
-
     @Override
     public int hashCode() {
-<<<<<<< HEAD
         int hash = 5;
-        hash = 67 * hash + this.codPagamento;
-        hash = 67 * hash + Objects.hashCode(this.tipoPagamento);
-        hash = 67 * hash + (int) (Double.doubleToLongBits(this.valorTotalPagamento) ^ (Double.doubleToLongBits(this.valorTotalPagamento) >>> 32));
+        hash = 53 * hash + this.id;
+        hash = 53 * hash + Objects.hashCode(this.tipoPagamento);
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.valorTotalPagamento) ^ (Double.doubleToLongBits(this.valorTotalPagamento) >>> 32));
+        hash = 53 * hash + (int) (Double.doubleToLongBits(this.valorPagamento) ^ (Double.doubleToLongBits(this.valorPagamento) >>> 32));
+        hash = 53 * hash + Objects.hashCode(this.cliente);
         return hash;
-=======
-        final int PRIMO = 7;
-        int resultado = 1;
-        resultado += (resultado * PRIMO) + id;
-        resultado += (resultado * PRIMO) + tipoPagamento.hashCode();
-        resultado += (resultado * PRIMO) + (int) valorPagamento;
-        resultado += (resultado * PRIMO) + cliente.hashCode();
-        return (resultado * PRIMO) + frete.hashCode();
->>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof Pagamento))
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
-
-         if (!((Pagamento) obj).tipoPagamento.equals(this.tipoPagamento))
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-<<<<<<< HEAD
+        }
+        final Pagamento other = (Pagamento) obj;
+        if (this.id != other.id) {
+            return false;
         }
         if (Double.doubleToLongBits(this.valorTotalPagamento) != Double.doubleToLongBits(other.valorTotalPagamento)) {
-=======
-         
-         if (((Pagamento) obj).valorPagamento != this.valorPagamento)
->>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
             return false;
-
-         if (!((Pagamento) obj).cliente.equals(this.cliente))
+        }
+        if (Double.doubleToLongBits(this.valorPagamento) != Double.doubleToLongBits(other.valorPagamento)) {
             return false;
-
-        return ((Pagamento) obj).frete.equals(this.frete);
+        }
+        if (!Objects.equals(this.tipoPagamento, other.tipoPagamento)) {
+            return false;
+        }
+        if (!Objects.equals(this.cliente, other.cliente)) {
+            return false;
+        }
+        return true;
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 77102c0518a8a69ded5447ef334470cbc02c5e77
+    @Override
+    public String toString() {
+        return "Pagamento{" + "tipoPagamento=" + tipoPagamento + ", valorTotalPagamento=" + valorTotalPagamento + ", valorPagamento=" + valorPagamento + ", cliente=" + cliente + '}';
+    }
+
+
 }

@@ -1,4 +1,4 @@
-?/*MIT License
+/*MIT License
 
 Copyright (c) 2020 Lucas Mendes,Marcela Cardoso,Luciano Jr.
 
@@ -92,17 +92,51 @@ public class Produto implements Serializable{
     }
 
     @Override
-    public String toString() {
-        return "Produto{" + "codProduto=" + codProduto + ", nomeProduto=" + nomeProduto + ", valorProduto=" + valorProduto + ", quantProduto=" + quantProduto + '}';
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + this.id;
+        hash = 19 * hash + Objects.hashCode(this.nomeProduto);
+        hash = 19 * hash + (int) (Double.doubleToLongBits(this.valorProduto) ^ (Double.doubleToLongBits(this.valorProduto) >>> 32));
+        hash = 19 * hash + Objects.hashCode(this.quantProduto);
+        hash = 19 * hash + Objects.hashCode(this.itemPedido);
+        return hash;
     }
 
     @Override
-    public int hashCode() {
-        final int PRIMO = 11;
-        int resultado = 1;
-        resultado += (resultado * PRIMO) + id;
-        resultado += (resultado * PRIMO) + nomeProduto.hashCode();
-        return (resultado * PRIMO) + quantProduto;
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Produto other = (Produto) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.valorProduto) != Double.doubleToLongBits(other.valorProduto)) {
+            return false;
+        }
+        if (!Objects.equals(this.nomeProduto, other.nomeProduto)) {
+            return false;
+        }
+        if (!Objects.equals(this.quantProduto, other.quantProduto)) {
+            return false;
+        }
+        if (!Objects.equals(this.itemPedido, other.itemPedido)) {
+            return false;
+        }
+        return true;
     }
+
+    @Override
+    public String toString() {
+        return "Produto{" + "nomeProduto=" + nomeProduto + ", valorProduto=" + valorProduto + ", quantProduto=" + quantProduto + ", itemPedido=" + itemPedido + '}';
+    }
+
+    
 }
 

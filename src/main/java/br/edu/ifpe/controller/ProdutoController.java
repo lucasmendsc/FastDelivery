@@ -44,7 +44,6 @@ public class ProdutoController implements Serializable {
     private Produto produto;
     private Produto selectedProduto;
 
-//    ProdutoNegocio produtoModel = new ProdutoNegocio();
     public ProdutoController() {
         this.produto = new Produto();
         this.produtoModel = new ProdutoNegocio();

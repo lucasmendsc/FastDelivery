@@ -15,14 +15,16 @@
             <p:panelGrid columns="2" > 
 
                 <h:outputLabel styleClass="caixatexto" value="Login:" for="login" />
-                <p:inputText styleClass="txt" id="login" value="#{loginController.login}"/>
+                <p:inputText id="login" binding="#{login}" required="true"
+                             maxlength="12" requiredMessage="O CPF precisa ser preenchido!"/>
 
                 <h:outputLabel styleClass="caixatexto" value="Senha:" for="senha" />
-                <p:password styleClass="txt" id="senha" value="#{loginController.senha}"/>
+                <p:password id="txtSenha" binding="#{senhaLogin}" required="true"
+                            maxlength="12" requiredMessage="A senha precisa ser preenchido!" />
 
             </p:panelGrid> 
 
-            <h:commandButton styleClass="botaoLogar" value="Logar"  action="#{loginController.loginCliente()}"/>   
+            <h:commandButton styleClass="botaoLogar" value="Logar"  action="#{loginCliente.logar(login.value,senhaLogin.value)}"/>
 
             <div id="botaoLink">
                 <h:commandLink styleClass="botaoLink" id="botaoLink" value="Esqueceu a senha?" action="#"/>

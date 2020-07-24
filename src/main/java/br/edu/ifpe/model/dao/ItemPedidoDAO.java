@@ -24,7 +24,7 @@ package br.edu.ifpe.model.dao;
 import br.edu.ifpe.model.classes.Endereco;
 import br.edu.ifpe.model.classes.ItemPedido;
 import br.edu.ifpe.model.dao.interfaces.ItemPedidoInterfaceDAO;
-import br.edu.ifpe.model.dao.resources.HibernateUtil;
+import br.edu.ifpe.model.dao.resources.HibernateUtill;
 import java.util.List;
 import javax.persistence.TypedQuery;
 import org.hibernate.Session;
@@ -35,9 +35,23 @@ import org.hibernate.Session;
  */
 public class ItemPedidoDAO implements ItemPedidoInterfaceDAO {
 
+    private final HibernateUtill UTILL;
+    private static ItemPedidoDAO instance;
+
+    public ItemPedidoDAO() {
+        UTILL = HibernateUtill.getInstance();
+    }
+
+    private static ItemPedidoDAO getInstance() {
+        if (instance == null) {
+            instance = new ItemPedidoDAO();
+        }
+        return instance;
+    }
+
     @Override
     public void inserir(ItemPedido itemPedido) {
-           Session session = HibernateUtil.getSession();
+        Session session = UTILL.getSession();
         try {
             session.getTransaction().begin();
             session.save(itemPedido);
@@ -51,7 +65,7 @@ public class ItemPedidoDAO implements ItemPedidoInterfaceDAO {
 
     @Override
     public void alterar(ItemPedido itemPedido) {
-   Session session = HibernateUtil.getSession();
+        Session session = UTILL.getSession();
         try {
             session.getTransaction().begin();
             session.update(itemPedido);
@@ -68,7 +82,7 @@ public class ItemPedidoDAO implements ItemPedidoInterfaceDAO {
     public ItemPedido recuperar(Integer codigo) {
         ItemPedido itemPedido = null;
 
-        Session session = HibernateUtil.getSession();
+        Session session = UTILL.getSession();
         try {
             itemPedido = session.find(ItemPedido.class, codigo);
             session.close();
@@ -80,7 +94,7 @@ public class ItemPedidoDAO implements ItemPedidoInterfaceDAO {
 
     @Override
     public void deletar(ItemPedido itemPedido) {
-            Session session = HibernateUtil.getSession();
+        Session session = UTILL.getSession();
 
         try {
             session.getTransaction().begin();
@@ -96,9 +110,9 @@ public class ItemPedidoDAO implements ItemPedidoInterfaceDAO {
 
     @Override
     public List<ItemPedido> listarTodos() {
-       List<ItemPedido> itensPedido;
+        List<ItemPedido> itensPedido;
 
-        try (Session session = HibernateUtil.getSession()) {
+        try (Session session = UTILL.getSession()) {
 
             TypedQuery<ItemPedido> c = session.createNativeQuery("select * from itemPedido", ItemPedido.class);
             itensPedido = c.getResultList();
