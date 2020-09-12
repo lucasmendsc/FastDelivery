@@ -10,3 +10,20 @@ workflows:
   maven_test:
     jobs:
       - maven/test
+addons:
+  postgresql: "10"
+  before_install:
+  - sudo apt-get update
+  - sudo apt-get install language-pack-es
+  - sudo /etc/init.d/postgresql stop
+  - sudo /etc/init.d/postgresql start 10
+env:
+  global:
+    - PGPORT=5432
+    - DB_NAME=FastDelivery
+    - DB_USER=postgres
+    - DB_PASSWORD=ifpe
+before_script:
+  - psql --command="CREATE USER ${postgres};"
+  - psql --command="CREATE DATABASE ${FastDelivery} WITH OWNER = ${postgres};"
+  - psql --dbname=$DB_NAME --file=sql/create-tables.sql
