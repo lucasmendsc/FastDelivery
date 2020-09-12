@@ -40,12 +40,6 @@
             <version>${jakartaee}</version>
             <scope>provided</scope>
         </dependency>
-        
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>4.3.1.Final</version>
-        </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
