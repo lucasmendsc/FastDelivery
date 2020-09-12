@@ -19,7 +19,7 @@ addons:
   - sudo /etc/init.d/postgresql start 9.6
 env:
   global:
-    - PGPORT=5433
+    - PGPORT=5432
     - DB_NAME=FastDelivery
     - DB_USER=postgres
     - DB_PASSWORD=ifpe
