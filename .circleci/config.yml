@@ -8,13 +8,12 @@ orbs:
 workflows:
   maven_test:
     jobs:
-      - maven/test # checkout, build, test, and upload test results
+      - maven/test
       
-      before_script:
+before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
-  - cp config/database.yml.travis config/database.yml
   
-  addons:
+addons:
   postgresql: "9.6"
   before_install:
   - sudo apt-get update
