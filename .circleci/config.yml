@@ -27,3 +27,4 @@ before_script:
   - psql --command="CREATE USER ${postgres};"
   - psql --command="CREATE DATABASE ${FastDelivery} WITH OWNER = ${postgres};"
   - psql --dbname=$DB_NAME --file=sql/create-tables.sql
+
