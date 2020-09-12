@@ -1,5 +1,7 @@
 version: 2.1
-
+services:
+  - postgresql
+  
 orbs:
   maven: circleci/maven@0.0.12
 
@@ -7,17 +9,15 @@ workflows:
   maven_test:
     jobs:
       - maven/test # checkout, build, test, and upload test results
-build:
-    docker:
-      - image: circleci/jdk8:0.1.1
-      - image: postgres:9.6
-        environment:
-          POSTGRES_USER: postgresql
-          POSTGRES_DB: ${FastDelivery}-test
-          POSTGRES_PASSWORD: "ifpe"
-          
-before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres -P ifpe
-
-addons:
+      
+      before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - cp config/database.yml.travis config/database.yml
+  
+  addons:
   postgresql: "9.6"
+  before_install:
+  - sudo apt-get update
+  - sudo apt-get install language-pack-es
+  - sudo /etc/init.d/postgresql stop
+  - sudo /etc/init.d/postgresql start 9.6
