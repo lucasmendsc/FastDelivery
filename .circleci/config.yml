@@ -9,8 +9,6 @@ workflows:
       - maven/test # checkout, build, test, and upload test results
 services:
   - postgresql
-  
-  addons:
   postgresql: "9.6"
   apt:
     packages:
